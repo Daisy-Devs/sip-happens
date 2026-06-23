@@ -24,7 +24,7 @@ sip-happens/
 │   ├── web/       #frontend   
 │   └── api/       #backend
 ├── packages/
-│   └── shared/       # Types, schemas, constants shared across apps
+│   └── shared/    # Types, schemas, constants shared across apps
 ├── package.json
 ├── .gitignore
 └── README.md

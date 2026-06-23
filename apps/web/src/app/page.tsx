@@ -4,7 +4,7 @@ export default function Page() {
   return (
     <div>
       page 
-      <Button variant="brown" size="sm" text="click mee"/>
+      <Button variant="light_brown" size="sm" text="click mee"/>
     </div>
   );
 }

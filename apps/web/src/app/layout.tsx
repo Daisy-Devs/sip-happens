@@ -1,13 +1,30 @@
 import Navbar from "@/components/Navbar";
 import "./globals.css";
+import { Playfair_Display,Plus_Jakarta_Sans } from "next/font/google";
+import { Metadata } from "next";
+import { cn } from "@/lib/utils";
 
+const playfair = Playfair_Display({
+  variable: "--font-playfair-display",
+  subsets: ["latin"],
+});
+
+const jakarta_sans = Plus_Jakarta_Sans({
+  variable: "--font-plus-jakarta-sans",
+  subsets: ["latin"],
+});
+
+export const metadata: Metadata = {
+  title: "Sip Happens",
+  description: "A full-stack demo project built to showcase modern web application development. Features a public-facing cafeteria website with a secure admin dashboard, all in a single monorepo.",
+};
 export default function RootLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" className={cn("h-full bg-background", "antialiased", playfair.variable, jakarta_sans.variable, "font-sans")}>
       <body>
         <Navbar />
         <div className="flex flex-col min-h-screen">

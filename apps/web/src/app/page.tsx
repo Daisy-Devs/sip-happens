@@ -1,7 +1,6 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@sip-happens/shared";
 import HeroSection from "@/features/home/components/HeroSection";
 import Selections from "@/features/home/components/Selections";
-
 export default function Page() {
   return <div>
     <HeroSection/>

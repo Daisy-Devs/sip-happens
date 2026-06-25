@@ -1,5 +1,5 @@
 import Navbar from "@/components/Navbar";
-import "./globals.css";
+import "@sip-happens/shared/globals.css";
 import { Playfair_Display,Plus_Jakarta_Sans } from "next/font/google";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";

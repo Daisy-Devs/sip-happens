@@ -1,5 +1,5 @@
 "use client";
-import { nomenclature } from "@/constants/nomenclature";
+import { nomenclature } from "../constants/nomenclature";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
 import { Button } from "./ui/button";

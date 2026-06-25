@@ -1,9 +1,8 @@
-import Navbar from "@/components/Navbar";
 import "@sip-happens/shared/globals.css";
 import { Playfair_Display,Plus_Jakarta_Sans } from "next/font/google";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";
-import Footer from "@/components/Footer";
+import { Footer, Navbar } from "@sip-happens/shared";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",

@@ -1,5 +1,4 @@
-import { Button } from "@/components/ui/button";
-
+import { Button } from "@sip-happens/shared";
 export default function Page() {
   return (
     <div>

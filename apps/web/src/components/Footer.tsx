@@ -5,10 +5,10 @@ const Footer = () => {
     <footer className="bg-surface p-20  border-t border-primary-container/5">
       <div className="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start gap-12">
         <div className="max-w-xs">
-          <div className="font-headline-md text-3xl font-black text-primary mb-6 tracking-tighter">
+          <div className="headline-md font-black text-primary mb-6 tracking-tighter">
             Sip Happens
           </div>
-          <p className="text-on-surface-variant font-body-md leading-relaxed mb-8">
+          <p className="text-on-surface-variant body-md leading-relaxed mb-8">
             Crafting moments of joy, one exceptional cup at a time. Join our
             community of flavor seekers.
           </p>

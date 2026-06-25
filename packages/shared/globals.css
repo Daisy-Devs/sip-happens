@@ -157,7 +157,7 @@
 
 /* Typography */
 @utility headline-xxl {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-playfair-display);
   font-size: 4rem;
   /* 64px */
   font-weight: 700;
@@ -166,7 +166,7 @@
 }
 
 @utility headline-xl {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-playfair-display);
   font-size: 3rem;
   /* 48px */
   font-weight: 700;
@@ -184,7 +184,7 @@
 }
 
 @utility headline-md {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-playfair-display);
   font-size: 1.5rem;
   /* 24px */
   font-weight: 600;

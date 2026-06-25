@@ -3,6 +3,7 @@ import "./globals.css";
 import { Playfair_Display,Plus_Jakarta_Sans } from "next/font/google";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";
+import Footer from "@/components/Footer";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
@@ -32,6 +33,7 @@ export default function RootLayout({
             {children}
           </main>
         </div>
+        <Footer/>
       </body>
     </html>
   );

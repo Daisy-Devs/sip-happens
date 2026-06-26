@@ -11,7 +11,7 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/80",
         brown: "bg-gradient-to-r from-[#231005] to-[#3B2416] text-white hover:opacity-90 rounded-xl",
-        light_brown:'bg-white/47 text-black rounded-xl border border-white/50',
+        light_brown:'bg-white/47 text-black rounded-xl border-3 border-white/100',
         dark_brown:'bg-white/10 text-white rounded-xl border border-white/20',
       },
       size: {

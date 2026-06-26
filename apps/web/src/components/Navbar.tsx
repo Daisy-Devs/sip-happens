@@ -29,7 +29,7 @@ const Navbar = () => {
         <Link
           href="/menu"
           className={`text-sm hover:underline underline-offset-8 ${
-            pathname === "/Menu"
+            pathname === "/menu"
               ? "font-bold underline decoration-amber-500 decoration-2"
               : "font-light"
           }`}

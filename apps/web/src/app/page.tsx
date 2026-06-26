@@ -1,10 +1,10 @@
 import { Button } from "@/components/ui/button";
+import HeroSection from "@/features/home/components/HeroSection";
+import Selections from "@/features/home/components/Selections";
 
 export default function Page() {
-  return (
-    <div>
-      page 
-      <Button variant="light_brown" size="sm" text="click mee"/>
-    </div>
-  );
+  return <div>
+    <HeroSection/>
+    <Selections/>
+  </div>;
 }

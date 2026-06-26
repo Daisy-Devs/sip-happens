@@ -1,21 +1,62 @@
-import * as React from "react"
+import * as React from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 
-import { cn } from "../../lib/utils"
+import { cn } from "../../lib/utils";
 
-function Input({ className, type, ...props }: React.ComponentProps<"input">) {
-  return (
-    <input
-      type={type}
-      data-slot="input"
-      className={cn(
-        "h-9 w-full min-w-0 rounded-md border border-input bg-transparent px-3 py-1 text-base shadow-xs transition-[color,box-shadow] outline-none selection:bg-primary selection:text-primary-foreground file:inline-flex file:h-7 file:border-0 file:bg-transparent file:text-sm file:font-medium file:text-foreground placeholder:text-muted-foreground disabled:pointer-events-none disabled:cursor-not-allowed disabled:opacity-50 md:text-sm dark:bg-input/30",
-        "focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50",
-        "aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40",
-        className
-      )}
-      {...props}
-    />
-  )
+const inputVariants = cva(
+  "w-full transition-colors outline-none disabled:pointer-events-none disabled:opacity-50",
+  {
+    variants: {
+      variant: {
+        default:
+          "h-9 rounded-md border border-input bg-transparent px-3 text-sm",
+
+        input: "h-14 rounded-2xl bg-white px-12 pr-12 text-[16px] text-outline-variant placeholder:text-outline-variant shadow-[inset_-2px_2px_4px_rgba(0,0,0,0.08)] focus:shadow-[inset_-2px_2px_6px_rgba(0,0,0,0.12)]",
+      },
+      defaultVariants: {
+        variant: "default",
+      },
+    },
+  },
+);
+
+export interface InputProps
+  extends React.ComponentProps<"input">, VariantProps<typeof inputVariants> {
+  leftIcon?: React.ReactNode;
+  rightIcon?: React.ReactNode;
 }
 
-export { Input }
+const Input = React.forwardRef<HTMLInputElement, InputProps>(
+  (
+    { className, variant, leftIcon, rightIcon, type = "text", ...props },
+    ref,
+  ) => {
+    return (
+      <div className="relative w-full">
+        {leftIcon && (
+          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8A7A71]">
+            {leftIcon}
+          </div>
+        )}
+
+        <input
+          ref={ref}
+          type={type}
+          data-slot="input"
+          className={cn(inputVariants({ variant }), className)}
+          {...props}
+        />
+
+        {rightIcon && (
+          <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8A7A71] cursor-pointer">
+            {rightIcon}
+          </div>
+        )}
+      </div>
+    );
+  },
+);
+
+Input.displayName = "Input";
+
+export { Input };

@@ -11,8 +11,12 @@ const buttonVariants = cva(
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/80",
         brown: "bg-gradient-to-r from-[#231005] to-[#3B2416] text-white hover:opacity-90 rounded-xl",
-        light_brown:'bg-white/47 text-black rounded-xl border-3 border-white/100',
-        dark_brown:'bg-white/10 text-white rounded-xl border border-white/20',
+        light_white:'bg-white/47 text-black rounded-xl border-3 border-white/100',
+        dark_white:'bg-white/10 text-white rounded-xl border border-white/20',
+        light_brown:'bg-secondary-container text-on-secondary-container hover:opacity-90 rounded-xl',
+        grey:'bg-[#ECE7E1] text-outline-variant hover:opacity-90 rounded-xl',
+        dark_brown:'bg-primary-container text-on-primary-container hover:opacity-90 rounded-md',
+
       },
       size: {
         default: "h-10 px-4 py-2",

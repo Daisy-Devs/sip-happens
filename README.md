@@ -20,13 +20,27 @@ A full-stack demo project built to showcase modern web application development. 
 
 ```
 sip-happens/
-├── apps/
-│   ├── web/       #frontend   
-│   └── api/       #backend
-├── packages/
-│   └── shared/    # Types, schemas, constants shared across apps
-├── package.json
-├── .gitignore
+├── client/                  # Next.js frontend
+│   ├── app/
+│   │   ├── page.tsx         # Home
+│   │   ├── about/
+│   │   ├── menu/
+│   │   ├── gallery/
+│   │   ├── contact/
+│   │   └── admin/           # Protected admin dashboard
+│   ├── components/
+│   └── public/
+│
+├── server/                  # Node.js + Express API
+│   ├── routes/
+│   │   ├── auth.js
+│   │   └── menu.js
+│   ├── middleware/
+│   │   └── auth.js          # JWT verification
+│   ├── data/
+│   │   └── mock-db.js       # Mock data layer
+│   └── index.js
+│
 └── README.md
 ```
 

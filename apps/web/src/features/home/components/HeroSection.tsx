@@ -1,4 +1,4 @@
-import { Button } from "@/components/ui/button";
+import { Button } from "@sip-happens/shared";
 import React from "react";
 
 export default function HeroSection() {

@@ -11,7 +11,7 @@ A full-stack demo project built to showcase modern web application development. 
 | Frontend | Next.js 14 (App Router), Tailwind CSS |
 | Backend | Node.js, Express |
 | State | RTK |
-| Data | ?? |
+| Data | Supabase |
 | Deployment | ? (frontend) + ? (API) |
 
 ---
@@ -21,10 +21,11 @@ A full-stack demo project built to showcase modern web application development. 
 ```
 sip-happens/
 ├── apps/
-│   ├── web/       #frontend   
+│   ├── web/       #frontend  
+|   ├── admin/      #admin panel
 │   └── api/       #backend
 ├── packages/
-│   └── shared/    # Types, schemas, constants shared across apps
+│   └── shared/   # Types, schemas,components constants shared across apps
 ├── package.json
 ├── .gitignore
 └── README.md

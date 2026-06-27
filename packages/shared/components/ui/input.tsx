@@ -4,7 +4,7 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 const inputVariants = cva(
-  "w-full h-9 rounded-md bg-white text-[16px] text-outline-variant placeholder:text-outline-variant transition-colors outline-none disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]",
+  "w-full h-9 rounded-md bg-surface text-[16px] text-on-surface-variant placeholder:text-outline-variant transition-colors disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]",
   {
     variants: {
       variant: {
@@ -21,11 +21,12 @@ export interface InputProps
   extends React.ComponentProps<"input">, VariantProps<typeof inputVariants> {
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
+  placeholder?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
   (
-    { className, variant, leftIcon, rightIcon, type = "text", ...props },
+    { className, variant, leftIcon,placeholder, rightIcon, type = "text", ...props },
     ref,
   ) => {
     return (
@@ -40,6 +41,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           type={type}
           data-slot="input"
+          placeholder={placeholder}
           className={cn(
             inputVariants({ variant }),
             leftIcon ? "pl-12" : "pl-4",

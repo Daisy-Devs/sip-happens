@@ -9,9 +9,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default:
-          "h-9 rounded-md border border-input bg-transparent px-3 text-sm",
-
-        input: "h-14 rounded-2xl bg-white px-12 pr-12 text-[16px] text-outline-variant placeholder:text-outline-variant shadow-[inset_-2px_2px_4px_rgba(0,0,0,0.08)] focus:shadow-[inset_-2px_2px_6px_rgba(0,0,0,0.12)]",
+          "h-9 rounded-2xl bg-white px-12 text-[16px] text-outline-variant placeholder:text-outline-variant shadow-[inset_1px_1px_3px_rgba(0,0,0,0.12)]",
       },
       defaultVariants: {
         variant: "default",

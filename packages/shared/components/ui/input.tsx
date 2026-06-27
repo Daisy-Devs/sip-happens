@@ -4,16 +4,15 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 const inputVariants = cva(
-  "w-full transition-colors outline-none disabled:pointer-events-none disabled:opacity-50",
+  "w-full h-9 rounded-2xl bg-white text-[16px] text-outline-variant placeholder:text-outline-variant transition-colors outline-none disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_rgba(0,0,0,0.18)]",
   {
     variants: {
       variant: {
-        default:
-          "h-9 rounded-2xl bg-white px-12 text-[16px] text-outline-variant placeholder:text-outline-variant shadow-[inset_1px_1px_3px_rgba(0,0,0,0.12)]",
+        default: "",
       },
-      defaultVariants: {
-        variant: "default",
-      },
+    },
+    defaultVariants: {
+      variant: "default",
     },
   },
 );
@@ -41,7 +40,12 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           ref={ref}
           type={type}
           data-slot="input"
-          className={cn(inputVariants({ variant }), className)}
+          className={cn(
+            inputVariants({ variant }),
+            leftIcon ? "pl-12" : "pl-4",
+            rightIcon ? "pr-12" : "pr-4",
+            className,
+          )}
           {...props}
         />
 

@@ -52,6 +52,23 @@ export {
   SidebarTrigger,
   useSidebar,
 } from "./components/ui/sidebar";
-export {Tooltip,TooltipContent,TooltipProvider,TooltipTrigger} from "./components/ui/tooltip";
+export {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "./components/ui/tooltip";
+export {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectScrollDownButton,
+  SelectScrollUpButton,
+  SelectSeparator,
+  SelectTrigger,
+  SelectValue,
+} from "./components/ui/select";
 export { default as Footer } from "./components/Footer";
 export { default as Navbar } from "./components/Navbar";

@@ -1,6 +1,5 @@
 import React from "react";
 import { Leaf, Coffee, Wifi } from "lucide-react";
-import { Badge, Input } from "@sip-happens/shared";
 
 const features = [
   {
@@ -30,10 +29,7 @@ export const WhySipHappens = () => {
         <div className="mx-auto text-[#C68B59] text-md">THE EXPERIENCE</div>
         <h2 className=" font-display text-3xl md:text-4xl text-primary">
           <em className="headline-xl">Why</em>{" "}
-          <em className='text-5xl headline-md'>
-            {" "}
-            Sip Happens?
-          </em>
+          <em className="text-5xl headline-md"> Sip Happens?</em>
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-on-surface-variant">
           Beyond the brew, we focus on the ritual. Every detail is meticulously

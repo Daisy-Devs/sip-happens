@@ -9,6 +9,7 @@ const inputVariants = cva(
     variants: {
       variant: {
         default: "",
+        search:'pl-11 pr-4 py-6 base text-[#6B7280] placeholder:text-[#6B7280] rounded-xl focus-visible:ring-1 focus-visible:ring-[#2C1A11]/20 transition-all '
       },
     },
     defaultVariants: {

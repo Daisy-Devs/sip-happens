@@ -51,7 +51,6 @@ export default function Selections() {
   return (
     <section className="px-5 py-16 bg-[#F8F3EC] sm:px-6 md:px-8 lg:px-10 xl:px-0 md:py-24 lg:py-28">
       <div className="mx-auto max-w-6xl">
-        {/* Header */}
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
             <h2 className="text-3xl md:text-4xl ">
@@ -69,9 +68,7 @@ export default function Selections() {
             rightIcon={<ArrowRight size={18} color="#C68B59" />}
           />
         </div>
-        {/* Menu Grid */}
         <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.2fr_0.8fr]">
-          {/* Featured Item */}
           {featuredItem && (
             <div className="group relative overflow-hidden rounded-3xl h-180 md:h-205 lg:h-225">
               {" "}
@@ -103,7 +100,6 @@ export default function Selections() {
               </div>
             </div>
           )}
-          {/* Remaining Items */}
           <div className="grid gap-5">
             {" "}
             {otherItems.map((item) => (

@@ -7,21 +7,21 @@ const testimonials = [
       "The oat milk latte here is unparalleled. It's not just coffee, it's a productivity ritual.",
     name: "Sarah Mitchell",
     role: "Content Creator",
-    avatar: "https://i.pravatar.cc/100?img=47",
+    avatar: "/SaraMitchell.png",
   },
   {
     quote:
       "The most sophisticated pour-over menu I've encountered. The Ethiopian roast has such vivid berry notes.",
     name: "David Lin",
     role: "Coffee Connoisseur",
-    avatar: "https://i.pravatar.cc/100?img=12",
+    avatar: "/SaraMitchell.png",
   },
   {
     quote:
       "Finally, a brand that marries ethical sourcing with a high-end aesthetic. My favorite morning spot.",
     name: "Marcus Thorne",
     role: "Architect",
-    avatar: "https://i.pravatar.cc/100?img=33",
+    avatar: "/SaraMitchell.png",
   },
 ];
 
@@ -30,8 +30,12 @@ export default function Testimonials() {
     <section className="bg-[#2A1C14] px-6 py-20 text-[#F5EFE6] md:py-28">
       <div className="mx-auto max-w-6xl text-center">
         <h2 className="font-display text-3xl md:text-4xl">
-          <em className="headline-xl">Voices of the</em>{"  "}
-          <span className="text-[#C68B59] text-5xl headline-md"> Community</span>
+          <em className="headline-xl">Voices of the</em>
+          {"  "}
+          <span className="text-[#C68B59] text-5xl headline-md">
+            {" "}
+            Community
+          </span>
         </h2>
 
         <div className="mt-16 flex flex-col items-center gap-6 md:flex-row md:items-center md:justify-center">

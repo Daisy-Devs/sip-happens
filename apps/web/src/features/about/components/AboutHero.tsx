@@ -1,3 +1,4 @@
+import { nomenclature } from "@sip-happens/shared/constants/nomenclature";
 
 export default function AboutHero() {
   return (
@@ -8,11 +9,10 @@ export default function AboutHero() {
       <div className="absolute inset-0 bg-[#231005]/40 mix-blend-multiply" />
       <div className="relative z-10 text-center max-w-3xl px-4 text-white">
         <h1 className="text-4xl md:text-4xl headline-xl mb-4 tracking-wide">
-          Crafting Moments, One Sip at a Time
+          {nomenclature.ABOUT_HEADING}
         </h1>
         <p className="text-sm md:text-base text-stone-200 body-md max-w-xl mx-auto leading-relaxed">
-          Welcome to Sip Happens, where passion for exceptional coffee meets a
-          warm, welcoming community space.
+          {nomenclature.ABOUT_PARA}
         </p>
       </div>
     </div>

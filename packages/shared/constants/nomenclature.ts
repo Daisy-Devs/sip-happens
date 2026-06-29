@@ -7,5 +7,17 @@ export const nomenclature={
     CONTACT:'Contact',
     HOME_PARA:'Step into a world where every bean tells a story. Experience artisanal brews in a space designed for modern connection.',
     SELECTION_PARA:"Our barista's handpicked favorites, roasted to perfection small batches.",
-
+    HOME_BADGE:'CRAFTING EXCELLENCE SINCE 2012',
+    WHY_BADGE:'THE EXPERIENCE',
+    WHY_PARA:'Beyond the brew, we focus on the ritual. Every detail is meticulously curated to elevate your daily moment of pause.',
+    MENU_HEADING:'Crafted with Heart, Poured with Passion',
+    MENU_PARA:'Discover our curated selection of artisanal roasts and handcrafted delights. Every sip tells a story of origin, quality, and the perfect moment.',
+    GALLERY_HEADING:'Our Visual Story',
+    GALLERY_PARA:'Step inside our sanctuary of caffeine and craft. Explore the textures, the light, and the moments that make Sip Happens more than just a café.',
+    ABOUT_HEADING:'Crafting Moments, One Sip at a Time',
+    ABOUT_PARA:'Welcome to Sip Happens, where passion for exceptional coffee meets a warm, welcoming community space.',
+    CTA_PARA:'Join us today and explore a rotating selection of exceptionally roasted beans.',
+    CTA_HEADING:'Ready to experience the difference?',
+    SOURCE_HEADING:'Our Sourcing Philosophy',
+    SOURCE_PARA:'We believe in quality that respects both people and planet. Every bean we roast is selected with intent, ensuring exceptional flavor profiles while directly supporting the farming communities who nurture them.',
 }

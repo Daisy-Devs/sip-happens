@@ -3,42 +3,43 @@
 import { useState } from "react";
 import Image from "next/image";
 import { GalleryItem, GalleryCategory } from "../types";
+import { nomenclature } from "@sip-happens/shared/constants/nomenclature";
 
 const mockGalleryData: GalleryItem[] = [
   {
     id: "1",
-    media_url: "/menu/LatteArt.png",
+    media_url: "/gallery/Interior.png",
     caption: "Our sunlit sanctuary",
     category: "interior",
     permalink: "https://instagram.com",
   },
   {
     id: "2",
-    media_url: "/images/food-1.jpg",
+    media_url: "/gallery/Food.png",
     caption: "Freshly baked croissants",
     category: "food",
   },
   {
     id: "3",
-    media_url: "/images/interior-2.jpg",
+    media_url: "/gallery/Interior2.png",
     caption: "The espresso station",
     category: "interior",
   },
   {
     id: "4",
-    media_url: "/images/drinks-1.jpg",
+    media_url: "/gallery/Drink.png",
     caption: "Morning latte art",
     category: "drinks",
   },
   {
     id: "5",
-    media_url: "/images/customer-1.jpg",
+    media_url: "/gallery/Moment.png",
     caption: "Productive afternoons",
     category: "customer",
   },
   {
     id: "6",
-    media_url: "/images/drinks-2.jpg",
+    media_url: "/gallery/Drink2.png",
     caption: "Iced caramel macchiato",
     category: "drinks",
   },
@@ -64,12 +65,10 @@ export default function GalleryPage() {
     <div className="">
       <section className="max-w-3xl mx-auto text-center px-4 pt-16 pb-12">
         <h1 className="headline-xxl text-4xl md:text-5xl tracking-tight text-primary mb-6">
-          Our Visual Story
+          {nomenclature.GALLERY_HEADING}
         </h1>
         <p className="text-on-surface-variant base text-sm md:text-base leading-relaxed max-w-2xl mx-auto">
-          Step inside our sanctuary of caffeine and craft. Explore the textures,
-          the light, and the moments that make Sip Happens more than just a
-          café.
+          {nomenclature.GALLERY_PARA}
         </p>
       </section>
 
@@ -102,12 +101,6 @@ export default function GalleryPage() {
                   className="object-cover transition-transform duration-500 group-hover:scale-105"
                   priority
                 />
-                {/* Clean caption display when hovered */}
-                <div className="absolute inset-0 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
-                  <p className="text-white text-sm font-light line-clamp-2 leading-relaxed">
-                    {item.caption}
-                  </p>
-                </div>
               </div>
             );
             return item.permalink ? (

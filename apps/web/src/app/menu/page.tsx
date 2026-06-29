@@ -23,7 +23,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$6.50",
     description:
       "Single-origin beans rotated weekly, hand-poured for ultimate clarity and floral notes.",
-    image: "/images/pour-over.jpg",
+    image: "/menu/PourOver.png",
     category: "Hot Coffee",
   },
   {
@@ -32,7 +32,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$6.75",
     description:
       "Cold brew topped with house-made lavender vanilla cold foam and honey drizzle.",
-    image: "/menu/LatteArt.png",
+    image: "/menu/Lavender.png",
     category: "Iced Coffee",
     badge: "Seasonal",
   },
@@ -42,7 +42,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$4.50",
     description:
       "Buttery, 72-layer fermented dough finished with organic mountain honey.",
-    image: "/images/croissant.jpg",
+    image: "/menu/Croissant.png",
     category: "Pastries",
   },
   {
@@ -51,7 +51,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$5.75",
     description:
       "Stone-ground Uji matcha whisked with your choice of steamed plant-based milk.",
-    image: "/images/matcha.jpg",
+    image: "/menu/Matcha.png",
     category: "Specialty Drinks",
   },
   {
@@ -60,7 +60,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$5.50",
     description:
       "18-hour steep cold brew with a swirl of salted caramel and whole cream.",
-    image: "/images/cold-brew.jpg",
+    image: "/menu/IcedCoffee.png",
     category: "Iced Coffee",
   },
   {
@@ -69,7 +69,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$12.00",
     description:
       "Hand-stretched sourdough, smashed avocado, heirloom tomatoes, and organic feta.",
-    image: "/images/sourdough.jpg",
+    image: "/menu/AvocadoToast.png",
     category: "Sandwiches",
     badge: "Best Seller",
   },
@@ -79,7 +79,7 @@ const MENU_DATA: MenuItem[] = [
     price: "$8.50",
     description:
       "Layers of ladyfingers soaked in our signature triple-shot espresso and whipped mascarpone.",
-    image: "/images/tiramisu.jpg",
+    image: "/menu/Tiramisu.png",
     category: "Desserts",
   },
 ];

@@ -1,3 +1,4 @@
+import { nomenclature } from '@sip-happens/shared/constants/nomenclature';
 import { ShieldCheck, Leaf, Coffee } from 'lucide-react'; // Example icons, replace with your preferred icon library
 
 interface PillarProps {
@@ -21,11 +22,10 @@ export default function SourcingPhilosophy() {
     <section className="w-full px-4 py-16 bg-linear-to-r from-[#5C3A21] to-[#3E2512]">
       <div className="max-w-4xl mx-auto bg-[#FFFFFF]/40 rounded-3xl p-8 md:p-12 text-center shadow-xl">
         <h2 className="headline-xxl text-2xl md:text-3xl text-primary mb-4">
-          Our Sourcing Philosophy
+          {nomenclature.SOURCE_HEADING}
         </h2>
         <p className="text-on-surface-variant base text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-8">
-          We believe in quality that respects both people and planet. Every bean we roast is selected with intent, ensuring exceptional flavor profiles while directly supporting the farming communities who nurture them.
-        </p>
+{nomenclature.SOURCE_PARA}        </p>
         
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 border-t border-[#2C1A11]/10 pt-6">
           <PhilosophyPillar icon={Coffee} text="Direct Trade" />

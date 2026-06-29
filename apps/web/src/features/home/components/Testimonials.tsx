@@ -34,7 +34,7 @@ export default function Testimonials() {
           {"  "}
           <span className="text-[#C68B59] text-5xl headline-md">
             {" "}
-            Community
+             Community
           </span>
         </h2>
 

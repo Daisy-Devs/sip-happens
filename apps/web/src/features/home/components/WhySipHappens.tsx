@@ -1,5 +1,6 @@
 import React from "react";
 import { Leaf, Coffee, Wifi } from "lucide-react";
+import { nomenclature } from "@sip-happens/shared/constants/nomenclature";
 
 const features = [
   {
@@ -24,16 +25,15 @@ const features = [
 
 export const WhySipHappens = () => {
   return (
-    <section className="px-6 py-20 md:py-28 bg-background">
+    <section className="px-6 py-20 md:py-28 bg-background mt-10">
       <div className="mx-auto max-w-5xl text-center">
-        <div className="mx-auto text-[#C68B59] text-md">THE EXPERIENCE</div>
+        <div className="mx-auto text-[#C68B59] text-md">{nomenclature.WHY_BADGE}</div>
         <h2 className=" font-display text-3xl md:text-4xl text-primary">
           <em className="headline-xl">Why</em>{" "}
           <em className="text-5xl headline-md"> Sip Happens?</em>
         </h2>
         <p className="mx-auto mt-3 max-w-md text-sm text-on-surface-variant">
-          Beyond the brew, we focus on the ritual. Every detail is meticulously
-          curated to elevate your daily moment of pause.
+          {nomenclature.WHY_PARA}
         </p>
         <div className="mt-14 grid gap-10 sm:grid-cols-3 ">
           {features.map((feature) => {

@@ -8,6 +8,7 @@ import {
   SidebarTrigger,
 } from "@sip-happens/shared";
 import AppSidebar from "@/components/AppSidebar";
+import Header from "@/components/Header";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
@@ -40,21 +41,19 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
-        {" "}
         <SidebarProvider>
-          <div>
-            <SidebarHeader className="p-5">
-              <h1 className="headline-md">Sip Happens</h1>
-              <p className="text-sm">Admin Portal</p>
-            </SidebarHeader>
-            <AppSidebar />
-          </div>
+          {AppSidebar && (
+            <div>
+              <AppSidebar />
+            </div>
+          )}
           <main className="w-full">
+            <Header />
             {children}
-            <footer className="mt-lg border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
-                <p className="text-on-surface-variant label-sm">
-                  © 2026 Sip Happens Artisanal Café. Admin Console v1.0.0
-                </p>
+            <footer className="mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
+              <p className="text-on-surface-variant label-sm">
+                © 2026 Sip Happens Artisanal Café. Admin Console v1.0.0
+              </p>
             </footer>
           </main>
         </SidebarProvider>

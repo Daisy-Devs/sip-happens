@@ -18,9 +18,9 @@ const Navbar = () => {
       <div className="hidden md:flex items-center gap-6">
         <Link
           href="/"
-          className={`text-sm hover:underline underline-offset-8 ${
+          className={`text-sm hover:underline underline-offset-8 decoration-[#C68B59] ${
             pathname === "/"
-              ? "font-bold underline decoration-amber-500 decoration-2"
+              ? "font-bold underline decoration-[#C68B59] decoration-2"
               : "font-light"
           }`}
         >
@@ -28,9 +28,9 @@ const Navbar = () => {
         </Link>
         <Link
           href="/menu"
-          className={`text-sm hover:underline underline-offset-8 ${
+          className={`text-sm hover:underline underline-offset-8 decoration-[#C68B59] ${
             pathname === "/menu"
-              ? "font-bold underline decoration-amber-500 decoration-2"
+              ? "font-bold underline decoration-[#C68B59] decoration-2"
               : "font-light"
           }`}
         >
@@ -38,9 +38,9 @@ const Navbar = () => {
         </Link>
         <Link
           href="/gallery"
-          className={`text-sm hover:underline underline-offset-8 ${
+          className={`text-sm hover:underline underline-offset-8 decoration-[#C68B59] ${
             pathname === "/gallery"
-              ? "font-bold underline decoration-amber-500 decoration-2"
+              ? "font-bold underline decoration-[#C68B59] decoration-2"
               : "font-light"
           }`}
         >
@@ -48,9 +48,9 @@ const Navbar = () => {
         </Link>
         <Link
           href="/about"
-          className={`text-sm hover:underline underline-offset-8 ${
+          className={`text-sm hover:underline underline-offset-8 decoration-[#C68B59] ${
             pathname === "/about"
-              ? "font-bold underline decoration-amber-500 decoration-2"
+              ? "font-bold underline decoration-[#C68B59] decoration-2"
               : "font-light"
           }`}
         >
@@ -58,9 +58,9 @@ const Navbar = () => {
         </Link>
         <Link
           href="/contact"
-          className={`text-sm hover:underline underline-offset-8 ${
+          className={`text-sm hover:underline underline-offset-8 decoration-[#C68B59] ${
             pathname === "/contact"
-              ? "font-bold underline decoration-amber-500 decoration-2"
+              ? "font-bold underline decoration-[#C68B59] decoration-2"
               : "font-light"
           }`}
         >

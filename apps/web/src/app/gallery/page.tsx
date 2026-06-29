@@ -1,7 +1,10 @@
+import GalleryPage from '@/features/gallery/components/GalleryPage'
 import React from 'react'
 
 export default function page() {
   return (
-    <div>gallery</div>
+    <div>
+      <GalleryPage/>
+    </div>
   )
 }

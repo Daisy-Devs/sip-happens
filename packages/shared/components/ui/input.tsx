@@ -4,11 +4,12 @@ import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "../../lib/utils";
 
 const inputVariants = cva(
-  "w-full h-9 rounded-md bg-surface text-[16px] text-on-surface-variant placeholder:text-outline-variant transition-colors disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]",
+  " h-9 rounded-md bg-surface text-[16px] text-on-surface-variant placeholder:text-outline-variant transition-colors disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]",
   {
     variants: {
       variant: {
-        default: "",
+        default: "w-full",
+        small: "w-[200px]",
       },
     },
     defaultVariants: {
@@ -30,9 +31,9 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     return (
-      <div className="relative w-full">
+      <div className="relative">
         {leftIcon && (
-          <div className="absolute left-4 top-1/2 -translate-y-1/2 text-[#8A7A71]">
+          <div className="absolute left-1 top-1/2 ml-1 -translate-y-1/2 text-[#8A7A71]">
             {leftIcon}
           </div>
         )}

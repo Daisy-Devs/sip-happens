@@ -11,9 +11,9 @@ import {
 
 const SendAMessage = () => {
   return (
-    <div className="flex flex-col rounded-2xl w-full px-19 pt-19 space-y-4 shadow-lg bg-[radial-gradient(circle_at_top_right,#FEBC85_5%,_transparent_20%)]">
+    <div className="flex flex-col rounded-2xl w-full px-5 md:px-19 pt-19 pb-10 space-y-4 shadow-lg bg-[radial-gradient(circle_at_top_right,#FEBC85_5%,_transparent_20%)]">
       <h3 className="headline-lg text-primary">Send a Message</h3>
-      <div className="flex gap-x-12">
+      <div className="flex flex-col md:flex-row gap-x-12">
         <div>
           <label
             htmlFor="full-name"

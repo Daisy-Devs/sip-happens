@@ -5,20 +5,18 @@ import Image, { StaticImageData } from "next/image";
 import { cn } from "../../lib/utils"
 
 const buttonVariants = cva(
-  "group items-center gap-2 inline-flex justify-center whitespace-nowrap text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-outline focus-visible:ring-[3px] focus-visible:ring-outline/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive  h-fit w-fit",
+  "group items-center gap-2 inline-flex justify-center whitespace-nowrap hover:cursor-pointer text-sm font-medium transition-all disabled:pointer-events-none disabled:opacity-50 [&_svg]:pointer-events-none shrink-0 [&_svg]:shrink-0 outline-none focus-visible:border-outline focus-visible:ring-[3px] focus-visible:ring-outline/50 aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 aria-invalid:border-destructive h-fit w-fit",
   {
     variants: {
       variant: {
         default: "bg-primary text-primary-foreground hover:bg-primary/80",
         brown: "bg-gradient-to-r from-[#231005] to-[#3B2416] text-white hover:opacity-90 rounded-2xl",
-        light_white:'bg-white/47 text-black rounded-xl border-3 border-white/100 rounded-2xl',
+        light_white:'bg-white/47 text-black rounded-xl rounded-2xl hover:bg-primary/30',
         dark_white:'bg-white/10 text-white rounded-xl border border-white/20',
         light_brown:'bg-secondary-container text-on-secondary-container hover:opacity-90 rounded-xl',
         grey:'bg-[#ECE7E1] text-outline-variant hover:opacity-90 rounded-xl',
         dark_brown:'bg-primary-container text-on-primary-container hover:opacity-90 rounded-md',
         link:"group inline-flex items-center gap-1.5 text-sm font-medium text-[#C68B59] hover:underline",
-          
-
       },
       size: {
         default: "h-10 px-4 py-2",

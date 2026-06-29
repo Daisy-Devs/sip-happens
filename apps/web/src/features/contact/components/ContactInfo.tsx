@@ -46,17 +46,17 @@ const ContactInfo = () => {
         </div>
         <div>
           <h2 className="headline-lg text-primary mb-6">Brewing Hours</h2>
-          <div className="space-y-sm bg-surface-container p-12 rounded-3xl shadow-outline-variant shadow-xl border border-white/40">
+          <div className="space-y-sm bg-surface-container p-6 md:p-12 rounded-3xl shadow-outline-variant shadow-xl border border-white/40">
             <div className="flex justify-between items-center pb-3 border-b border-outline-variant/30">
               <span className="text-on-surface-variant mr-6">Monday - Friday</span>
               <span className="label-md text-primary">7:00 AM - 7:00 PM</span>
             </div>
             <div className="flex justify-between items-center pb-3 border-b border-outline-variant/30">
-              <span className="text-on-surface-variant">Saturday</span>
+              <span className="text-on-surface-variant mr-6">Saturday</span>
               <span className="label-md text-primary">8:00 AM - 8:00 PM</span>
             </div>
             <div className="flex justify-between items-center">
-              <span className="text-on-surface-variant">Sunday</span>
+              <span className="text-on-surface-variant mr-6">Sunday</span>
               <span className="label-md text-primary">8:00 AM - 4:00 PM</span>
             </div>
           </div>

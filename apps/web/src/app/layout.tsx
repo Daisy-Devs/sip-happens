@@ -24,7 +24,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={cn("h-full bg-background", "antialiased", playfair.variable, jakarta_sans.variable, "font-sans")}>
+    <html lang="en" className={cn("h-full", "antialiased", playfair.variable, jakarta_sans.variable, "font-sans")}>
       <body>
         <Navbar />
         <div className="flex flex-col min-h-screen">

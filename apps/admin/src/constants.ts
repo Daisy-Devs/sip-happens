@@ -1,0 +1,17 @@
+export const categoryColors = [
+  "bg-[#FFDCC2] dark:bg-[#7A3B10]",
+  "bg-[#C2E4FF] dark:bg-[#0D4A7A]",
+  "bg-[#C2FFD8] dark:bg-[#0D6632]",
+  "bg-[#D4FFC2] dark:bg-[#2D6610]",
+  "bg-[#FFC2EC] dark:bg-[#7A0D55]",
+  "bg-[#FFFAC2] dark:bg-[#7A6A0D]",
+  "bg-[#FFE4C2] dark:bg-[#7A4A0D]",
+  "bg-[#C2FFFA] dark:bg-[#0D5E5A]",
+  "bg-[#F4C2FF] dark:bg-[#5A0D7A]",
+  "bg-[#C2C9FF] dark:bg-[#1A0D7A]",
+  "bg-[#DBFFC2] dark:bg-[#3A660D]",
+  "bg-[#FFD6C2] dark:bg-[#7A2810]",
+  "bg-[#E8D5C2] dark:bg-[#5C3310]",
+  "bg-[#C2EEFF] dark:bg-[#0D4F6E]",
+  "bg-[#FFE8C2] dark:bg-[#7A5010]",
+];

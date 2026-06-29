@@ -53,6 +53,8 @@
   --color-background: var(--background);
   --color-on-background: var(--on-background);
   --color-surface-variant: var(--surface-variant);
+  --color-table-header: var(--table-header);
+  --color-table-body: var(--table-body);
 
   --radius-sm: calc(var(--radius) * 0.6);
   --radius-md: calc(var(--radius) * 0.8);
@@ -107,6 +109,8 @@
   --background: #fef9f2;
   --on-background: #1d1c17;
   --surface-variant: #e7e2db;
+  --table-header: #F5F1EB;
+  --table-body: #FEFBF7;
 }
 
 .dark {
@@ -156,6 +160,7 @@
   --background: #15130f;
   --on-background: #e8e2dc;
   --surface-variant: #4f453f;
+  --table-body: #FEFBF7;
 }
 
 /* Typography */
@@ -178,7 +183,7 @@
 }
 
 @utility headline-lg {
-  font-family: "Playfair Display", serif;
+  font-family: var(--font-playfair-display);
   font-size: 2rem;
   /* 32px */
   font-weight: 700;
@@ -196,7 +201,7 @@
 }
 
 @utility body-lg {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 1.125rem;
   /* 18px */
   font-weight: 400;
@@ -205,7 +210,7 @@
 }
 
 @utility body-md {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 1rem;
   /* 16px */
   font-weight: 400;
@@ -214,7 +219,7 @@
 }
 
 @utility label-md {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.875rem;
   /* 14px */
   font-weight: 600;
@@ -224,7 +229,7 @@
 }
 
 @utility label-sm {
-  font-family: "Plus Jakarta Sans", sans-serif;
+  font-family: var(--font-plus-jakarta-sans), sans-serif;
   font-size: 0.75rem;
   /* 12px */
   font-weight: 700;
@@ -237,5 +242,21 @@
   body {
     @apply bg-background font-normal;
     font-family: var(--font-plus-jakarta-sans), sans-serif;
+  }
+
+  *:focus {
+    outline: 2px solid var(--primary);
+    border-radius: 4px;
+  }
+  [data-slot="dialog-content"] {
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE/Edge */
+  }
+
+  [data-slot="dialog-content"]::-webkit-scrollbar {
+    display: none;
+    /* Chrome/Safari */
   }
 }

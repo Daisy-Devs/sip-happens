@@ -1,6 +1,8 @@
 import express from 'express';
 import { sendResponse } from '../utils/response';
 import adminRoute from './auth';
+import categoryRoute from './categories';
+import productRoute from './products';
 
 const router = express.Router();
 
@@ -11,6 +13,7 @@ router.get('/', (req, res) => {
 
 // Routes
 router.use('/admin', adminRoute);
-
+router.use('/category', categoryRoute);
+router.use('/product', productRoute);
 
 export default router;

@@ -1,7 +1,8 @@
+import Contact from '@/features/contact/Contact'
 import React from 'react'
 
 export default function page() {
   return (
-    <div>contact</div>
+    <Contact/>
   )
 }

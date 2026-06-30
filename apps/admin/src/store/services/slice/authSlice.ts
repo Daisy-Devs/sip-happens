@@ -23,11 +23,14 @@ export const authSlice = createSlice({
   reducers: {
     loggedIn: (state, action) => {
       state.isAuthenticated = true;
+      state.token = action.payload.token;
       state.user = action.payload;
     },
     loggedOut: (state) => {
       state.isAuthenticated = false;
+      state.token = null;
       state.user = null;
+      document.cookie = "token=; path=/";
     },
     showAddProduct: (state) => {
       if (state.user) {
@@ -42,5 +45,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { loggedIn, loggedOut } = authSlice.actions;
+export const { loggedIn, loggedOut, showAddProduct, hideAddProduct } = authSlice.actions;
   

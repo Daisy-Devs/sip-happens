@@ -9,6 +9,8 @@ export const apiSlice = createApi({
   tagTypes: [],
   baseQuery: fetchBaseQuery({
     baseUrl: process.env.NEXT_PUBLIC_API_URL,
+    responseHandler: (response) => response.json().then((res) => res.data),
+
     prepareHeaders: (headers, { getState }) => {
       const token = (getState() as RootState).auth?.token;
       if (token) {

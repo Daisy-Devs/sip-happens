@@ -8,6 +8,7 @@ import {
   createProduct,
   updateProduct,
   deleteProduct,
+  getUserProducts,
 } from '../controllers/products'
 import { deleteProductImage, uploadProductImage } from '../controllers/cloundinary'
 import { upload } from '../middleware/cloundinary'
@@ -23,6 +24,7 @@ router.post('/update/:id', authMiddleware, validate(UpdateProductSchema), update
 router.post('/delete/:id', authMiddleware, deleteProduct)
 
 router.get('/', getProducts)
+router.get('/user', getUserProducts)
 router.get('/featured', getFeaturedProducts)
 
 export default router

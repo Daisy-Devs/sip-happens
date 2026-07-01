@@ -14,8 +14,8 @@ export default function CTASection() {
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-10">
-          <Button text="Visit Our Café" variant="light_brown" size="lg" />
-          <Button text="Explore the Menu" variant="dark_brown" size="lg" />
+          <Button text="Visit Our Café" variant="light_brown" size="sm" />
+          <Button text="Explore the Menu" variant="dark_brown" size="sm" />
         </div>
       </div>
     </section>

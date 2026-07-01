@@ -7,6 +7,7 @@ export const ProductSchema = z.object({
   description: z.string().optional(),
   image_url: z.string().optional(),
   featured: z.boolean().default(false),
+  tag: z.enum(['seasonal', 'best_seller', 'new', 'special']).optional(),
 })
 
 export const UpdateProductSchema = ProductSchema.partial()

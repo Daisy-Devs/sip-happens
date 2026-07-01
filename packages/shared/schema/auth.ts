@@ -10,6 +10,7 @@ export const ProfileSchema = z.object({
   name: z.string().min(1),
   email: z.email(),
   role: z.enum(['admin']),
+  position: z.string(),
 })
 
 export type LoginInput = z.infer<typeof LoginSchema>

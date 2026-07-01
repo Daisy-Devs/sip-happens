@@ -10,14 +10,34 @@ export const login = async (req: Request, res: Response) => {
     password,
   })
 
-  if (error) {
-    return sendResponse(res, 401, error.message)
-  }
+  if (error) return sendResponse(res, 401, error.message)
+
+  const { data: profile, error: profileError } = await supabase
+    .from('profiles')
+    .select('name, position, role')
+    .eq('id', data.user.id)
+    .single()
+
+  if (profileError) return sendResponse(res, 400, profileError.message)
 
   return sendResponse(res, 200, 'Login successful', {
-    user: data.user,
     session: data.session,
+    user: {
+      id: data.user.id,
+      email: data.user.email,
+      name: profile.name,
+      position: profile.position,
+      role: profile.role,
+    }
   })
+}
+
+export const logout = async (req: Request, res: Response) => {
+  const { error } = await supabase.auth.signOut()
+
+  if (error) return sendResponse(res, 400, error.message)
+
+  return sendResponse(res, 200, 'Logged out successfully')
 }
 
 export const forgotPassword = async (req: Request, res: Response) => {

@@ -1,8 +1,11 @@
 "use client";
+import { useDispatch, useSelector } from "react-redux";
 import AnalyticsCard from "./AnalyticsCard";
 import { CirclePlus, Coffee, Shapes, Star } from "lucide-react";
+import { showAddProduct } from "@/store/services/slice/authSlice";
 
 const Analytics = () => {
+    const dispatch = useDispatch();
   return (
     <section className="grid space-y-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-x-8">
       <AnalyticsCard
@@ -24,8 +27,7 @@ const Analytics = () => {
         icon={<Star size={20} />}
       />
       <div onClick={(e)=>{
-        console.log("cliu");
-        
+        dispatch(showAddProduct());
       }} className="p-6 rounded-3xl flex flex-col justify-between h-40 lg:col-span-1 bg-primary-container text-on-primary-container group cursor-pointer hover:opacity-90 transition-all shadow-xl">
         <div className="flex justify-between items-start">
           <CirclePlus size={30} className="text-on-primary-container"/>

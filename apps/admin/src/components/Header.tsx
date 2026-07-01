@@ -1,11 +1,12 @@
 "use client";
+import { useAppSelector } from "@/store/store";
 import { UserCircle2 } from "lucide-react";
 import { usePathname } from "next/navigation";
 import { useState } from "react";
 
 const Header = () => {
     const pathName = usePathname();
-    const [loggedIn, setLoggedIn] = useState(false);
+    const loggedIn=useAppSelector((state) => state.auth.isAuthenticated);
     
   if(!loggedIn){
     return null

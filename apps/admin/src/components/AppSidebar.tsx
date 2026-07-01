@@ -1,18 +1,32 @@
 "use client";
 import Link from "next/link";
-import { LayoutPanelTop, Utensils } from "lucide-react";
-import { usePathname } from "next/navigation";
-import { useState } from "react";
-import { SidebarHeader } from "@sip-happens/shared";
+import { LayoutPanelTop, LogOut, Utensils } from "lucide-react";
+import { usePathname, useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import { Button, SidebarFooter, SidebarHeader } from "@sip-happens/shared";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "@/store/store";
+import { loggedOut } from "@/store/services/slice/authSlice";
 
 const AppSidebar = () => {
   const pathname = usePathname();
-  const [loggedIn, setLoggedIn] = useState(true);
+  const dispatch=useDispatch();
+  const router = useRouter();
+  const loggedIn = useSelector(
+    (state: RootState) => state.auth.isAuthenticated,
+  );
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
   if (!loggedIn) {
     return null;
   }
   return (
-    <div className={"absolute z-20 md:static bg-surface-container h-screen"}>
+    <div className={"absolute z-20 md:static bg-surface-container h-full"}>
       <SidebarHeader className="p-5">
         <h1 className="headline-md">Sip Happens</h1>
         <p className="text-sm">Admin Portal</p>
@@ -44,6 +58,9 @@ const AppSidebar = () => {
           Menu Management
         </Link>
       </nav>
+      <SidebarFooter className="fixed bottom-5 left-3">
+        <Button variant={'brown'} leftIcon={<LogOut />} onClick={() => {dispatch(loggedOut()); router.push("/auth/login");}} className="w-full">Logout</Button>
+      </SidebarFooter>
     </div>
   );
 };

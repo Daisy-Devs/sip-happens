@@ -3,12 +3,11 @@ import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "@sip-happens/shared/globals.css";
 import { cn } from "@/lib/utils";
 import {
-  SidebarHeader,
   SidebarProvider,
-  SidebarTrigger,
 } from "@sip-happens/shared";
 import AppSidebar from "@/components/AppSidebar";
 import Header from "@/components/Header";
+import Providers from "@/components/Provider";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
@@ -41,13 +40,14 @@ export default function RootLayout({
       )}
     >
       <body className="min-h-full flex flex-col">
+        <Providers>
         <SidebarProvider>
           {AppSidebar && (
             <div>
               <AppSidebar />
             </div>
           )}
-          <main className="w-full">
+          <main className="w-full h-full">
             <Header />
             {children}
             <footer className="mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
@@ -57,6 +57,7 @@ export default function RootLayout({
             </footer>
           </main>
         </SidebarProvider>
+        </Providers>
       </body>
     </html>
   );

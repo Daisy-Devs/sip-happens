@@ -45,13 +45,19 @@ export const deleteCategory = async (req: Request, res: Response) => {
 export const getCategories = async (req: Request, res: Response) => {
   const { data, error, count } = await supabase
     .from('categories')
-    .select('*', { count: 'exact' })
+    .select('*, products(id)', { count: 'exact' })
     .order('name', { ascending: true })
 
   if (error) return sendResponse(res, 400, error.message)
 
+  const categories = data.map((category) => ({
+    ...category,
+    productCount: category.products.length,
+    products: undefined, // remove raw products array
+  }))
+
   return sendResponse(res, 200, 'Categories fetched successfully', {
     totalCategories: count,
-    categories: data,
+    categories,
   })
 }

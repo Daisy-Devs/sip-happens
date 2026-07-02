@@ -1,5 +1,5 @@
-import { nomenclature } from '@sip-happens/shared/constants/nomenclature';
-import { ShieldCheck, Leaf, Coffee } from 'lucide-react'; // Example icons, replace with your preferred icon library
+import { nomenclature } from "@sip-happens/shared/constants/nomenclature";
+import { ShieldCheck, Leaf, Coffee } from "lucide-react"; // Example icons, replace with your preferred icon library
 
 interface PillarProps {
   icon: React.ComponentType<{ className?: string }>;
@@ -25,8 +25,9 @@ export default function SourcingPhilosophy() {
           {nomenclature.SOURCE_HEADING}
         </h2>
         <p className="text-on-surface-variant base text-sm md:text-base max-w-2xl mx-auto leading-relaxed mb-8">
-{nomenclature.SOURCE_PARA}        </p>
-        
+          {nomenclature.SOURCE_PARA}{" "}
+        </p>
+
         <div className="flex flex-col sm:flex-row items-center justify-center gap-6 sm:gap-8 border-t border-[#2C1A11]/10 pt-6">
           <PhilosophyPillar icon={Coffee} text="Direct Trade" />
           <PhilosophyPillar icon={Leaf} text="Organic Beans" />

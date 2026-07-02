@@ -15,7 +15,6 @@ export default function MenuHero({ searchQuery, onSearchChange }: HeroProps) {
 
       <div className="relative max-w-md mx-auto pt-4">
         <Input
-          variant="search"
           type="text"
           placeholder="Search for your favorite brew or pastry..."
           leftIcon={<Search size={18} color="#82746E" />}

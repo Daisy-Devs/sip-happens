@@ -15,7 +15,10 @@ export type Product = {
   price: string;
   status: string;
   featured: boolean;
-  actions: string;
+  actions: {
+    edit: () => void;
+    delete: () => void;
+  };
 };
 export const productsColumns: ColumnDef<Product>[] = [
   {
@@ -105,11 +108,7 @@ export const productsColumns: ColumnDef<Product>[] = [
     accessorKey: "featured",
     header: "Featured",
     cell: ({ row }) => {
-      return (
-        <Switch
-          checked={row.original.featured}
-        />
-      );
+      return <Switch checked={row.original.featured} />;
     },
   },
   {
@@ -119,6 +118,9 @@ export const productsColumns: ColumnDef<Product>[] = [
       return (
         <div className="flex justify-center gap-2 pr-6">
           <Button
+            onClick={() => {
+              row.original.actions.edit();
+            }}
             variant="light_white"
             className="p-2 rounded-lg text-on-surface-variant transition-colors bg-none"
           >
@@ -127,9 +129,9 @@ export const productsColumns: ColumnDef<Product>[] = [
           <Button
             variant="light_white"
             className="p-2 ml-3 rounded-lg text-on-surface-variant transition-colors bg-none"
-            onClick={() =>
-              alert("Are you sure you want to delete this product?")
-            }
+            onClick={() => {
+              row.original.actions.delete();
+            }}
           >
             <Trash2 />
           </Button>

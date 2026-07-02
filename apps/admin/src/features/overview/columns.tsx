@@ -13,7 +13,10 @@ export type Product = {
   category: string;
   price: string;
   status: string;
-  actions: string;
+  actions: {
+    edit: () => void;
+    delete: () => void;
+  };
 };
 
 export const ProductsColumns: ColumnDef<Product>[] = [
@@ -88,17 +91,20 @@ export const ProductsColumns: ColumnDef<Product>[] = [
       return (
         <div className="flex justify-center gap-2 pr-6">
           <Button
+            onClick={() => {
+              row.original.actions.edit();
+            }}
             variant="light_white"
             className="p-2 rounded-lg text-on-surface-variant transition-colors bg-none"
           >
             <SquarePen />
           </Button>
           <Button
+            onClick={() => {
+              row.original.actions.delete();
+            }}
             variant="light_white"
             className="p-2 ml-3 rounded-lg text-on-surface-variant transition-colors bg-none"
-            onClick={() =>
-              alert("Are you sure you want to delete this product?")
-            }
           >
             <Trash2 />
           </Button>

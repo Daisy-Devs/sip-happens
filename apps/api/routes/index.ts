@@ -3,6 +3,7 @@ import { sendResponse } from '../utils/response';
 import adminRoute from './auth';
 import categoryRoute from './categories';
 import productRoute from './products';
+import contactRoute from './contact';
 
 const router = express.Router();
 
@@ -15,5 +16,6 @@ router.get('/', (req, res) => {
 router.use('/admin', adminRoute);
 router.use('/category', categoryRoute);
 router.use('/product', productRoute);
+router.use('/contact', contactRoute)
 
 export default router;

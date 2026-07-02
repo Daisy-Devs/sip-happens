@@ -4,9 +4,8 @@ import {
   useCreateCategoryMutation,
   useUpdateCategoryMutation,
 } from "@/store/services/api/categoriesApi";
-import { Button, Input } from "@sip-happens/shared";
+import { Button, Input, toast } from "@sip-happens/shared";
 import React, { Dispatch, useState } from "react";
-
 type AddCategoryProps = {
   closeDrawer: Dispatch<React.SetStateAction<boolean>>;
   updateSelectedCategory?: CategoryType | null;
@@ -34,7 +33,11 @@ const AddCategory: React.FC<AddCategoryProps> = ({
       })
         .unwrap()
         .then((res) => {
+          toast.success("Category updated successfully");
           console.log("Category updated successfully:", res);
+        }).catch((err) => {
+          toast.error("Failed to update category");
+          console.error("Failed to update category:", err);
         });
     } else {
       createCategory({
@@ -43,7 +46,12 @@ const AddCategory: React.FC<AddCategoryProps> = ({
       })
         .unwrap()
         .then((res) => {
+          toast.success("Category created successfully");
           console.log("Category created successfully:", res);
+        })
+        .catch((err) => {
+          toast.error("Failed to create category");
+          console.error("Failed to create category:", err);
         });
     }
     resetForm();

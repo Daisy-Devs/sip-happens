@@ -3,7 +3,7 @@ import { categoryColumns } from "@/features/categories/columns";
 import AddCategory from "@/features/categories/components/AddCategory";
 import { CategoryType } from "@/features/overview/types";
 import { useDeleteCategoryMutation, useGetCategoriesQuery } from "@/store/services/api/categoriesApi";
-import { Button, DataTable, ResponsiveDrawer } from "@sip-happens/shared";
+import { Button, DataTable, ResponsiveDrawer, toast } from "@sip-happens/shared";
 import { useState } from "react";
 
 const Categories = () => {
@@ -20,7 +20,13 @@ const Categories = () => {
         setShowAddCategory(true);
       },
       delete: () => {
-        deleteCategory(category.id);
+        deleteCategory(category.id).unwrap().then((res) => {
+          console.log("Category deleted successfully:", res);
+          toast.success("Category deleted successfully");
+        }).catch((err) => {
+          console.error("Failed to delete category:", err);
+          toast.error("Failed to delete category");
+        });
       },
     },
   }))||[];

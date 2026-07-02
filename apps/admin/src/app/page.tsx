@@ -9,7 +9,7 @@ import {
 } from "@/store/services/api/productsApi";
 import { hideAddProduct, showAddProduct } from "@/store/services/slice/authSlice";
 import { useAppSelector } from "@/store/store";
-import { DataTable, Input, ResponsiveDrawer } from "@sip-happens/shared";
+import { DataTable, Input, ResponsiveDrawer, toast } from "@sip-happens/shared";
 import { Search } from "lucide-react";
 import { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -28,7 +28,13 @@ export default function Home() {
           dispatch(showAddProduct());
         },
         delete: () => {
-          deleteProduct(product.id);
+          deleteProduct(product.id).unwrap().then((res) => {
+            console.log("Product deleted successfully:", res);
+            toast.success("Product deleted successfully");
+          }).catch((err) => {
+            console.error("Failed to delete product:", err);
+            toast.error("Failed to delete product");
+          });
         },
       },
       category: product.categories.name,

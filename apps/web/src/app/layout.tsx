@@ -5,6 +5,7 @@ import { cn } from "@/lib/utils";
 import { Footer, Navbar } from "@sip-happens/shared";
 import Providers from "@/components/Providers";
 
+
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
   subsets: ["latin"],

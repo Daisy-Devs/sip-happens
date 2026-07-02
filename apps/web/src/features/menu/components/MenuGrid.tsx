@@ -1,14 +1,21 @@
 import MenuCard from "./MenuCard";
 import { MenuItem } from "../type";
+import ComponentLoader from "../../../../../../packages/shared/components/CompoentsLoader"; 
+import emptyAnimation from "../../../../public/loaders/cuptoCofee.json"; 
 
 export default function MenuGrid({ items }: { items: MenuItem[] }) {
   console.log("MenuGrid received:", items);
+  
   if (items.length === 0) {
     return (
-      <div className="text-center py-20">
-        <p className="text-stone-400 font-light">
-          No items found matching your selection.
-        </p>
+      <div className="text-center py-15 flex flex-col items-center justify-center">
+        {/* 3. Render the Lottie Loader */}
+        <ComponentLoader 
+          animationData={emptyAnimation} 
+          width={250}
+          height={250}
+        />
+
       </div>
     );
   }

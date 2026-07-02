@@ -10,7 +10,7 @@ export default function CTASection() {
           {nomenclature.CTA_HEADING}
         </h2>
         <p className="text-white/80 text-sm md:text-base base max-w-md mx-auto leading-relaxed">
-        {nomenclature.CTA_PARA}
+          {nomenclature.CTA_PARA}
         </p>
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 pt-10">

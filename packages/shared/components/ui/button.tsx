@@ -99,7 +99,6 @@ function Button({
   ...props
 }: ButtonProps) {
   const Comp = asChild ? Slot : "button";
-  console.log("Button variant:", variant);
 
   // 🔧 Icon renderer
   const renderImage = (

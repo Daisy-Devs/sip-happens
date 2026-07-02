@@ -24,6 +24,7 @@ export const productApi = apiSlice.injectEndpoints({
           method: "GET",
         };
       },
+      keepUnusedDataFor: 300,
     }),
     getFeaturedProducts: builder.query({
       query: () => ({

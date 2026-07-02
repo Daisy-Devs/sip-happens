@@ -122,42 +122,41 @@
 //   );
 // }
 
-
-
-
 "use client";
 
 import React, { useState, useEffect } from "react";
 import MenuFilters from "../../features/menu/components/MenuFilters";
 import MenuGrid from "../../features/menu/components/MenuGrid";
-import { useGetUserProductsQuery, useGetCategoryQuery } from "@/store/services/api/productApi";
+import {
+  useGetUserProductsQuery,
+  useGetCategoryQuery,
+} from "@/store/services/api/productApi";
+import { CategoryItem } from "../../features/menu/type";
 
 export default function MenuSection() {
+  // activeCategory must hold either "all" or the exact category.name (e.g., "Dessert")
   const [activeCategory, setActiveCategory] = useState("all");
   const [searchQuery, setSearchQuery] = useState<string>("");
-  // 1. Introduce a separate state for the debounced search term
   const [debouncedSearch, setDebouncedSearch] = useState<string>("");
   const [page, setPage] = useState<number>(1);
 
-  // 2. Debounce Effect: Wait 300ms after the user stops typing to trigger the query
   useEffect(() => {
     const handler = setTimeout(() => {
       setDebouncedSearch(searchQuery);
-    }, 300); // 300ms is standard for snappy UX without overloading the network
-
+    }, 300);
     return () => clearTimeout(handler);
   }, [searchQuery]);
 
-  const { data: categoriesResponse, isLoading: categoriesLoading } = useGetCategoryQuery({});
+  const { data: categoriesResponse, isLoading: categoriesLoading } =
+    useGetCategoryQuery({});
 
-  // 3. Pass the *debounced* search value to RTK Query instead of the raw input value
   const {
     data: productsResponse,
     isLoading: productsLoading,
     isFetching,
   } = useGetUserProductsQuery({
     search: debouncedSearch,
-    category: activeCategory,
+    category: activeCategory, // Sends "all" or the clear category name to match backend's req.query
     page,
   });
 
@@ -165,11 +164,18 @@ export default function MenuSection() {
   const productsList = productsResponse?.data?.products || [];
   const pagination = productsResponse?.data?.pagination;
 
-  const transformedCategories = [
-    { id: "all", name: "All Menu" },
-    ...categoriesList,
-  ];
+  // Filter out categories only if they explicitly return a productCount of 0
+  const validCategories = categoriesList.filter((category: CategoryItem) => {
+    if (!category) return false;
+    // If productCount is missing/undefined, we treat it as valid to prevent accidental hiding
+    return category.productCount === undefined || category.productCount > 0;
+  });
 
+  // Combine the standard "all" option with the filtered list
+  const transformedCategories = [
+    { id: "all", name: "all" },
+    ...validCategories,
+  ];
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
       <div className="mb-8 max-w-md mx-auto">
@@ -179,7 +185,7 @@ export default function MenuSection() {
           value={searchQuery}
           onChange={(e) => {
             setSearchQuery(e.target.value);
-            setPage(1); // Reset page on type
+            setPage(1);
           }}
           className="w-full px-4 py-2.5 rounded-full border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary bg-white text-stone-800"
         />
@@ -193,18 +199,25 @@ export default function MenuSection() {
             categories={transformedCategories}
             activeCategory={activeCategory}
             onCategoryChange={(name) => {
-              setActiveCategory(name);
+              setActiveCategory(name); // State gets updated with the display name string
               setPage(1);
             }}
           />
         )}
       </div>
 
-      <div className={isFetching || productsLoading ? "opacity-60 transition-opacity" : ""}>
+      <div
+        className={
+          isFetching || productsLoading ? "opacity-60 transition-opacity" : ""
+        }
+      >
         {productsLoading ? (
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
             {[...Array(4)].map((_, i) => (
-              <div key={i} className="h-80 w-full bg-stone-100 animate-pulse rounded-2xl" />
+              <div
+                key={i}
+                className="h-80 w-full bg-stone-100 animate-pulse rounded-2xl"
+              />
             ))}
           </div>
         ) : (

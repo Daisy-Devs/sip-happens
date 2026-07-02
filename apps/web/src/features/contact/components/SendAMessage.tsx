@@ -1,3 +1,4 @@
+"use client";
 import {
   Button,
   Input,
@@ -7,9 +8,27 @@ import {
   SelectItem,
   SelectTrigger,
   SelectValue,
+  Spinner,
 } from "@sip-happens/shared";
+import { MessageState } from "../types";
+import { useState } from "react";
+import { useSendAMessageMutation } from "@/store/services/api/sendApi";
 
 const SendAMessage = () => {
+  const [messageState, setMessageState] = useState<MessageState>({
+    name: "",
+    email: "",
+    subject: "",
+    message: "",
+  }); 
+  const [sendAMessage, { isLoading, isSuccess, isError }] = useSendAMessageMutation();
+  const handleSubmit = () => {
+   sendAMessage(messageState).unwrap().then((response) => {
+      console.log("Message sent successfully:", response);
+    }).catch((error) => {
+      console.error("Error sending message:", error);
+    })
+  }
   return (
     <div className="flex flex-col rounded-2xl w-full px-5 md:px-19 pt-19 pb-10 space-y-4 shadow-lg bg-[radial-gradient(circle_at_top_right,#FEBC85_5%,_transparent_20%)]">
       <h3 className="headline-lg text-primary">Send a Message</h3>
@@ -21,7 +40,12 @@ const SendAMessage = () => {
           >
             Full Name
           </label>
-          <Input id="full-name" placeholder="John Doe" />
+          <Input
+            id="full-name"
+            placeholder="John Doe"
+            value={messageState.name}
+            onChange={(e) => setMessageState({ ...messageState, name: e.target.value })}
+          />
         </div>
         <div>
           <label
@@ -30,7 +54,12 @@ const SendAMessage = () => {
           >
             Email Address
           </label>
-          <Input id="email-address" placeholder="john@example.com" />
+          <Input
+            id="email-address"
+            placeholder="john@example.com"
+            value={messageState.email}
+            onChange={(e) => setMessageState({ ...messageState, email: e.target.value })}
+          />
         </div>
       </div>
       <div>
@@ -40,7 +69,10 @@ const SendAMessage = () => {
         >
           Subject
         </label>
-        <Select>
+        <Select
+          value={messageState.subject}
+          onValueChange={(value) => setMessageState({ ...messageState, subject: value })}
+        >
           <SelectTrigger id="subject">
             <SelectValue placeholder="Select subject" />
           </SelectTrigger>
@@ -60,12 +92,21 @@ const SendAMessage = () => {
           htmlFor="message"
           className="label-sm text-on-surface-variant"
         >Your Message</label>
-        <textarea className="block p-3 w-full rounded-md bg-surface text-[16px] text-on-surface-variant placeholder:text-outline-variant transition-colors disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]" id="message" rows={6} placeholder="How can we help you today?">
+        <textarea 
+          className="block p-3 w-full rounded-md bg-surface text-[16px] text-on-surface-variant placeholder:text-outline-variant transition-colors disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]" 
+          id="message" 
+          rows={6} 
+          placeholder="How can we help you today?"
+          value={messageState.message}
+          onChange={(e) => setMessageState({ ...messageState, message: e.target.value })}
+        >
         </textarea>
       </div>
-      <Button variant="dark_brown" size="lg" className="w-full self-center">Send Message</Button>
+      <Button disabled={isLoading} leftIcon={isLoading?<Spinner />:null} variant="dark_brown" size="lg" className="w-full self-center" onClick={handleSubmit}>
+        Send Message
+      </Button>
     </div>
   );
-};
+}; 
 
 export default SendAMessage;

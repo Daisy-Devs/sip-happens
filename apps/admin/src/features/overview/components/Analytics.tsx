@@ -3,27 +3,31 @@ import { useDispatch, useSelector } from "react-redux";
 import AnalyticsCard from "./AnalyticsCard";
 import { CirclePlus, Coffee, Shapes, Star } from "lucide-react";
 import { showAddProduct } from "@/store/services/slice/authSlice";
+import { StatsType } from "../types";
 
-const Analytics = () => {
+type AnalyticsProps = {
+  statisticsData:StatsType | null;
+};
+const Analytics: React.FC<AnalyticsProps> = ({ statisticsData }) => {
     const dispatch = useDispatch();
   return (
     <section className="grid space-y-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-x-8">
       <AnalyticsCard
         heading="Products"
         subheading="Total Items"
-        value="124"
+        value={statisticsData?.totalItems.toString() || "0"}
         icon={<Coffee size={20} />}
       />
       <AnalyticsCard
         heading="Categories"
         subheading="Active Categories"
-        value="8"
+        value={statisticsData?.activeCategories.toString() || "0"}
         icon={<Shapes size={20} />}
       />
       <AnalyticsCard
         heading="Daily Picks"
         subheading="Featured Items"
-        value="2"
+        value={statisticsData?.featuredItems.toString() || "0"}
         icon={<Star size={20} />}
       />
       <div onClick={(e)=>{

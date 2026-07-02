@@ -2,6 +2,7 @@ import { ENDPOINTS } from "@/lib/api/endpoints";
 import { apiSlice } from "../slice/apiSlice";
 
 export const productsApi=apiSlice.injectEndpoints({
+    overrideExisting: true,
     endpoints:(builder)=>({
         createProduct:builder.mutation({
             query:(product)=>({
@@ -36,7 +37,7 @@ export const productsApi=apiSlice.injectEndpoints({
             query:(image)=>({
                 url:ENDPOINTS.products.uploadImage,
                 method:"POST",
-                headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`},
+                headers:{"Content-Type":"multipart/form-data","Authorization":`Bearer ${localStorage.getItem("token")}`},
                 body:image
             })
         }),
@@ -44,10 +45,10 @@ export const productsApi=apiSlice.injectEndpoints({
             query:(id)=>({
                 url:ENDPOINTS.products.deleteImage.replace(":id",id),
                 method:"POST",
-                headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`},
+                headers:{"Content-Type":"multipart/form-data","Authorization":`Bearer ${localStorage.getItem("token")}`},
             })
         })
     })
 })
 
-export const {useCreateProductMutation}=productsApi
+export const {useCreateProductMutation,useGetProductsQuery,useDeleteProductMutation,useUpdateProductMutation,useUploadProductImageMutation,useDeleteProductImageMutation}=productsApi

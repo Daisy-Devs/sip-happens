@@ -3,5 +3,8 @@ export const ENDPOINTS = {
     getCategory:"/category/",
     getProduct:'/product/user',
     getFeaturedProduct:'/product/featured'
+  },
+  contact:{
+    sendAMessage: '/contact/send'
   }
 }

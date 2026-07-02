@@ -1,12 +1,13 @@
 "use client";
 import Link from "next/link";
-import { LayoutPanelTop, LogOut, Utensils } from "lucide-react";
+import { Boxes, LayoutPanelTop, LogOut, Utensils } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Button, SidebarFooter, SidebarHeader } from "@sip-happens/shared";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "@/store/store";
 import { loggedOut } from "@/store/services/slice/authSlice";
+import { useLogoutMutation } from "@/store/services/api/authApi";
 
 const AppSidebar = () => {
   const pathname = usePathname();
@@ -16,7 +17,13 @@ const AppSidebar = () => {
     (state: RootState) => state.auth.isAuthenticated,
   );
   const [mounted, setMounted] = useState(false);
-
+  const [logout]=useLogoutMutation({});
+  const handleLogout = () => {
+        logout().unwrap().then((res) => {console.log("hahha",res);
+        });
+    router.push("/auth/login");
+    dispatch(loggedOut()); 
+  }
   useEffect(() => {
     setMounted(true);
   }, []);
@@ -57,9 +64,21 @@ const AppSidebar = () => {
           {<Utensils />}
           Menu Management
         </Link>
+        <Link
+          className={
+            "flex items-center gap-3 px-4 py-3 rounded-xl text-on-surface-variant hover:bg-surface-container-high transition-colors label-md" +
+            (pathname === "/categories"
+              ? " bg-secondary-container text-on-secondary-container"
+              : "")
+          }
+          href="/categories"
+        >
+          {<Boxes />}
+          Categories
+        </Link>
       </nav>
       <SidebarFooter className="fixed bottom-5 left-3">
-        <Button variant={'brown'} leftIcon={<LogOut />} onClick={() => {dispatch(loggedOut()); router.push("/auth/login");}} className="w-full">Logout</Button>
+        <Button variant={'brown'} leftIcon={<LogOut />} onClick={() => {handleLogout();}} className="w-full">Logout</Button>
       </SidebarFooter>
     </div>
   );

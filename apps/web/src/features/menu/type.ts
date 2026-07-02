@@ -23,4 +23,5 @@ export interface FilterProps {
 export interface CategoryItem {
   id: string;
   name: string;
+  productCount?: number;
 }

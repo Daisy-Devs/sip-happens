@@ -23,6 +23,7 @@ export interface InputProps
   leftIcon?: React.ReactNode;
   rightIcon?: React.ReactNode;
   placeholder?: string;
+  error?: string;
 }
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -31,6 +32,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ref,
   ) => {
     return (
+      <div className="flex flex-col gap-1">
       <div className="relative">
         {leftIcon && (
           <div className="absolute left-1 top-1/2 ml-1 -translate-y-1/2 text-[#8A7A71]">
@@ -51,12 +53,15 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
           )}
           {...props}
         />
-
         {rightIcon && (
           <div className="absolute right-4 top-1/2 -translate-y-1/2 text-[#8A7A71] cursor-pointer">
             {rightIcon}
           </div>
         )}
+      </div>
+      {props.error && (
+        <p className="text-on-error-container text-sm mt-1">{props.error}</p>
+      )}
       </div>
     );
   },

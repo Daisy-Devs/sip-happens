@@ -45,14 +45,28 @@ export const deleteProduct = async (req: Request, res: Response) => {
 export const getProducts = async (req: Request, res: Response) => {
   const { search, category, tag } = req.query
 
+  let categoryId: string | null = null
+
+  // Get category id from name
+  if (category) {
+    const { data: categoryData, error: categoryError } = await supabase
+      .from('categories')
+      .select('id')
+      .ilike('name', `%${category}%`)
+      .single()
+
+    if (categoryError || !categoryData) return sendResponse(res, 404, 'Category not found')
+    categoryId = categoryData.id
+  }
+
   let query = supabase
     .from('products')
     .select('*, categories(name, slug)')
     .order('created_at', { ascending: false })
 
   if (search) query = query.ilike('name', `%${search}%`)
-  if (category) query = query.eq('category_id', category)
-  if (tag) query = query.eq('tag', tag)
+  if (categoryId) query = query.eq('category_id', categoryId)
+  if (tag) query = query.contains('tags', [tag])
 
   const { data, error } = await query
 
@@ -85,6 +99,20 @@ export const getUserProducts = async (req: Request, res: Response) => {
   const from = (pageNumber - 1) * pageSize
   const to = from + pageSize - 1
 
+  // Get category id from name
+  let categoryId: string | null = null
+
+  if (category && category !== 'all') {
+    const { data: categoryData, error: categoryError } = await supabase
+      .from('categories')
+      .select('id')
+      .ilike('name', `%${category}%`)
+      .single()
+
+    if (categoryError || !categoryData) return sendResponse(res, 404, 'Category not found')
+    categoryId = categoryData.id
+  }
+
   let query = supabase
     .from('products')
     .select('*, categories(name, slug)', { count: 'exact' })
@@ -92,8 +120,8 @@ export const getUserProducts = async (req: Request, res: Response) => {
     .range(from, to)
 
   if (search) query = query.ilike('name', `%${search}%`)
-  if (category && category !== 'all') query = query.eq('category_id', category)
-  if (tag) query = query.eq('tag', tag)
+  if (categoryId) query = query.eq('category_id', categoryId)
+  if (tag) query = query.contains('tags', [tag])
 
   const { data, error, count } = await query
 

@@ -1,14 +1,19 @@
-import { setLoading } from "../services/slice/loaderSlice"
-import { Middleware } from '@reduxjs/toolkit'
-
-import { isAction } from '@reduxjs/toolkit'
+// middleware/loaderMiddleware.ts
+import { Middleware, isAction } from '@reduxjs/toolkit';
+import { startLoading, stopLoading } from '../services/slice/loaderSlice';
 
 export const loaderMiddleware: Middleware = (store) => (next) => (action) => {
-  if (isAction(action)) {    
-    if (action.type.endsWith('/pending')) store.dispatch(setLoading(true))
-    if (action.type.endsWith('/fulfilled') || action.type.endsWith('/rejected')) {
-      store.dispatch(setLoading(false))
+  if (isAction(action)) {
+    // action.type looks like "menu/fetchItems/pending"
+    const [sliceName, , status] = action.type.split('/');
+
+    if (sliceName && (status === 'pending' || status === 'fulfilled' || status === 'rejected')) {
+      if (status === 'pending') {
+        store.dispatch(startLoading(sliceName));
+      } else {
+        store.dispatch(stopLoading(sliceName));
+      }
     }
   }
-  return next(action)
-}
+  return next(action);
+};

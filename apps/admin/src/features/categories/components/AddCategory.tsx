@@ -75,6 +75,7 @@ const AddCategory: React.FC<AddCategoryProps> = ({
         </Button>
         <Button
           variant="dark_brown"
+          disabled={!category}
           onClick={() => {
             handleSaveCategory();
           }}

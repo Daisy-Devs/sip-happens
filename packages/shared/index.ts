@@ -77,3 +77,6 @@ export {Spinner} from "./components/ui/spinner";
 export { default as Footer } from "./components/Footer";
 export { default as Navbar } from "./components/Navbar";
 
+export { LoginSchema } from "./schema/auth";
+export { ProductSchema } from "./schema/products";
+export { ContactSchema } from "./schema/contact";

@@ -1,7 +1,7 @@
 "use client";
 import { useLoginMutation } from "@/store/services/api/authApi";
 import { loggedIn } from "@/store/services/slice/authSlice";
-import { Button, Input } from "@sip-happens/shared";
+import { Button, Input, LoginSchema } from "@sip-happens/shared";
 import { ArrowRight, Eye, Lock, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
@@ -13,9 +13,17 @@ const Login = () => {
   const [login] = useLoginMutation();
   const [credentials, setCredentials] = useState({ email: "", password: "" });
   const [showPassword, setShowPassword] = useState(false);
-  const router=useRouter();
+  const [error, setError] = useState({ email: "", password: "" });
+  const router = useRouter();
   const dispatch = useDispatch();
   const loginHandler = () => {
+    const result = LoginSchema.safeParse(credentials);
+    if (!result.success) {
+      setError(result.error.flatten().fieldErrors);
+      console.log(result.error.issues);
+
+      return;
+    }
     login(credentials)
       .unwrap()
       .then((res) => {
@@ -73,6 +81,7 @@ const Login = () => {
             </label>
             <div className="relative">
               <Input
+                error={error.email}
                 placeholder="jojo@example"
                 onChange={(e) =>
                   setCredentials((prev) => ({ ...prev, email: e.target.value }))
@@ -100,6 +109,7 @@ const Login = () => {
                 placeholder="••••••••••••"
                 type={!showPassword ? "password" : "text"}
                 value={credentials.password}
+                error={error.password}
                 onChange={(e) =>
                   setCredentials((prev) => ({
                     ...prev,
@@ -112,7 +122,9 @@ const Login = () => {
                     variant="link"
                     size="sm"
                     className="align-middle ml-15"
-                    onClick={()=>{setShowPassword((prev)=>!prev)}}
+                    onClick={() => {
+                      setShowPassword((prev) => !prev);
+                    }}
                   >
                     <Eye className="text-primary" />
                   </Button>

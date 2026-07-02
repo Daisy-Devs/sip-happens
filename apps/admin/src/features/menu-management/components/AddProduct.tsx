@@ -8,6 +8,7 @@ import {
 import {
   Button,
   Input,
+  ProductSchema,
   Select,
   SelectContent,
   SelectGroup,
@@ -21,11 +22,17 @@ import { useState } from "react";
 type AddProductProps = {
   productData?: ProductType | null;
   setOpen: React.Dispatch<React.SetStateAction<boolean>>;
-  setUpdateProductData: React.Dispatch<React.SetStateAction<ProductType | null>>;
+  setUpdateProductData: React.Dispatch<
+    React.SetStateAction<ProductType | null>
+  >;
 };
-const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdateProductData }) => {
-  const {data} = useGetCategoriesQuery({});
-  console.log("data",productData);
+const AddProduct: React.FC<AddProductProps> = ({
+  productData,
+  setOpen,
+  setUpdateProductData,
+}) => {
+  const { data } = useGetCategoriesQuery({});
+  console.log("data", productData);
   const [updateProduct] = useUpdateProductMutation();
   const [createProduct] = useCreateProductMutation();
   const [product, setProduct] = useState({
@@ -43,9 +50,17 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
       type: "image",
     },
   });
+  const [error, setError] = useState({
+    name: "",
+    category_id: "",
+    description: "",
+    status: "",
+    tags: "",
+    price: "",
+  });
 
   const resetForm = () => {
-        setProduct({
+    setProduct({
       name: "",
       category: "",
       description: "",
@@ -58,17 +73,46 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
         url: "",
         public_id: "",
         type: "image",
-      }
-    })
+      },
+    });
     setUpdateProductData(null);
-    setOpen(false)
-  }
+    setOpen(false);
+  };
   const handleSaveProduct = () => {
+    const result=ProductSchema.safeParse({
+        ...product,
+        category_id: data?.categories?.find(
+          (cat: CategoryType) => cat.slug === product.category,
+        )?.id,
+        price: Number(product.price),
+        tags: product.tags.split(",").map((tag) => tag.trim()),
+      });
+    if (!result.success) {
+      setError(result.error.flatten().fieldErrors);
+      return;
+    }
     const image_url = product.image_url.url;
     if (productData) {
-      updateProduct({ ...product, id: productData.id, image_url,category_id: data?.categories?.find((cat: CategoryType) => cat.slug === product.category)?.id,price: Number(product.price),tags: product.tags.split(",").map((tag) => tag.trim()) });
+      updateProduct({
+        ...product,
+        id: productData.id,
+        image_url,
+        category_id: data?.categories?.find(
+          (cat: CategoryType) => cat.slug === product.category,
+        )?.id,
+        price: Number(product.price),
+        tags: product.tags.split(",").map((tag) => tag.trim()),
+      });
     } else {
-      createProduct({ ...product, image_url,category_id: data?.categories?.find((cat: CategoryType) => cat.slug === product.category)?.id,price: Number(product.price),tags: product.tags.split(",").map((tag) => tag.trim()) });
+      createProduct({
+        ...product,
+        image_url,
+        category_id: data?.categories?.find(
+          (cat: CategoryType) => cat.slug === product.category,
+        )?.id,
+        price: Number(product.price),
+        tags: product.tags.split(",").map((tag) => tag.trim()),
+      });
     }
     resetForm();
   };
@@ -83,6 +127,7 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
         </label>
         <Input
           id="product-name"
+          error={error.name}
           placeholder="Caramel Macchiato"
           value={product.name}
           onChange={(e) => setProduct({ ...product, name: e.target.value })}
@@ -102,7 +147,7 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
               console.log(value);
               setProduct({
                 ...product,
-                category:value,
+                category: value,
               });
             }}
           >
@@ -119,6 +164,7 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
               </SelectGroup>
             </SelectContent>
           </Select>
+          {error.category_id && <p className="text-error">{error.category_id}</p>}
         </div>
       </div>
       <div>
@@ -139,7 +185,9 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
           placeholder="Describe the product for the customer"
         ></textarea>
       </div>
-       <div>
+      <div>
+      </div>
+      <div>
         <label
           htmlFor="product-price"
           className="label-sm text-on-surface-variant"
@@ -150,6 +198,7 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
           id="product-price"
           leftIcon={<span className="text-on-surface-variant">$</span>}
           placeholder="200"
+          error={error.price}
           value={product.price}
           onChange={(e) => setProduct({ ...product, price: e.target.value })}
         />
@@ -173,6 +222,7 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
             </SelectGroup>
           </SelectContent>
         </Select>
+        {error.status && <p className="text-on-error-container text-sm mt-1">{error.status}</p>}
       </div>
       <div>
         <label htmlFor="image" className="label-sm text-on-surface-variant">
@@ -181,7 +231,7 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
         <UploadBox
           value={product.image_url}
           title="Product Image"
-          onChange={(value)=>{
+          onChange={(value) => {
             setProduct({
               ...product,
               image_url: value,
@@ -216,7 +266,12 @@ const AddProduct: React.FC<AddProductProps> = ({ productData, setOpen, setUpdate
         />
       </div>
       <div className="flex justify-between px-5 mt-3">
-        <Button variant="grey" onClick={() =>{resetForm();}}>
+        <Button
+          variant="grey"
+          onClick={() => {
+            resetForm();
+          }}
+        >
           Cancel
         </Button>
         <Button

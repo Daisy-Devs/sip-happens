@@ -3,11 +3,11 @@ import { supabase } from '../db/supabase'
 import { sendResponse } from '../utils/response'
 
 export const createProduct = async (req: Request, res: Response) => {
-  const { name, category_id, price, description, image_url, featured, tag } = req.body
+  const { name, category_id, price, description, image_url, status, featured, tag } = req.body
 
   const { data, error } = await supabase
     .from('products')
-    .insert({ name, category_id, price, description, image_url, featured, tag })
+    .insert({ name, category_id, price, description, image_url, status, featured, tag })
     .select()
     .single()
 
@@ -17,11 +17,11 @@ export const createProduct = async (req: Request, res: Response) => {
 
 export const updateProduct = async (req: Request, res: Response) => {
   const { id } = req.params
-  const { name, category_id, price, description, image_url, featured, tag } = req.body
+  const { name, category_id, price, description, image_url, status, featured, tag } = req.body
 
   const { data, error } = await supabase
     .from('products')
-    .update({ name, category_id, price, description, image_url, featured, tag })
+    .update({ name, category_id, price, description, image_url, status, featured, tag })
     .eq('id', id)
     .select()
     .single()

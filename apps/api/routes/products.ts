@@ -23,7 +23,7 @@ router.post('/create', authMiddleware, validate(ProductSchema), createProduct)
 router.post('/update/:id', authMiddleware, validate(UpdateProductSchema), updateProduct)
 router.post('/delete/:id', authMiddleware, deleteProduct)
 
-router.get('/', getProducts)
+router.get('/', authMiddleware, getProducts)
 router.get('/user', getUserProducts)
 router.get('/featured', getFeaturedProducts)
 

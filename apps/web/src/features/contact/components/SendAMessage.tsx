@@ -1,6 +1,7 @@
 "use client";
 import {
   Button,
+  ContactSchema,
   Input,
   Select,
   SelectContent,
@@ -21,8 +22,21 @@ const SendAMessage = () => {
     subject: "",
     message: "",
   }); 
+  const [error, setError] = useState({
+    name: null,
+    email: null,
+    subject: null,
+    message: null,
+  });
   const [sendAMessage, { isLoading, isSuccess, isError }] = useSendAMessageMutation();
   const handleSubmit = () => {
+    const result= ContactSchema.safeParse(messageState);
+    if (!result.success) {
+      const flattenedErrors = result.error.flatten().fieldErrors;
+      console.log(flattenedErrors);
+      setError(flattenedErrors);
+      return;
+    }
    sendAMessage(messageState).unwrap().then((response) => {
       console.log("Message sent successfully:", response);
     }).catch((error) => {
@@ -42,6 +56,7 @@ const SendAMessage = () => {
           </label>
           <Input
             id="full-name"
+            error={error.name ? error.name[0] : undefined}
             placeholder="John Doe"
             value={messageState.name}
             onChange={(e) => setMessageState({ ...messageState, name: e.target.value })}
@@ -58,6 +73,7 @@ const SendAMessage = () => {
             id="email-address"
             placeholder="john@example.com"
             value={messageState.email}
+            error={error.email ? error.email[0] : undefined}
             onChange={(e) => setMessageState({ ...messageState, email: e.target.value })}
           />
         </div>
@@ -86,13 +102,16 @@ const SendAMessage = () => {
             </SelectGroup>
           </SelectContent>
         </Select>
+        {error.subject && (
+          <p className="text-on-error-container text-sm mt-1">{error.subject[0]}</p>
+        )}
       </div>
       <div>
         <label
           htmlFor="message"
           className="label-sm text-on-surface-variant"
         >Your Message</label>
-        <textarea 
+        <textarea
           className="block p-3 w-full rounded-md bg-surface text-[16px] text-on-surface-variant placeholder:text-outline-variant transition-colors disabled:pointer-events-none disabled:opacity-50 shadow-[inset_2px_2px_6px_#E8DED2]" 
           id="message" 
           rows={6} 
@@ -101,6 +120,9 @@ const SendAMessage = () => {
           onChange={(e) => setMessageState({ ...messageState, message: e.target.value })}
         >
         </textarea>
+        {error.message && (
+          <p className="text-on-error-container text-sm mt-1">{error.message[0]}</p>
+        )}
       </div>
       <Button disabled={isLoading} leftIcon={isLoading?<Spinner />:null} variant="dark_brown" size="lg" className="w-full self-center" onClick={handleSubmit}>
         Send Message

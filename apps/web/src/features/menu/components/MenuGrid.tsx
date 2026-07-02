@@ -1,9 +1,8 @@
-
 import MenuCard from "./MenuCard";
 import { MenuItem } from "../type";
 
-
 export default function MenuGrid({ items }: { items: MenuItem[] }) {
+  console.log("MenuGrid received:", items);
   if (items.length === 0) {
     return (
       <div className="text-center py-20">

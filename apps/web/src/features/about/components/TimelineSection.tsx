@@ -52,7 +52,10 @@ function TimelineRow({ year, text, img, icon: Icon, reverse }: RowProps) {
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center z-20">
         <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-container border-4 border-background shadow-md">
-          <Icon className="h-5 w-5 text-on-secondary-container" strokeWidth={2.5} />
+          <Icon
+            className="h-5 w-5 text-on-secondary-container"
+            strokeWidth={2.5}
+          />
         </div>
       </div>
       <div

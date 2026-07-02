@@ -5,7 +5,7 @@ export interface MenuItem {
   name: string;
   price: string | number;
   description: string;
-  image: string;
+  image_url: string;
   category: string;
   badge?: BadgeType | null;
 }
@@ -13,4 +13,14 @@ export interface MenuItem {
 export interface HeroProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;
+}
+
+export interface FilterProps {
+  categories: CategoryItem[];
+  activeCategory: string;
+  onCategoryChange: (name: string) => void;
+}
+export interface CategoryItem {
+  id: string;
+  name: string;
 }

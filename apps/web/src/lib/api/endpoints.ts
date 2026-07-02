@@ -1,7 +1,7 @@
 export const ENDPOINTS = {
   products: {
-    getCategory:"/api/category/",
-    getProduct:'/api/product/',
-    getFeaturedProduct:'/api/product/featured'
+    getCategory:"/category/",
+    getProduct:'/product/user',
+    getFeaturedProduct:'/product/featured'
   }
 }

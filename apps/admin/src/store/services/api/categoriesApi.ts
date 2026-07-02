@@ -8,6 +8,7 @@ export const categoriesApi=apiSlice.injectEndpoints({
                 url:ENDPOINTS.categories.create,
                 method:"POST",
                 body:category,
+                invalidateTags:["Categories"],
                 headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`}
             })
         }),
@@ -15,12 +16,14 @@ export const categoriesApi=apiSlice.injectEndpoints({
             query:()=>({
                 url:ENDPOINTS.categories.get,
                 method:"GET",
+                tags:["Categories"],
             })
         }),
         deleteCategory:builder.mutation({
             query:(id)=>({
                 url:ENDPOINTS.categories.delete.replace(":id",id),
                 method:"POST",
+                invalidateTags:["Categories"],
                 headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`}
             })
         }),
@@ -29,6 +32,7 @@ export const categoriesApi=apiSlice.injectEndpoints({
                 url:ENDPOINTS.categories.update.replace(":id",category.id),
                 method:"POST",
                 body:category,
+                invalidateTags:["Categories"],
                 headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`}
             })
         })

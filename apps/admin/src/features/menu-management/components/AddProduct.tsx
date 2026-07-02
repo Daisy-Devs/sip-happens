@@ -16,6 +16,7 @@ import {
   SelectTrigger,
   SelectValue,
   Switch,
+  toast,
 } from "@sip-happens/shared";
 import { useState } from "react";
 
@@ -79,18 +80,20 @@ const AddProduct: React.FC<AddProductProps> = ({
     setOpen(false);
   };
   const handleSaveProduct = () => {
-    const result=ProductSchema.safeParse({
-        ...product,
-        category_id: data?.categories?.find(
-          (cat: CategoryType) => cat.slug === product.category,
-        )?.id,
-        price: Number(product.price),
-        tags: product.tags.split(",").map((tag) => tag.trim()),
-      });
+    const result = ProductSchema.safeParse({
+      ...product,
+      image_url: product.image_url.url,
+      category_id: data?.categories?.find(
+        (cat: CategoryType) => cat.slug === product.category,
+      )?.id,
+      price: Number(product.price),
+      tags: product.tags.split(",").map((tag) => tag.trim()),
+    });
     if (!result.success) {
-      setError(result.error.flatten().fieldErrors);
+      setError(result?.error?.flatten()?.fieldErrors);
       return;
     }
+
     const image_url = product.image_url.url;
     if (productData) {
       updateProduct({
@@ -102,7 +105,16 @@ const AddProduct: React.FC<AddProductProps> = ({
         )?.id,
         price: Number(product.price),
         tags: product.tags.split(",").map((tag) => tag.trim()),
-      });
+      })
+        .unwrap()
+        .then((res) => {
+          toast.success("Product updated successfully");
+          console.log("Product updated successfully:", res);
+        })
+        .catch((err) => {
+          toast.error("Failed to update product");
+          console.error("Failed to update product:", err);
+        });
     } else {
       createProduct({
         ...product,
@@ -112,7 +124,16 @@ const AddProduct: React.FC<AddProductProps> = ({
         )?.id,
         price: Number(product.price),
         tags: product.tags.split(",").map((tag) => tag.trim()),
-      });
+      })
+        .unwrap()
+        .then((res) => {
+          toast.success("Product created successfully");
+          console.log("Product created successfully:", res);
+        })
+        .catch((err) => {
+          toast.error("Failed to create product");
+          console.error("Failed to create product:", err);
+        });
     }
     resetForm();
   };
@@ -164,7 +185,9 @@ const AddProduct: React.FC<AddProductProps> = ({
               </SelectGroup>
             </SelectContent>
           </Select>
-          {error.category_id && <p className="text-error">{error.category_id}</p>}
+          {error.category_id && (
+            <p className="text-error">{error.category_id}</p>
+          )}
         </div>
       </div>
       <div>
@@ -185,8 +208,7 @@ const AddProduct: React.FC<AddProductProps> = ({
           placeholder="Describe the product for the customer"
         ></textarea>
       </div>
-      <div>
-      </div>
+      <div></div>
       <div>
         <label
           htmlFor="product-price"
@@ -217,12 +239,14 @@ const AddProduct: React.FC<AddProductProps> = ({
           <SelectContent>
             <SelectGroup>
               <SelectItem value="available">Available</SelectItem>
-              <SelectItem value="low-stock">Low Stock</SelectItem>
-              <SelectItem value="out-of-stock">Out of Stock</SelectItem>
+              <SelectItem value="low_stock">Low Stock</SelectItem>
+              <SelectItem value="out_of_stock">Out of Stock</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
-        {error.status && <p className="text-on-error-container text-sm mt-1">{error.status}</p>}
+        {error.status && (
+          <p className="text-on-error-container text-sm mt-1">{error.status}</p>
+        )}
       </div>
       <div>
         <label htmlFor="image" className="label-sm text-on-surface-variant">

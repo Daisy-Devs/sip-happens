@@ -1,6 +1,6 @@
 "use client";
 
-import { Button } from "@sip-happens/shared";
+import { Button, toast } from "@sip-happens/shared";
 import { UploadCloud } from "lucide-react";
 import React, { ChangeEvent, useRef } from "react";
 import UploadedFileList from "./UploadedFileList";
@@ -41,10 +41,13 @@ export const UploadBox: React.FC<UploadBoxProps> = ({
       return;
     }
     formData.append("image", files[0]);
+    toast.loading("Uploading image...");
     uploadProductImage(formData)
       .unwrap()
       .then((res) => {
         console.log("Upload product image:", res);
+        toast.dismiss();
+        toast.success("Image uploaded successfully");
         onChange({
           name: res.image.name,
           url: res.image.url,
@@ -54,7 +57,7 @@ export const UploadBox: React.FC<UploadBoxProps> = ({
       })
       .catch((err) => {
         console.log("Failed to upload product image. Error:", err);
-        // toast.error("Failed to upload product image. Please try again.");
+        toast.error("Failed to upload product image. Please try again.");
       });
   };
   const fileList = value

@@ -43,10 +43,6 @@ const baseQueryWithAuth: BaseQueryFn<
   if (result.error?.status === 401) {
     console.log("Unauthorized");
     window.location.href = "/session-expired";
-    // Example:
-    // api.dispatch(logout());
-    // window.location.href = "/login";
-    // or trigger a token refresh here
   }
 
   return result;

@@ -1,6 +1,6 @@
 import { ImageAsset } from "@/features/overview/types";
 import { useDeleteProductImageMutation } from "@/store/services/api/productsApi";
-import { Button, Spinner } from "@sip-happens/shared";
+import { Button, Spinner, toast } from "@sip-happens/shared";
 import { CircleCheck, X } from "lucide-react"
 
 
@@ -19,8 +19,9 @@ const UploadedFile=({fileName,public_id,type,onDelete}:UploadedFileProps) => {
       const res= deleteDocument({public_id,type}).unwrap()
       console.log(res);
       onDelete()
+      toast.success("Document deleted successfully")
     } catch (error) {
-    //   toast.error("Failed to delete document")
+      toast.error("Failed to delete document")
       console.error("Error deleting document:", error);
     }
   }

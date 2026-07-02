@@ -4,6 +4,7 @@ import "@sip-happens/shared/globals.css";
 import { cn } from "@/lib/utils";
 import {
   SidebarProvider,
+  Toaster,
 } from "@sip-happens/shared";
 import AppSidebar from "@/components/AppSidebar";
 import Header from "@/components/Header";
@@ -49,6 +50,7 @@ export default function RootLayout({
           )}
           <main className="w-full h-full">
             <Header />
+            <Toaster position="top-center"/>
             {children}
             <footer className="mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
               <p className="text-on-surface-variant label-sm">

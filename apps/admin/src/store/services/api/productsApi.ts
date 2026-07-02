@@ -9,19 +9,22 @@ export const productsApi=apiSlice.injectEndpoints({
                 url:ENDPOINTS.products.create,
                 method:"POST",
                 headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`},
-                body:product
+                body:product,
+                invalidateTags:["Products"],
             })
         }),
         getProducts:builder.query({
             query:()=>({
                 url:ENDPOINTS.products.get,
-                method:"GET"
+                method:"GET",
+                tags:["Products"],
             })
         }),
         deleteProduct:builder.mutation({
             query:(id)=>({
                 url:ENDPOINTS.products.delete.replace(":id",id),
                 method:"POST",
+                invalidateTags:["Products"],
                 headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`},
             })
         }),
@@ -29,6 +32,7 @@ export const productsApi=apiSlice.injectEndpoints({
             query:(product)=>({
                 url:ENDPOINTS.products.update.replace(":id",product.id),
                 method:"POST",
+                invalidateTags:["Products"],
                 headers:{"Content-Type":"application/json","Authorization":`Bearer ${localStorage.getItem("token")}`},
                 body:product
             })

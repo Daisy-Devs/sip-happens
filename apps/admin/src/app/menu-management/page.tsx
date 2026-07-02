@@ -16,6 +16,7 @@ import {
   DataTable,
   Input,
   ResponsiveDrawer,
+  toast,
 } from "@sip-happens/shared";
 import { Search } from "lucide-react";
 import { useState } from "react";
@@ -25,6 +26,8 @@ const MenuManagement = () => {
   const User = useAppSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const { data } = useGetProductsQuery({});
+  console.log("d",data);
+  
   const [deleteProduct] = useDeleteProductMutation();
   const [updateProductData, setUpdateProductData] =
     useState<ProductType | null>(null);
@@ -37,7 +40,13 @@ const MenuManagement = () => {
           dispatch(showAddProduct());
         },
         delete: () => {
-          deleteProduct(product.id);
+          deleteProduct(product.id).unwrap().then((res) => {
+            console.log("Product deleted successfully:", res);
+            toast.success("Product deleted successfully");
+          }).catch((err) => {
+            console.error("Failed to delete product:", err);
+            toast.error("Failed to delete product");
+          })
         },
       },
       category: product.categories.name,

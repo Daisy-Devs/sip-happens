@@ -2,7 +2,7 @@ import "@sip-happens/shared/globals.css";
 import { Playfair_Display,Plus_Jakarta_Sans } from "next/font/google";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";
-import { Footer, Navbar } from "@sip-happens/shared";
+import { Footer, Navbar, Toaster } from "@sip-happens/shared";
 import Providers from "@/components/Providers";
 
 const playfair = Playfair_Display({
@@ -34,6 +34,7 @@ export default function RootLayout({
             {children}
           </main>
         </div>
+        <Toaster richColors position="top-center"/>
         <Footer/>
         </Providers>
       </body>

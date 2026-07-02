@@ -10,6 +10,7 @@ import {
   SelectTrigger,
   SelectValue,
   Spinner,
+  toast,
 } from "@sip-happens/shared";
 import { MessageState } from "../types";
 import { useState } from "react";
@@ -39,8 +40,10 @@ const SendAMessage = () => {
     }
    sendAMessage(messageState).unwrap().then((response) => {
       console.log("Message sent successfully:", response);
+      toast.success("Message sent successfully");
     }).catch((error) => {
       console.error("Error sending message:", error);
+      toast.error("Failed to send message, please try again");
     })
   }
   return (

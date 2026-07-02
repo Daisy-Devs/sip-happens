@@ -2,7 +2,6 @@
 import { useAppSelector } from "@/store/store";
 import { UserCircle2 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useState } from "react";
 
 const Header = () => {
     const pathName = usePathname();
@@ -15,7 +14,7 @@ const Header = () => {
     <header className="sticky top-0 w-full bg-background z-40 px-16 py-4 flex justify-between items-center border-b border-outline-variant/10">
       <div>
         <h1 className="headline-lg text-headline-lg text-primary">
-          {pathName === "/" ? "Dashboard Overview" : "Menu Management"}
+          {pathName === "/" ? "Dashboard Overview" : pathName === "/menu-management" ? "Menu Management" : pathName === "/categories" ? "Category Management" : ""}
         </h1>
         <p className="text-on-surface-variant body-md">Welcome back, Alex.</p>
       </div>

@@ -29,6 +29,7 @@ export default function RootLayout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  
   return (
     <html
       lang="en"
@@ -40,15 +41,13 @@ export default function RootLayout({
         "font-sans",
       )}
     >
-      <body className="min-h-full flex flex-col">
+      <body className="min-h-full flex flex-col bg-surface-container overflow-y-scroll">
         <Providers>
         <SidebarProvider>
           {AppSidebar && (
-            <div>
               <AppSidebar />
-            </div>
           )}
-          <main className="w-full h-full">
+          <main className="w-full h-full md:pl-70">
             <Header />
             <Toaster position="top-center"/>
             {children}

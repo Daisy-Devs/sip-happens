@@ -70,7 +70,7 @@ const MenuManagement = () => {
       status: "Available",
     })) || [];
   return (
-    <main className="flex h-full w-full flex-col items-start md:items-center py-16 bg-background md:space-y-12">
+    <div className="flex h-full flex-col items-start md:items-center py-16 bg-background md:space-y-12 overflow-x-scroll">
       <ResponsiveDrawer
         title="Add New Product"
         open={User?.addingProduct || false}
@@ -93,7 +93,9 @@ const MenuManagement = () => {
       <DataTable
         columns={productsColumns}
         tableTopComponent={
-          <div className="flex items-center justify-between pl-7 pr-30 py-6">
+          <div className="flex items-center justify-between pl-4 pr-30 py-6">
+          <div className="flex gap-2 px-3">
+            <h1 className="headline-md text-on-surface">Menu Items</h1>
             <Input
               variant={"small"}
               leftIcon={<Search />}
@@ -101,10 +103,12 @@ const MenuManagement = () => {
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search menu"
             />
+          </div>
             <Button
               onClick={() => {
                 dispatch(showAddProduct());
               }}
+              size={"sm"}
               variant="light_brown"
             >
               Add Product
@@ -116,7 +120,7 @@ const MenuManagement = () => {
         rowLimit={7}
         showPagination
       />
-    </main>
+    </div>
   );
 };
 

@@ -47,11 +47,13 @@ const Categories = () => {
       <DataTable
         columns={categoryColumns}
         tableTopComponent={
-          <div className="flex justify-end pr-15 py-6">
+          <div className="flex justify-between px-6 py-3">
+            <h1 className="headline-md text-on-surface">Active Categories</h1>
             <Button
               onClick={() => {
                 setShowAddCategory(true);
               }}
+              size="sm"
               variant="light_brown"
             >
               Add Category

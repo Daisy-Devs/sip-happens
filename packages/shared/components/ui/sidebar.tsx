@@ -22,7 +22,7 @@ import {
   TooltipContent,
   TooltipTrigger,
 } from "@sip-happens/shared/components/ui/tooltip"
-import { PanelLeftIcon } from "lucide-react"
+import { MenuSquare, PanelLeftIcon } from "lucide-react"
 
 const SIDEBAR_COOKIE_NAME = "sidebar_state"
 const SIDEBAR_COOKIE_MAX_AGE = 60 * 60 * 24 * 7
@@ -261,15 +261,16 @@ function SidebarTrigger({
     <Button
       data-sidebar="trigger"
       data-slot="sidebar-trigger"
-      size="sm"
-      className={cn(className)}
+      size="short"
+      variant="square_brown"
+      className={cn(className,'align-middle mt-1 mr-1')}
       onClick={(event) => {
         onClick?.(event)
         toggleSidebar()
       }}
       {...props}
     >
-      <PanelLeftIcon />
+      <MenuSquare size={20}/>
       <span className="sr-only">Toggle Sidebar</span>
     </Button>
   )

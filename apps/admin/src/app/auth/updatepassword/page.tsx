@@ -1,19 +1,34 @@
-
 "use client";
 
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Eye, ArrowRight, ArrowLeft, Shield } from "lucide-react";
+import { Eye, EyeOff, ArrowRight, ArrowLeft, Shield } from "lucide-react";
 import { Badge, Input } from "@sip-happens/shared";
-
+import { useUpdatePasswordMutation } from "@/store/services/api/authApi";
 export default function UpdatePasswordPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  
+  const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/dashboard"); // Routed to dashboard on successful change
+
+    if (password !== confirmPassword) {
+      alert("Passwords do not match!");
+      return;
+    }
+
+    try {
+      await updatePassword({ password }).unwrap();
+      alert("Password updated successfully!");
+      router.push("/dashboard"); 
+    } catch (err: any) {
+      alert(err?.data?.message || "Failed to update password. Please try again.");
+    }
   };
 
   return (
@@ -41,7 +56,6 @@ export default function UpdatePasswordPage() {
             Managing artisanal moments with precision and warmth.
           </p>
         </div>
-
         <div className="h-4 lg:h-6 z-10 hidden lg:block" />
       </div>
 
@@ -49,13 +63,13 @@ export default function UpdatePasswordPage() {
         <div className="w-full flex items-center justify-between text-sm mb-4 lg:mb-0">
           <Link
             href="/forgotpassword"
-            className="flex items-center gap-2 text-secondary  transition-colors group"
+            className="flex items-center gap-2 text-secondary transition-colors group"
           >
             <ArrowLeft
               size={16}
               className="transform group-hover:-translate-x-1 transition-transform"
             />
-            <span>Back to Dashboard</span>
+            <span>Back to Forgot Password</span>
           </Link>
         </div>
 
@@ -72,7 +86,6 @@ export default function UpdatePasswordPage() {
             </div>
 
             <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-             
               <div className="space-y-1.5">
                 <label className="text-xs font-semibold text-secondary block">
                   New Password
@@ -80,16 +93,19 @@ export default function UpdatePasswordPage() {
                 <div className="relative rounded-xl shadow-sm ">
                   <Input
                     required
+                    type={showPassword ? "text" : "password"}
+                    value={password}
+                    onChange={(e: any) => setPassword(e.target.value)}
                     placeholder="Min. 12 characters"
-                    className="pl-11 pr-4 py-5 sm:py-6 text-sm w-full"
+                    className="pl-4 pr-11 py-5 sm:py-6 text-sm w-full"
                   />
-                  <a
+                  <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center z-10 cursor-pointer text-stone-400 hover:text-stone-600 select-none"
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center z-10 text-stone-400 hover:text-stone-600 select-none"
                   >
-                    <Eye size={18} />
-                  </a>
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
 
@@ -100,24 +116,28 @@ export default function UpdatePasswordPage() {
                 <div className="relative rounded-xl shadow-sm ">
                   <Input
                     required
+                    type={showPassword ? "text" : "password"}
+                    value={confirmPassword}
+                    onChange={(e: any) => setConfirmPassword(e.target.value)}
                     placeholder="Repeat new password"
-                    className="pl-11 pr-4 py-5 sm:py-6 text-sm w-full"
+                    className="pl-4 pr-11 py-5 sm:py-6 text-sm w-full"
                   />
-                  <a
+                  <button
                     type="button"
                     onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center z-10 cursor-pointer text-stone-400 hover:text-stone-600 select-none"
+                    className="absolute inset-y-0 right-0 pr-4 flex items-center z-10 text-stone-400 hover:text-stone-600 select-none"
                   >
-                    <Eye size={18} />
-                  </a>
+                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
+                  </button>
                 </div>
               </div>
 
               <button
                 type="submit"
-                className="w-full py-3.5 sm:py-4 px-6 bg-[#FCDFCB] hover:bg-[#FAD0B4] text-[#5C3A21] font-medium rounded-xl shadow-[0_4px_14px_rgba(252,223,203,0.2)] transition-all duration-200 flex items-center justify-center gap-2 group text-sm mt-4"
+                disabled={isLoading}
+                className="w-full py-3.5 sm:py-4 px-6 bg-[#FCDFCB] hover:bg-[#FAD0B4] text-[#5C3A21] font-medium rounded-xl shadow-[0_4px_14px_rgba(252,223,203,0.2)] transition-all duration-200 flex items-center justify-center gap-2 group text-sm mt-4 disabled:opacity-50"
               >
-                <span>Update Password</span>
+                <span>{isLoading ? "Updating..." : "Update Password"}</span>
                 <ArrowRight
                   size={16}
                   className="transform group-hover:translate-x-1 transition-transform"
@@ -130,10 +150,7 @@ export default function UpdatePasswordPage() {
         <div className="w-full pt-6 text-center border-t border-stone-200/60 mt-6 lg:mt-0">
           <p className="text-xs text-on-surface-variant">
             Having trouble?{" "}
-            <a
-              href="#support"
-              className="text-[#845326] font-medium hover:underline"
-            >
+            <a href="#support" className="text-[#845326] font-medium hover:underline">
               Contact IT Support
             </a>
           </p>

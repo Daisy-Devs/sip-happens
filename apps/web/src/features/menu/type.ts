@@ -1,15 +1,15 @@
 export type BadgeType = "Featured" | "Seasonal" | "Best Seller";
-
 export interface MenuItem {
   id: string;
   name: string;
   price: string | number;
   description: string;
   image_url: string;
-  category: string;
+  category_id?: string;
+  featured?: boolean;    
+  tags?: string[];       
   badge?: BadgeType | null;
 }
-
 export interface HeroProps {
   searchQuery: string;
   onSearchChange: (value: string) => void;

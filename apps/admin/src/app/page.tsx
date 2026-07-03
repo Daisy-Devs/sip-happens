@@ -7,18 +7,31 @@ import {
   useDeleteProductMutation,
   useGetProductsQuery,
 } from "@/store/services/api/productsApi";
-import { hideAddProduct, showAddProduct } from "@/store/services/slice/authSlice";
+import {
+  hideAddProduct,
+  showAddProduct,
+} from "@/store/services/slice/authSlice";
 import { useAppSelector } from "@/store/store";
 import { DataTable, Input, ResponsiveDrawer, toast } from "@sip-happens/shared";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 export default function Home() {
   const User = useAppSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const { data } = useGetProductsQuery({});
-  const[deleteProduct]=useDeleteProductMutation();
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const { data } = useGetProductsQuery({
+    search: debouncedSearch,
+  });
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
+  const [deleteProduct] = useDeleteProductMutation();
   const productsData =
     data?.products.map((product: ProductType) => ({
       ...product,
@@ -28,13 +41,16 @@ export default function Home() {
           dispatch(showAddProduct());
         },
         delete: () => {
-          deleteProduct(product.id).unwrap().then((res) => {
-            console.log("Product deleted successfully:", res);
-            toast.success("Product deleted successfully");
-          }).catch((err) => {
-            console.error("Failed to delete product:", err);
-            toast.error("Failed to delete product");
-          });
+          deleteProduct(product.id)
+            .unwrap()
+            .then((res) => {
+              console.log("Product deleted successfully:", res);
+              toast.success("Product deleted successfully");
+            })
+            .catch((err) => {
+              console.error("Failed to delete product:", err);
+              toast.error("Failed to delete product");
+            });
         },
       },
       category: product.categories.name,
@@ -80,6 +96,8 @@ export default function Home() {
             <Input
               variant={"small"}
               leftIcon={<Search />}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search menu"
             />
           </div>

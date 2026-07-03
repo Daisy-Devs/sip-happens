@@ -7,6 +7,8 @@ import React from "react";
 import { useGetFeaturedProductsQuery } from "@/store/services/api/productApi";
 import ComponentLoader from "../../../../../../packages/shared/components/CompoentsLoader";
 import emptyAnimation from "../../../../public/loaders/Coffee.json";
+import { useRouter } from "next/navigation";
+import Image from "next/image";
 
 type ProductItem = {
   id: string;
@@ -22,6 +24,8 @@ type ProductItem = {
 };
 
 export default function Selections() {
+  const router = useRouter();
+
   const {
     data: apiResponse,
     isLoading,
@@ -55,13 +59,14 @@ export default function Selections() {
             variant="link"
             text="View Full Menu"
             rightIcon={<ArrowRight size={18} color="#C68B59" />}
+            onClick={() => router.push("/menu")}
           />
         </div>
 
         {menuItems.length === 0 ? (
           <div className="text-center py-15 flex flex-col items-center justify-center">
-            <ComponentLoader 
-              animationData={emptyAnimation} 
+            <ComponentLoader
+              animationData={emptyAnimation}
               width={300}
               height={300}
             />
@@ -70,10 +75,13 @@ export default function Selections() {
           <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:h-auto">
             {featuredItem && (
               <div className="group relative overflow-hidden rounded-3xl h-125 lg:h-full w-full">
-                <img
+                <Image
                   src={featuredItem.image_url || "/placeholder-food.jpg"}
                   alt={featuredItem.name}
-                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                  fill
+                  sizes="(max-width: 1024px) 100vw, 60vw"
+                  className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  priority
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/80 via-[#1A100A]/30 to-transparent" />
 
@@ -111,7 +119,7 @@ export default function Selections() {
                   <img
                     src={item.image_url || "/placeholder-food.jpg"} // Fixed copy-paste bug (switched from featuredItem to item)
                     alt={item.name} // Fixed copy-paste bug (switched from featuredItem to item)
-                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                    className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-100"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/70 via-[#1A100A]/10 to-transparent" />
 

@@ -1,8 +1,6 @@
-// services/slice/loaderSlice.ts
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 type LoaderState = {
-  // e.g., { menu: true, checkout: false }
   loadingActions: Record<string, boolean>; 
 };
 
@@ -25,7 +23,6 @@ export const loaderSlice = createSlice({
 
 export const { startLoading, stopLoading } = loaderSlice.actions;
 
-// Selector to check a specific component's loading state
 export const selectIsComponentLoading = (key: string) => 
   (state: { loader: LoaderState }) => !!state.loader.loadingActions[key];
 

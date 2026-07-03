@@ -3,7 +3,7 @@ import React from 'react'
 
 const CommonQuestions = () => {
   return (
-    <section className="max-w-4xl mx-auto px-5 md:px-30 mb-24 py-20">
+    <section id="faq" className="max-w-4xl mx-auto px-5 md:px-30 mb-24 py-20">
       <h2 className="headline-lg text-center mb-12">
         Common Questions
       </h2>

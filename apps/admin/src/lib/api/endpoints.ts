@@ -2,6 +2,8 @@ export const ENDPOINTS = {
   auth: {
     login: "/admin/login",
     logout: "/admin/logout",
+    forgotPassword:"/admin/forgot-password",
+    updatePassword:"/admin/update-password",
   },
   categories: {
     create: "/category/create",

@@ -1,17 +1,26 @@
 "use client";
 
-import React from "react";
+import React, { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { Mail, ArrowRight, ArrowLeft } from "lucide-react";
 import { Badge, Button, Input } from "@sip-happens/shared";
+import { useForgotPasswordMutation } from "@/store/services/api/authApi"; 
 
 export default function ForgotPasswordPage() {
   const router = useRouter();
+  const [email, setEmail] = useState("");
+  const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    router.push("/updatepassword");
+    try {
+      await forgotPassword({ email }).unwrap();
+      alert("Password reset link sent to your email!");
+      router.push("/auth/updatepassword"); 
+    } catch (err: any) {
+      alert(err?.data?.message || "Something went wrong. Please try again.");
+    }
   };
 
   return (
@@ -21,12 +30,9 @@ export default function ForgotPasswordPage() {
         style={{ backgroundImage: `url('/Cafebg.png')` }}
       >
         <div className="absolute inset-0 bg-[#1A100A]/90 mix-blend-multiply z-0" />
-
         <div className="absolute top-0 left-1/4 w-72 h-72 sm:w-96 sm:h-96 bg-secondary/10 rounded-full blur-[100px] sm:blur-[120px] pointer-events-none z-0" />
         <div className="absolute bottom-10 right-0 w-64 h-64 sm:w-80 sm:h-80 bg-secondary/10 rounded-full blur-[80px] sm:blur-[100px] pointer-events-none z-0" />
-
         <div className="h-4 lg:h-6 z-10" />
-
         <div className="relative z-10 my-auto py-6 sm:py-10 flex flex-col items-center justify-center text-center mx-auto max-w-md">
           <h1 className="text-4xl sm:text-5xl md:text-6xl text-on-primary-container tracking-wide font-medium">
             Sip Happens
@@ -39,13 +45,11 @@ export default function ForgotPasswordPage() {
             <Badge variant="green">Admin v2.4</Badge>
           </div>
         </div>
-        
         <div className="h-4 lg:h-6 z-10 hidden lg:block" />
       </div>
 
       <div className="w-full lg:w-1/2 min-h-screen lg:min-h-0 flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-20 relative bg-[#FEF9F2]">
         <div className="h-2 lg:h-5" />
-
         <div className="w-full max-w-md mx-auto my-auto py-6 sm:py-12">
           <div className="space-y-6">
             <div className="space-y-2">
@@ -71,6 +75,8 @@ export default function ForgotPasswordPage() {
                     variant="default"
                     type="email"
                     required
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                     placeholder="manager@siphappens.cafe"
                     className="pl-11 pr-4 py-5 sm:py-6 text-sm w-full"
                   />
@@ -80,10 +86,11 @@ export default function ForgotPasswordPage() {
               <Button
                 type="submit"
                 variant="square_brown"
-                text="Send Reset Link"
+                text={isLoading ? "Sending..." : "Send Reset Link"}
                 size="lg"
+                disabled={isLoading}
                 rightIcon={<ArrowRight size={18} color="#231005" />}
-                className="w-full py-3 sm:py-4"
+                className="w-full py-3 sm:py-4 disabled:opacity-50"
               />
             </form>
 

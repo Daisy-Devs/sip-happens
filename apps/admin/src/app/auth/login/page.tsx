@@ -30,11 +30,12 @@ const Login = () => {
         console.log(res);
         dispatch(
           loggedIn({
-            name: "",
+            name:res.user.name,
             email: res.user.email,
-            position: "",
+            position: res.user.position,
             addingProduct: false,
             token: res.session.access_token,
+            refreshToken: res.session.refresh_token
           }),
         );
         document.cookie = `token=${res.session.access_token}; path=/`;

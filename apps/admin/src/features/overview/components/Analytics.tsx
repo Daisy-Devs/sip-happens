@@ -11,7 +11,7 @@ type AnalyticsProps = {
 const Analytics: React.FC<AnalyticsProps> = ({ statisticsData }) => {
     const dispatch = useDispatch();
   return (
-    <section className="grid space-y-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-x-8">
+    <section className="grid space-y-5 mb-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-x-5">
       <AnalyticsCard
         heading="Products"
         subheading="Total Items"

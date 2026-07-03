@@ -12,8 +12,9 @@ import {
   showAddProduct,
 } from "@/store/services/slice/authSlice";
 import { useAppSelector } from "@/store/store";
-import { DataTable, Input, ResponsiveDrawer, toast } from "@sip-happens/shared";
+import { Button, DataTable, Input, ResponsiveDrawer, toast } from "@sip-happens/shared";
 import { Search } from "lucide-react";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
@@ -22,6 +23,7 @@ export default function Home() {
   const dispatch = useDispatch();
   const [searchQuery, setSearchQuery] = useState<string>("");
   const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const router=useRouter();
   const { data } = useGetProductsQuery({
     search: debouncedSearch,
   });
@@ -67,7 +69,7 @@ export default function Home() {
   const [updateProductData, setUpdateProductData] =
     useState<ProductType | null>(null);
   return (
-    <div className="flex h-full w-full flex-col items-start md:items-center py-16 px-7 bg-background md:space-y-12">
+    <div className="flex h-full w-full pl-12 md:pl-6 pb-30 flex-col items-start md:items-center py-16 px-7 bg-background md:space-y-12">
       <ResponsiveDrawer
         title="Add New Product"
         open={User?.addingProduct || false}
@@ -92,6 +94,7 @@ export default function Home() {
         columns={ProductsColumns}
         tableTopComponent={
           <div className="flex items-center justify-between py-6 px-7">
+            <div className="flex gap-2">
             <h1 className="headline-md text-on-surface">Menu Items</h1>
             <Input
               variant={"small"}
@@ -99,13 +102,14 @@ export default function Home() {
               value={searchQuery}
               onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search menu"
-            />
+            /></div>
+            <Button onClick={() => router.push("/menu-management")} size="sm" variant="light_brown">See all products</Button>
           </div>
         }
         data={productsData}
         emptyMessage="No products were added"
         rowLimit={3}
-        showPagination
+        showPagination={false}
       />
     </div>
   );

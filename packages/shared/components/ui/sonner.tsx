@@ -6,7 +6,6 @@ import { CircleCheckIcon, InfoIcon, TriangleAlertIcon, OctagonXIcon, Loader2Icon
 
 const Toaster = ({ ...props }: ToasterProps) => {
   const { theme = "system" } = useTheme()
-console.log("Toaster mounted");
   return (
     <Sonner
       theme={theme as ToasterProps["theme"]}

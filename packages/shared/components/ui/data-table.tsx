@@ -49,8 +49,8 @@ export function DataTable<TData, TValue>({
   });
 
   return (
-    <div className="w-11/12 bg-outline-variant/10 rounded-xl shadow-2xl">
-      <div className="overflow-hidden">
+    <div className="md:w-11/12 bg-outline-variant/10 rounded-xl border-outline-variant/30 border-1 shadow-2xl shadow-outline-variant mb-5">
+      <div>
         <Table>
           {tableTopComponent && (
             <caption className="caption-top">{tableTopComponent}</caption>

@@ -19,15 +19,23 @@ import {
   toast,
 } from "@sip-happens/shared";
 import { Search } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 
 const MenuManagement = () => {
   const User = useAppSelector((state) => state.auth.user);
   const dispatch = useDispatch();
-  const { data } = useGetProductsQuery({});
-  console.log("d",data);
-  
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [debouncedSearch, setDebouncedSearch] = useState<string>("");
+  const { data } = useGetProductsQuery({
+    search: debouncedSearch,
+  });
+  useEffect(() => {
+    const handler = setTimeout(() => {
+      setDebouncedSearch(searchQuery);
+    }, 300);
+    return () => clearTimeout(handler);
+  }, [searchQuery]);
   const [deleteProduct] = useDeleteProductMutation();
   const [updateProductData, setUpdateProductData] =
     useState<ProductType | null>(null);
@@ -40,13 +48,16 @@ const MenuManagement = () => {
           dispatch(showAddProduct());
         },
         delete: () => {
-          deleteProduct(product.id).unwrap().then((res) => {
-            console.log("Product deleted successfully:", res);
-            toast.success("Product deleted successfully");
-          }).catch((err) => {
-            console.error("Failed to delete product:", err);
-            toast.error("Failed to delete product");
-          })
+          deleteProduct(product.id)
+            .unwrap()
+            .then((res) => {
+              console.log("Product deleted successfully:", res);
+              toast.success("Product deleted successfully");
+            })
+            .catch((err) => {
+              console.error("Failed to delete product:", err);
+              toast.error("Failed to delete product");
+            });
         },
       },
       category: product.categories.name,
@@ -86,6 +97,8 @@ const MenuManagement = () => {
             <Input
               variant={"small"}
               leftIcon={<Search />}
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               placeholder="Search menu"
             />
             <Button

@@ -9,6 +9,7 @@ import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const router = useRouter();
   const { resolvedTheme:theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
@@ -88,7 +89,12 @@ const Navbar = () => {
           className="bg-[url('/Container.png')] bg-contain bg-center bg-no-repeat data-[state=checked]:bg-primary mr-3"
         />
 
-        <Button variant="brown" text="Call to Order" size="sm" />
+        <Button
+          variant="brown"
+          text="Call to Order"
+          size="sm"
+          onClick={() => router.push("/contact")}
+        />
       </div>
     </div>
   );

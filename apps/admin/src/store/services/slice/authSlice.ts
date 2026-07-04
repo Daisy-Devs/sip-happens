@@ -1,11 +1,11 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 type User = {
-name: string;
-email: string;
-position: string;
-addingProduct:boolean;
-}
+  name: string;
+  email: string;
+  position: string;
+  addingProduct: boolean;
+};
 type AuthState = {
   isAuthenticated: boolean;
   token: string | null;
@@ -32,6 +32,9 @@ export const authSlice = createSlice({
       state.user = null;
       document.cookie = "token=; path=/";
     },
+    updateToken: (state, action) => {
+      state.token = action.payload;
+    },
     showAddProduct: (state) => {
       if (state.user) {
         state.user.addingProduct = true;
@@ -45,5 +48,5 @@ export const authSlice = createSlice({
   },
 });
 
-export const { loggedIn, loggedOut, showAddProduct, hideAddProduct } = authSlice.actions;
-  
+export const { loggedIn, loggedOut, showAddProduct, hideAddProduct, updateToken } =
+  authSlice.actions;

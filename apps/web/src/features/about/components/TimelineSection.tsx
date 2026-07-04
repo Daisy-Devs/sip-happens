@@ -51,9 +51,9 @@ function TimelineRow({ year, text, img, icon: Icon, reverse }: RowProps) {
       </div>
 
       <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 hidden md:flex items-center justify-center z-20">
-        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-secondary-container border-4 border-background shadow-md">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-primary-container border-4 border-background shadow-md">
           <Icon
-            className="h-5 w-5 text-on-secondary-container"
+            className="h-5 w-5 text-on-primary-container"
             strokeWidth={2.5}
           />
         </div>
@@ -61,7 +61,7 @@ function TimelineRow({ year, text, img, icon: Icon, reverse }: RowProps) {
       <div
         className={`w-full md:w-1/2 flex ${reverse ? "justify-end md:pr-12" : "justify-start md:pl-12"}`}
       >
-        <div className="relative w-full max-w-md aspect-16/10 rounded-2xl overflow-hidden shadow-md group bg-stone-100">
+        <div className="relative w-full max-w-md aspect-16/10 rounded-2xl overflow-hidden shadow-md group bg-timeline-card border-outline-varian">
           <Image
             src={img}
             alt={`Sip Happens in ${year}`}
@@ -76,7 +76,7 @@ function TimelineRow({ year, text, img, icon: Icon, reverse }: RowProps) {
 
 export default function TimelineSection() {
   return (
-    <section className="max-w-5xl mx-auto px-4 py-20 bg-[#F8F3EC] mt-6 mb-6">
+    <section className="max-w-5xl mx-auto px-4 py-20 bg-surface-container rounded-sm mt-6 mb-6">
       <div className="text-center mb-10">
         <Badge variant="green">THE JOURNEY</Badge>
         <h2 className="headline-xxl  text-4xl md:text-5xl text-primary mt-3">
@@ -85,8 +85,10 @@ export default function TimelineSection() {
       </div>
 
       <div className="relative">
-        <div className="absolute left-1/2 top-4 bottom-4 w-0.5 bg-linear-to-b from-[#D4A373]/10 via-[#D4A373]/40 to-[#D4A373]/10 -translate-x-1/2 hidden md:block" />
-
+        <div
+          className="absolute left-1/2 top-4 bottom-4 hidden w-0.5 -translate-x-1/2 md:block
+  bg-linear-to-b from-timeline/10 via-timeline/50 to-timeline/10"
+        />
         <div className="space-y-12 md:space-y-0  p-6">
           {timelineData.map((item, index) => (
             <TimelineRow key={index} {...item} />

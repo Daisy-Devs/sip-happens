@@ -90,11 +90,11 @@ export default function Selections() {
                     {featuredItem.categories?.name || "Signature Blend"}
                   </span>
 
-                  <h3 className="mt-2 headline-lg text-3xl text-white">
+                  <h3 className="mt-2 headline-lg text-3xl text-[#FFFFFE]">
                     {featuredItem.name}
                   </h3>
 
-                  <p className="mt-2 max-w-sm text-sm text-white/90 body-md">
+                  <p className="mt-2 max-w-sm text-sm text-[#FFFFFE]/90 body-md">
                     {featuredItem.description}
                   </p>
 
@@ -117,17 +117,17 @@ export default function Selections() {
                   className="group relative overflow-hidden rounded-3xl h-full w-full"
                 >
                   <img
-                    src={item.image_url || "/placeholder-food.jpg"} // Fixed copy-paste bug (switched from featuredItem to item)
-                    alt={item.name} // Fixed copy-paste bug (switched from featuredItem to item)
+                    src={item.image_url || "/placeholder-food.jpg"} 
+                    alt={item.name} 
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-100"
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/70 via-[#1A100A]/10 to-transparent" />
 
                   <div className="absolute inset-x-0 bottom-0 p-6 z-10">
-                    <h3 className="body-md text-xl font-medium text-white">
+                    <h3 className="body-md text-xl font-medium text-[#FFFFFE]">
                       {item.name}
                     </h3>
-                    <p className="mt-1 text-xs text-white/80 max-w-xs">
+                    <p className="mt-1 text-xs text-[#FFFFFE]/80 max-w-xs">
                       {item.description}
                     </p>
                   </div>

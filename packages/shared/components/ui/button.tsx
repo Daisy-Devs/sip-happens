@@ -13,7 +13,7 @@ const buttonVariants = cva(
         brown:
           "bg-gradient-to-r from-[#231005] to-[#3B2416] text-white hover:opacity-90 rounded-2xl",
         light_white:
-          "bg-white/47 text-black rounded-xl border-3 border-white/100 rounded-2xl",
+          "bg-white/47 dark:bg-[#bc9158] text-black rounded-xl border-3 border-white/100 rounded-2xl",
         dark_white: "bg-white/10 text-white rounded-xl border border-white/20",
         light_brown:
           "bg-secondary-container text-on-secondary-container hover:opacity-90 rounded-full",

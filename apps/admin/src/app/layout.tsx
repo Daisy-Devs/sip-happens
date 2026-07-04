@@ -49,11 +49,11 @@ export default function RootLayout({
         <Providers>
           <SidebarProvider>
             {AppSidebar && <AppSidebar />}
-            <main className="w-full h-full md:pl-70">
+            <main className="w-full h-full">
               <Header />
               <Toaster position="top-center" />
               {children}
-              <footer className="mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
+              <footer className=" md:pl-85 mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
                 <p className="text-on-surface-variant label-sm">
                   © 2026 Sip Happens Artisanal Café. Admin Console v1.0.0
                 </p>

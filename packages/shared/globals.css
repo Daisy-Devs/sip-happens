@@ -110,10 +110,9 @@
   --background: #fef9f2;
   --on-background: #1d1c17;
   --surface-variant: #e7e2db;
-  --table-header: #f5f1eb;
-  --table-body: #fefbf7;
-  --timeline: #d4a373;
-  --timeline-card: #f5f1eb;
+  --table-header: #F5F1EB;
+  --table-body: #FEFBF7;
+  --table-header:#ECE7E1;
 }
 
 .dark {
@@ -163,9 +162,8 @@
   --background: #15130f;
   --on-background: #e8e2dc;
   --surface-variant: #4f453f;
-  --table-body: #fefbf7;
-  --timeline: #e5bfaa;
-  --timeline-card: #2b241f;
+  --table-body: #1C1815;
+  --table-header:#2B2B2B;
 }
 
 /* Typography */

@@ -2,7 +2,7 @@ import React from "react";
 
 const FindUs = () => {
   return (
-    <section className="flex flex-col py-22 items-center w-full bg-surface-container">
+    <section id="find-us" className="flex flex-col py-22 items-center w-full bg-surface-container">
       <h2 className="headline-lg text-primary">Find Us</h2>
       <p className="body-md text-center text-on-surface-variant mb-13">
         Nestled in the heart of the Artisan Quarter, we're just a short walk

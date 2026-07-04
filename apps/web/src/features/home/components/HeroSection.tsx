@@ -41,7 +41,7 @@ export default function HeroSection() {
               size="lg"
               text="Our Location"
               className="w-full sm:w-auto"
-              onClick={() => router.push("/contact")}
+              onClick={() => router.push("/contact#find-us")}
             />
           </div>
         </div>

@@ -2,7 +2,15 @@ import Image from "next/image";
 import { MenuItem, BadgeType } from "../type";
 import { Badge, Card, CardContent } from "@sip-happens/shared";
 
-const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+const cloudinaryLoader = ({
+  src,
+  width,
+  quality,
+}: {
+  src: string;
+  width: number;
+  quality?: number;
+}) => {
   if (src.includes("res.cloudinary.com")) {
     const parts = src.split("/upload/");
     if (parts.length === 2) {
@@ -16,13 +24,16 @@ function MenuCard({ item }: { item: MenuItem }) {
   console.log("MenuCard:", item);
 
   const badgeStyles: Record<BadgeType, string> = {
-    Featured: "bg-emerald-800/10 text-emerald-800 border-emerald-800/20",
-    Seasonal: "bg-amber-700/10 text-amber-700 border-amber-700/20",
-    "Best Seller": "bg-amber-900/10 text-amber-900 border-amber-900/20",
+    Featured:
+      "bg-tertiary-container/20 dark:bg-tertiary-container text-on-tertiary-container border-on-tertiary-container/20",
+    Seasonal:
+      "bg-secondary-container/30 dark:bg-secondary-container text-on-secondary-container border-on-secondary-container/20",
+    "Best Seller":
+      "bg-primary-container/20 dark:bg-primary-container text-on-primary-container border-on-primary-container/20",
   };
 
-  const activeBadge: BadgeType | null = 
-    item.badge || 
+  const activeBadge: BadgeType | null =
+    item.badge ||
     (item.tags && item.tags.length > 0 ? (item.tags[0] as BadgeType) : null) ||
     (item.featured ? "Featured" : null);
 
@@ -34,7 +45,7 @@ function MenuCard({ item }: { item: MenuItem }) {
           src={item.image_url || "/placeholder-food.jpg"}
           alt={item.name}
           fill
-          priority={item.featured || false} 
+          priority={item.featured || false}
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
         />

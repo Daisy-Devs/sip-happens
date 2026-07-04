@@ -2,33 +2,51 @@ import Image from "next/image";
 import { MenuItem, BadgeType } from "../type";
 import { Badge, Card, CardContent } from "@sip-happens/shared";
 
+const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
+  if (src.includes("res.cloudinary.com")) {
+    const parts = src.split("/upload/");
+    if (parts.length === 2) {
+      return `${parts[0]}/upload/f_auto,q_${quality || 85},w_${width}/${parts[1]}`;
+    }
+  }
+  return src;
+};
+
 function MenuCard({ item }: { item: MenuItem }) {
   console.log("MenuCard:", item);
+
   const badgeStyles: Record<BadgeType, string> = {
     Featured: "bg-emerald-800/10 text-emerald-800 border-emerald-800/20",
     Seasonal: "bg-amber-700/10 text-amber-700 border-amber-700/20",
     "Best Seller": "bg-amber-900/10 text-amber-900 border-amber-900/20",
   };
 
+  const activeBadge: BadgeType | null = 
+    item.badge || 
+    (item.tags && item.tags.length > 0 ? (item.tags[0] as BadgeType) : null) ||
+    (item.featured ? "Featured" : null);
+
   return (
     <Card className="border-none bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col group pt-0 pb-0 w-full max-w-sm mx-auto">
-      <div className="relative aspect-square w-full overflow-hidden">
+      <div className="relative aspect-square w-full overflow-hidden bg-stone-100 z-0">
         <Image
+          loader={cloudinaryLoader}
           src={item.image_url || "/placeholder-food.jpg"}
           alt={item.name}
           fill
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
-          className="object-cover group-hover:scale-103 transition-transform duration-500 ease-in-out"
+          priority={item.featured || false} 
+          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+          className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
         />
 
-        {item.badge && (
+        {activeBadge && (
           <Badge
             variant="green"
-            className={`absolute left-4 top-4 font-medium px-2.5 py-0.5 rounded-md border text-[11px] ${
-              badgeStyles[item.badge as BadgeType] || ""
+            className={`absolute left-4 top-4 font-semibold px-2.5 py-1 rounded-md border text-[11px] tracking-wide z-10 shadow-sm ${
+              badgeStyles[activeBadge] || ""
             }`}
           >
-            {item.badge}
+            {activeBadge}
           </Badge>
         )}
       </div>
@@ -46,7 +64,7 @@ function MenuCard({ item }: { item: MenuItem }) {
           </span>
         </div>
 
-        <p className="text-on-surface-variant text-xs md:text-sm baset leading-relaxed line-clamp-3">
+        <p className="text-on-surface-variant text-xs md:text-sm leading-relaxed line-clamp-3">
           {item.description}
         </p>
       </CardContent>

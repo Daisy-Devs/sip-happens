@@ -17,6 +17,7 @@ const Navbar = () => {
   }, []);
 
   if (!mounted) return null;
+  const router = useRouter();
   return (
     <div className="h-16 px-6 flex items-center justify-between bg-[#765847]/10">
       <div className="flex items-center gap-3">
@@ -88,7 +89,12 @@ const Navbar = () => {
           className="bg-[url('/Container.png')] bg-contain bg-center bg-no-repeat data-[state=checked]:bg-primary mr-3"
         />
 
-        <Button variant="brown" text="Call to Order" size="sm" />
+        <Button
+          variant="brown"
+          text="Call to Order"
+          size="sm"
+          onClick={() => router.push("/contact")}
+        />
       </div>
     </div>
   );

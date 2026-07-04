@@ -99,7 +99,7 @@ const Login = () => {
               </label>
               <Link
                 className="label-sm text-secondary hover:underline transition-all"
-                href="#"
+                href="/auth/forgotpassword"
               >
                 Forgot password?
               </Link>

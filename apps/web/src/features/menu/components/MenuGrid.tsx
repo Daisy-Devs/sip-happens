@@ -9,7 +9,6 @@ export default function MenuGrid({ items }: { items: MenuItem[] }) {
   if (items.length === 0) {
     return (
       <div className="text-center py-15 flex flex-col items-center justify-center">
-        {/* 3. Render the Lottie Loader */}
         <ComponentLoader 
           animationData={emptyAnimation} 
           width={250}

@@ -32,7 +32,7 @@ const Categories = () => {
   }))||[];
 
   return (
-    <main className="flex h-full w-full justify-start md:justify-center py-16 bg-background md:space-y-12">
+    <main className="flex h-full md:pl-70 w-full justify-start md:justify-center py-16 bg-background md:space-y-12">
       <ResponsiveDrawer
         title="Add New Category"
         open={showAddCategory}

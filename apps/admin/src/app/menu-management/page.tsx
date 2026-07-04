@@ -70,7 +70,7 @@ const MenuManagement = () => {
       status: "Available",
     })) || [];
   return (
-    <div className="flex h-full flex-col items-start md:items-center py-16 bg-background md:space-y-12 overflow-x-scroll">
+    <div className="flex md:pl-70 h-full flex-col items-start md:items-center py-16 bg-background md:space-y-12 overflow-x-scroll">
       <ResponsiveDrawer
         title="Add New Product"
         open={User?.addingProduct || false}

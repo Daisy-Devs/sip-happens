@@ -114,6 +114,9 @@
   --table-body: #fefbf7;
   --timeline: #d4a373;
   --timeline-card: #f5f1eb;
+  --table-header: #F5F1EB;
+  --table-body: #FEFBF7;
+  --table-header:#ECE7E1;
 }
 
 .dark {
@@ -167,6 +170,8 @@
   --timeline: #e5bfaa;
   --timeline-card: #2b241f;
   --table-body: #bc9158;
+  --table-body: #1C1815;
+  --table-header:#2B2B2B;
 }
 
 /* Typography */

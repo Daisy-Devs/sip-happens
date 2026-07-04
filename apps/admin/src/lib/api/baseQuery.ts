@@ -5,6 +5,8 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "@/store/store";
+import { createClient } from "@supabase/supabase-js";
+import { updateToken } from "@/store/services/slice/authSlice";
 
 const baseQuery = fetchBaseQuery({
   baseUrl: process.env.NEXT_PUBLIC_API_URL,
@@ -42,7 +44,22 @@ const baseQueryWithAuth: BaseQueryFn<
   const result = await baseQuery(args, api, extraOptions);
   if (result.error?.status === 401) {
     console.log("Unauthorized");
-    window.location.href = "/session-expired";
+    const supabase = createClient(
+      process.env.NEXT_PUBLIC_SUPABASE_URL,
+      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    );
+    const { data, error } = await supabase.auth.refreshSession();
+    console.log("New token generated",data);
+    
+    api.dispatch(updateToken(data.session.access_token));
+    if (error || !data.session) {
+      // Refresh failed
+      window.location.href = "/session-expired";
+      return result;
+    }
+
+    // Retry the original request
+    return await baseQuery(args, api, extraOptions);
   }
 
   return result;

@@ -13,7 +13,6 @@ const Navbar = () => {
   const { resolvedTheme:theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
-  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);

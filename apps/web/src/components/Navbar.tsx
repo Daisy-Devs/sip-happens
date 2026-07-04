@@ -12,17 +12,19 @@ const Navbar = () => {
   const { resolvedTheme:theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  const router = useRouter();
+
   useEffect(() => {
     setMounted(true);
   }, []);
 
   if (!mounted) return null;
-  const router = useRouter();
+  
   return (
     <div className="h-16 px-6 flex items-center justify-between bg-[#765847]/10">
       <div className="flex items-center gap-3">
         <Link href="/">
-          <p className="text-xl font-extrabold text-[#231005]">
+          <p className="text-xl font-extrabold text-primary">
             {nomenclature.PRODUCT_NAME}
           </p>
         </Link>

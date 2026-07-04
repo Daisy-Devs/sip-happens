@@ -32,6 +32,8 @@
   --color-on-tertiary: var(--on-tertiary);
   --color-tertiary-container: var(--tertiary-container);
   --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-timeline: var(--timeline);
+  --color-timeline-card: var(--timeline-card);
 
   --color-error: var(--error);
   --color-on-error: var(--on-error);
@@ -66,7 +68,6 @@
 
   --font-plus-jakarta-sans: "Plus Jakarta Sans", sans-serif;
   --font-playfair-display: "Playfair Display", serif;
-
 }
 
 :root {

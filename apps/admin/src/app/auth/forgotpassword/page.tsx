@@ -2,24 +2,25 @@
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { useRouter } from "next/navigation";
-import { Mail, ArrowRight, ArrowLeft } from "lucide-react";
+import { Mail, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Badge, Button, Input } from "@sip-happens/shared";
 import { useForgotPasswordMutation } from "@/store/services/api/authApi"; 
 
 export default function ForgotPasswordPage() {
-  const router = useRouter();
   const [email, setEmail] = useState("");
+  const [isSubmitted, setIsSubmitted] = useState(false); // Track if mail was successfully sent
+  const [errorMsg, setErrorMsg] = useState<string | null>(null);
   const [forgotPassword, { isLoading }] = useForgotPasswordMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    setErrorMsg(null);
+    
     try {
       await forgotPassword({ email }).unwrap();
-      alert("Password reset link sent to your email!");
-      router.push("/auth/updatepassword"); 
+      setIsSubmitted(true); // Switch to success state view
     } catch (err: any) {
-      alert(err?.data?.message || "Something went wrong. Please try again.");
+      setErrorMsg(err?.data?.message || "Something went wrong. Please try again.");
     }
   };
 
@@ -52,47 +53,73 @@ export default function ForgotPasswordPage() {
         <div className="h-2 lg:h-5" />
         <div className="w-full max-w-md mx-auto my-auto py-6 sm:py-12">
           <div className="space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-primary font-medium tracking-tight">
-                Forgot Password?
-              </h2>
-              <p className="text-on-surface-variant text-sm leading-relaxed">
-                Enter your registered email address and we'll send you
-                instructions to reset your password.
-              </p>
-            </div>
+            
+            {!isSubmitted ? (
+              <>
+                <div className="space-y-2">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl text-primary font-medium tracking-tight">
+                    Forgot Password?
+                  </h2>
+                  <p className="text-on-surface-variant text-sm leading-relaxed">
+                    Enter your registered email address and we'll send you
+                    instructions to reset your password.
+                  </p>
+                </div>
 
-            <form onSubmit={handleSubmit} className="space-y-5 pt-2">
-              <div className="space-y-2">
-                <label className="text-xs font-semibold text-secondary uppercase tracking-wider block">
-                  Email Address
-                </label>
-                <div className="relative rounded-xl shadow-sm">
-                  <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline z-10">
-                    <Mail size={18} />
+                <form onSubmit={handleSubmit} className="space-y-5 pt-2">
+                  {errorMsg && (
+                    <div className="p-3 text-sm text-red-600 bg-red-50 rounded-lg border border-red-200">
+                      {errorMsg}
+                    </div>
+                  )}
+                  
+                  <div className="space-y-2">
+                    <label className="text-xs font-semibold text-secondary uppercase tracking-wider block">
+                      Email Address
+                    </label>
+                    <div className="relative rounded-xl shadow-sm">
+                      <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none text-outline z-10">
+                        <Mail size={18} />
+                      </div>
+                      <Input
+                        variant="default"
+                        type="email"
+                        required
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="manager@siphappens.cafe"
+                        className="pl-11 pr-4 py-5 sm:py-6 text-sm w-full"
+                      />
+                    </div>
                   </div>
-                  <Input
-                    variant="default"
-                    type="email"
-                    required
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    placeholder="manager@siphappens.cafe"
-                    className="pl-11 pr-4 py-5 sm:py-6 text-sm w-full"
+
+                  <Button
+                    type="submit"
+                    variant="square_brown"
+                    text={isLoading ? "Sending..." : "Send Reset Link"}
+                    size="lg"
+                    disabled={isLoading}
+                    rightIcon={<ArrowRight size={18} color="#231005" />}
+                    className="w-full py-3 sm:py-4 disabled:opacity-50"
                   />
+                </form>
+              </>
+            ) : (
+              <div className="space-y-4 text-center py-4 animated fadeIn">
+                <div className="flex justify-center text-emerald-600">
+                  <CheckCircle2 size={56} strokeWidth={1.5} />
+                </div>
+                <div className="space-y-2">
+                  <h2 className="text-2xl sm:text-3xl font-medium text-primary tracking-tight">
+                    Check your email
+                  </h2>
+                  <p className="text-on-surface-variant text-sm leading-relaxed max-w-sm mx-auto">
+                    We have sent a password reset link to <strong className="text-stone-800">{email}</strong>. 
+                    Please click the link inside that email to update your password.
+                  </p>
                 </div>
               </div>
-
-              <Button
-                type="submit"
-                variant="square_brown"
-                text={isLoading ? "Sending..." : "Send Reset Link"}
-                size="lg"
-                disabled={isLoading}
-                rightIcon={<ArrowRight size={18} color="#231005" />}
-                className="w-full py-3 sm:py-4 disabled:opacity-50"
-              />
-            </form>
+            )}
 
             <div className="pt-2 flex flex-col items-center justify-center gap-4">
               <Link
@@ -109,6 +136,7 @@ export default function ForgotPasswordPage() {
           </div>
         </div>
 
+        
         <div className="w-full pt-6 text-center border-t border-stone-200/60 mt-6 lg:mt-0">
           <span className="text-[10px] font-bold tracking-[0.2em] text-on-surface-variant uppercase block">
             Artisanal Management Suite

@@ -42,7 +42,7 @@ export default function Selections() {
   console.log("Featured:", featuredItem);
 
   return (
-    <section className="px-5 py-16 bg-[#F8F3EC] sm:px-6 md:px-8 lg:px-10 xl:px-0 md:py-24 lg:py-28">
+    <section className="px-5 py-16 bg-surface-container sm:px-6 md:px-8 lg:px-10 xl:px-0 md:py-24 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>

@@ -2,9 +2,7 @@ import Image from "next/image";
 import { MenuItem, BadgeType } from "../type";
 import { Badge, Card, CardContent } from "@sip-happens/shared";
 
-// Cloudinary loader to dynamically fetch sharp, correctly-sized images
 const cloudinaryLoader = ({ src, width, quality }: { src: string; width: number; quality?: number }) => {
-  // If it's already a full URL, we split it to inject optimization parameters
   if (src.includes("res.cloudinary.com")) {
     const parts = src.split("/upload/");
     if (parts.length === 2) {
@@ -23,7 +21,6 @@ function MenuCard({ item }: { item: MenuItem }) {
     "Best Seller": "bg-amber-900/10 text-amber-900 border-amber-900/20",
   };
 
-  // Map backend API's "tags" array or fallback to "featured" flag if badge is missing
   const activeBadge: BadgeType | null = 
     item.badge || 
     (item.tags && item.tags.length > 0 ? (item.tags[0] as BadgeType) : null) ||
@@ -31,14 +28,13 @@ function MenuCard({ item }: { item: MenuItem }) {
 
   return (
     <Card className="border-none bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 flex flex-col group pt-0 pb-0 w-full max-w-sm mx-auto">
-      {/* Aspect ratio container with high-priority positioning context */}
       <div className="relative aspect-square w-full overflow-hidden bg-stone-100 z-0">
         <Image
           loader={cloudinaryLoader}
           src={item.image_url || "/placeholder-food.jpg"}
           alt={item.name}
           fill
-          priority={item.featured || false} // Loads critical above-the-fold images faster
+          priority={item.featured || false} 
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
           className="object-cover group-hover:scale-105 transition-transform duration-500 ease-in-out"
         />

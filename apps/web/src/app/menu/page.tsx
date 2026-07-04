@@ -8,6 +8,7 @@ import {
   useGetCategoryQuery,
 } from "@/store/services/api/productApi";
 import { CategoryItem } from "../../features/menu/type";
+import MenuHero from "@/features/menu/components/MenuHero";
 
 export default function MenuSection() {
   const [activeCategory, setActiveCategory] = useState("all");
@@ -50,6 +51,8 @@ export default function MenuSection() {
   ];
   return (
     <div className="mx-auto max-w-7xl px-4 py-12 sm:px-6 lg:px-8">
+      <MenuHero />
+
       <div className="mb-8 max-w-md mx-auto">
         <input
           type="text"
@@ -59,7 +62,7 @@ export default function MenuSection() {
             setSearchQuery(e.target.value);
             setPage(1);
           }}
-          className="w-full px-4 py-2.5 rounded-full border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary bg-white text-stone-800"
+          className="w-full px-4 py-2.5 rounded-full border border-stone-200 text-sm focus:outline-none focus:ring-2 focus:ring-secondary/20 focus:border-secondary bg-on-primary text-on-surface"
         />
       </div>
 

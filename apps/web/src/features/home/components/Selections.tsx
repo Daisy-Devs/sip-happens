@@ -42,11 +42,11 @@ export default function Selections() {
   console.log("Featured:", featuredItem);
 
   return (
-    <section className="px-5 py-16 bg-surface-container sm:px-6 md:px-8 lg:px-10 xl:px-0 md:py-24 lg:py-28">
+    <section className="px-5 py-16 bg-surface-container text-on-surface sm:px-6 md:px-8 lg:px-10 xl:px-0 md:py-24 lg:py-28">
       <div className="mx-auto max-w-6xl">
         <div className="flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2 className="text-3xl md:text-4xl">
+            <h2 className="text-3xl md:text-4xl text-primary">
               <em className="headline-xl">The</em>{" "}
               <em className="text-5xl headline-md">Selection</em>
             </h2>
@@ -58,7 +58,7 @@ export default function Selections() {
           <Button
             variant="link"
             text="View Full Menu"
-            rightIcon={<ArrowRight size={18} color="#C68B59" />}
+            rightIcon={<ArrowRight size={18} className="text-secondary" />}
             onClick={() => router.push("/menu")}
           />
         </div>
@@ -86,7 +86,7 @@ export default function Selections() {
                 <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/80 via-[#1A100A]/30 to-transparent" />
 
                 <div className="absolute inset-x-0 bottom-0 p-8 md:p-10 z-10">
-                  <span className="text-[13px] font-medium uppercase tracking-[0.18em] text-[#C68B59]">
+                  <span className="text-[13px] font-medium uppercase tracking-[0.18em] text-secondary-fixed">
                     {featuredItem.categories?.name || "Signature Blend"}
                   </span>
 
@@ -99,7 +99,7 @@ export default function Selections() {
                   </p>
 
                   <div className="mt-6 flex items-center gap-4">
-                    <span className="headline-md text-[#C68B59]">
+                    <span className="headline-md text-secondary-fixed">
                       {typeof featuredItem.price === "number"
                         ? `$${featuredItem.price.toFixed(2)}`
                         : featuredItem.price}

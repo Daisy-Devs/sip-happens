@@ -25,9 +25,9 @@ const features = [
 
 export const WhySipHappens = () => {
   return (
-    <section className="px-6 py-20 md:py-28 bg-background mt-10">
+    <section className="px-6 py-20 md:py-28 bg-background text-on-background mt-10 transition-colors duration-300">
       <div className="mx-auto max-w-5xl text-center">
-        <div className="mx-auto text-[#C68B59] text-md">{nomenclature.WHY_BADGE}</div>
+        <div className="mx-auto text-secondary text-md">{nomenclature.WHY_BADGE}</div>
         <h2 className=" font-display text-3xl md:text-4xl text-primary">
           <em className="headline-xl">Why</em>{" "}
           <em className="text-5xl headline-md"> Sip Happens?</em>
@@ -43,7 +43,7 @@ export const WhySipHappens = () => {
                 key={feature.title}
                 className="
     flex flex-col items-center rounded-2xl
-    bg-white/80 p-10 text-center text-primary
+    bg-on-primary/80 p-10 text-center text-primary
     shadow-[0_8px_30px_rgba(42,28,20,0.08)]
     hover:shadow-[0_16px_45px_rgba(42,28,20,0.14)]
     hover:-translate-y-2

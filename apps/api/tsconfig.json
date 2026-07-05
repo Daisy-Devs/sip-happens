@@ -9,6 +9,9 @@
     "rootDir": "../../",
     "resolveJsonModule": true
   },
-  "include": ["./**/*.ts", "../../packages/shared/**/*.ts"],
+  "include": [
+    "./**/*.ts",
+    "../../packages/shared/schema/**/*.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

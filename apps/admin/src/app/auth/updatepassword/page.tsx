@@ -4,30 +4,36 @@ import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
 import { Eye, EyeOff, ArrowRight, ArrowLeft, Shield } from "lucide-react";
-import { Badge, Input } from "@sip-happens/shared";
+import { Badge, Input, toast } from "@sip-happens/shared";
 import { useUpdatePasswordMutation } from "@/store/services/api/authApi";
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 export default function UpdatePasswordPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
-  
+
   const [updatePassword, { isLoading }] = useUpdatePasswordMutation();
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
     if (password !== confirmPassword) {
-      alert("Passwords do not match!");
+      toast.error("Passwords do not match!");
       return;
     }
 
     try {
       await updatePassword({ password }).unwrap();
-      alert("Password updated successfully!");
-      router.push("/auth/login"); 
-    } catch (err: any) {
-      alert(err?.data?.message || "Failed to update password. Please try again.");
+      toast.success("Password updated successfully!");
+      router.push("/auth/login");
+    } catch (err) {
+      const error = err as FetchBaseQueryError & {
+        data?: { message?: string };
+      };
+      toast.error(
+        error?.data?.message || "Failed to update password. Please try again.",
+      );
     }
   };
 
@@ -95,7 +101,7 @@ export default function UpdatePasswordPage() {
                     required
                     type={showPassword ? "text" : "password"}
                     value={password}
-                    onChange={(e: any) => setPassword(e.target.value)}
+                    onChange={(e) => setPassword(e.target.value)}
                     placeholder="Min. 12 characters"
                     className="pl-4 pr-11 py-5 sm:py-6 text-sm w-full"
                   />
@@ -118,7 +124,7 @@ export default function UpdatePasswordPage() {
                     required
                     type={showPassword ? "text" : "password"}
                     value={confirmPassword}
-                    onChange={(e: any) => setConfirmPassword(e.target.value)}
+                    onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Repeat new password"
                     className="pl-4 pr-11 py-5 sm:py-6 text-sm w-full"
                   />
@@ -150,7 +156,10 @@ export default function UpdatePasswordPage() {
         <div className="w-full pt-6 text-center border-t border-stone-200/60 mt-6 lg:mt-0">
           <p className="text-xs text-on-surface-variant">
             Having trouble?{" "}
-            <a href="#support" className="text-[#845326] font-medium hover:underline">
+            <a
+              href="#support"
+              className="text-[#845326] font-medium hover:underline"
+            >
               Contact IT Support
             </a>
           </p>

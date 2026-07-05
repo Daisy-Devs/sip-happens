@@ -5,6 +5,7 @@ import Link from "next/link";
 import { Mail, ArrowRight, ArrowLeft, CheckCircle2 } from "lucide-react";
 import { Badge, Button, Input } from "@sip-happens/shared";
 import { useForgotPasswordMutation } from "@/store/services/api/authApi"; 
+import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
 
 export default function ForgotPasswordPage() {
   const [email, setEmail] = useState("");
@@ -19,8 +20,11 @@ export default function ForgotPasswordPage() {
     try {
       await forgotPassword({ email }).unwrap();
       setIsSubmitted(true); // Switch to success state view
-    } catch (err: any) {
-      setErrorMsg(err?.data?.message || "Something went wrong. Please try again.");
+    } catch (err) {
+      const error = err as FetchBaseQueryError & {
+              data?: { message?: string };
+            };
+      setErrorMsg(error?.data?.message || "Something went wrong. Please try again.");
     }
   };
 

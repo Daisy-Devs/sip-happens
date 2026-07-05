@@ -7,8 +7,12 @@
     "strict": false,
     "outDir": "./dist",
     "rootDir": "../../",
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "types": ["node"]
   },
-  "include": ["./**/*.ts", "../../packages/shared/**/*.ts"],
+  "include": [
+    "./**/*.ts",
+    "../../packages/shared/schema/**/*.ts"
+  ],
   "exclude": ["node_modules", "dist"]
 }

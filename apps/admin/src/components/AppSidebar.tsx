@@ -2,7 +2,6 @@
 import Link from "next/link";
 import { Boxes, LayoutPanelTop, LogOut, Utensils } from "lucide-react";
 import { usePathname, useRouter } from "next/navigation";
-import { useEffect, useState } from "react";
 import {
   Button,
   SidebarFooter,
@@ -20,11 +19,16 @@ const AppSidebar = () => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
-  const cookieToken=document.cookie.split('; ').filter(row => row.startsWith('token=')).map(c=>c.split('=')[1])[0]
+  const cookieToken =
+  typeof document !== "undefined"
+    ? document.cookie
+        .split("; ")
+        .find((row) => row.startsWith("token="))
+        ?.split("=")[1]
+    : undefined;
   const loggedIn = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   );
-  const [mounted, setMounted] = useState(false);
   const [logout] = useLogoutMutation({});
   const { openMobile,setOpenMobile } = useSidebar();
   const handleLogout = () => {
@@ -36,11 +40,7 @@ const AppSidebar = () => {
     router.push("/auth/login");
     dispatch(loggedOut());
   };
-  useEffect(() => {
-    setMounted(true);
-  }, []);
 
-  if (!mounted) return null;
   if (!loggedIn && !cookieToken) {
     return null;
   }

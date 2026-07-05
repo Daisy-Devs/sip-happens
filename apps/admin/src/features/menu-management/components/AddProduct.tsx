@@ -92,7 +92,15 @@ const AddProduct: React.FC<AddProductProps> = ({
       tags: product.tags.split(",").map((tag) => tag.trim()),
     });
     if (!result.success) {
-      setError(result?.error?.flatten()?.fieldErrors);
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setError({
+        name: fieldErrors.name?.[0] ?? "",
+        category_id: fieldErrors.category_id?.[0] ?? "",
+        description: fieldErrors.description?.[0] ?? "",
+        status: fieldErrors.status?.[0] ?? "",
+        tags: fieldErrors.tags?.[0] ?? "",
+        price: fieldErrors.price?.[0] ?? "",
+      });
       return;
     }
 

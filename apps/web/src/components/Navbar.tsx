@@ -9,10 +9,10 @@ import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const router = useRouter();
   const { resolvedTheme:theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
+  const router = useRouter();
 
   useEffect(() => {
     setMounted(true);

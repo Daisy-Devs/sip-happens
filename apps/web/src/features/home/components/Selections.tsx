@@ -5,7 +5,7 @@ import { nomenclature } from "@sip-happens/shared/constants/nomenclature";
 import { ArrowRight } from "lucide-react";
 import React from "react";
 import { useGetFeaturedProductsQuery } from "@/store/services/api/productApi";
-import ComponentLoader from "../../../../../../packages/shared/components/CompoentsLoader";
+import ComponentLoader from "../../../../../../packages/shared/components/ComponentsLoader";
 import emptyAnimation from "../../../../public/loaders/Coffee.json";
 import { useRouter } from "next/navigation";
 import Image from "next/image";

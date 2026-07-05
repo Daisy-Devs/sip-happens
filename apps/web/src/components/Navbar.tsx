@@ -9,17 +9,19 @@ import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const pathname = usePathname();
-  const { resolvedTheme:theme, setTheme } = useTheme();
+  const { resolvedTheme: theme, setTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
 
   const router = useRouter();
 
   useEffect(() => {
-    setMounted(true);
+    const id = requestAnimationFrame(() => {
+      setMounted(true);
+    });
+
+    return () => cancelAnimationFrame(id);
   }, []);
 
-  if (!mounted) return null;
-  
   return (
     <div className="h-16 px-6 flex items-center justify-between bg-[#765847]/10">
       <div className="flex items-center gap-3">
@@ -83,11 +85,8 @@ const Navbar = () => {
       </div>
       <div>
         <Switch
-          checked={theme === "dark"}
-          onCheckedChange={(checked) =>{ setTheme(checked ? "dark" : "light");
-            console.log("checked",checked,theme);
-            
-          }}
+          checked={mounted && theme === "dark"}
+          onCheckedChange={(checked) => setTheme(checked ? "dark" : "light")}
           className="bg-[url('/Container.png')] bg-contain bg-center bg-no-repeat data-[state=checked]:bg-primary mr-3"
         />
 

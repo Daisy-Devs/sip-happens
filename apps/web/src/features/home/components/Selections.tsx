@@ -3,7 +3,7 @@
 import { Button } from "@sip-happens/shared";
 import { nomenclature } from "@sip-happens/shared/constants/nomenclature";
 import { ArrowRight } from "lucide-react";
-import React from "react";
+import React, { useMemo } from "react";
 import { useGetFeaturedProductsQuery } from "@/store/services/api/productApi";
 import ComponentLoader from "../../../../../../packages/shared/components/ComponentsLoader";
 import emptyAnimation from "../../../../public/loaders/Coffee.json";
@@ -32,14 +32,24 @@ export default function Selections() {
     isError,
   } = useGetFeaturedProductsQuery({});
 
-  const menuItems: ProductItem[] = apiResponse?.data || [];
+  const menuItems: ProductItem[] = apiResponse || [];
 
-  const featuredItem =
-    menuItems.find((item) => item.featured && item.image_url) ||
-    menuItems.find((item) => item.featured) ||
-    menuItems[0];
-  const otherItems = menuItems.filter((item) => item.id !== featuredItem?.id);
-  console.log("Featured:", featuredItem);
+  const { featuredItem, otherItems } = useMemo(() => {
+    const featured =
+      menuItems.find((item) => item.featured && item.image_url) ||
+      menuItems.find((item) => item.featured) ||
+      menuItems[0];
+
+    const others = menuItems.filter((item) => item.id !== featured?.id);
+
+    return {
+      featuredItem: featured,
+      otherItems: others.slice(0, 2),
+    };
+  }, [menuItems]);
+
+  console.log("Featured Displayed:", featuredItem);
+  console.log("Secondary Displayed:", otherItems);
 
   return (
     <section className="px-5 py-16 bg-surface-container text-on-surface sm:px-6 md:px-8 lg:px-10 xl:px-0 md:py-24 lg:py-28">
@@ -60,6 +70,7 @@ export default function Selections() {
             text="View Full Menu"
             rightIcon={<ArrowRight size={18} className="text-secondary" />}
             onClick={() => router.push("/menu")}
+            className="hidden sm:inline-flex"
           />
         </div>
 
@@ -72,9 +83,9 @@ export default function Selections() {
             />
           </div>
         ) : (
-          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr] lg:h-auto">
+          <div className="mt-10 grid grid-cols-1 gap-6 lg:grid-cols-[1.1fr_0.9fr]">
             {featuredItem && (
-              <div className="group relative overflow-hidden rounded-3xl h-125 lg:h-full w-full">
+              <div className="group relative overflow-hidden rounded-3xl h-162.5 w-full">
                 <Image
                   src={featuredItem.image_url || "/placeholder-food.jpg"}
                   alt={featuredItem.name}
@@ -82,6 +93,7 @@ export default function Selections() {
                   sizes="(max-width: 1024px) 100vw, 60vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   priority
+                  unoptimized
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/80 via-[#1A100A]/30 to-transparent" />
 
@@ -109,16 +121,19 @@ export default function Selections() {
               </div>
             )}
 
-            <div className="grid grid-cols-1 gap-6 h-125 lg:h-full">
-              {otherItems.slice(0, 2).map((item) => (
+            <div className="grid grid-cols-1 gap-6 content-start">
+              {otherItems.map((item) => (
                 <div
                   key={item.id}
-                  className="group relative overflow-hidden rounded-3xl h-full w-full"
+                  className="group relative overflow-hidden rounded-3xl h-78 w-full"
                 >
-                  <img
-                    src={item.image_url || "/placeholder-food.jpg"} 
-                    alt={item.name} 
+                  <Image
+                    src={item.image_url || "/placeholder-food.jpg"}
+                    alt={item.name}
+                    fill
+                    sizes="(max-width: 768px) 100vw, 33vw"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-100"
+                    unoptimized
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/70 via-[#1A100A]/10 to-transparent" />
 

@@ -6,8 +6,8 @@ const Hero = () => {
       <div className="flex w-full h-full bg-[#231005]/30 dark:bg-[#765847]/40 justify-center items-center flex-col">
         <span className="headline-xl text-surface">Get in Touch</span>
         <span className="body-lg text-surface text-center w-lg">
-          We'd love to hear from you. Whether it's a question about our beans or
-          just to say hi, our doors are always open.
+          We&#39;d love to hear from you. Whether it&#39;s a question about our
+          beans or just to say hi, our doors are always open.
         </span>
       </div>
     </section>

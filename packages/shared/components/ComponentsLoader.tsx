@@ -4,7 +4,7 @@ import { DotLottiePlayer } from "@dotlottie/react-player";
 
 interface ComponentLoaderProps {
   // Can be a URL string or an imported local JSON object
-  animationData: string | object; 
+  animationData: string | Record<string, any>; 
   width?: string | number;
   height?: string | number;
   loop?: boolean;

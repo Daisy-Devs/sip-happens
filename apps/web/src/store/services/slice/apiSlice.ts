@@ -1,5 +1,6 @@
 import { RootState } from "@/store/store";
 import { createApi, fetchBaseQuery } from "@reduxjs/toolkit/query/react";
+import { toast } from "@sip-happens/shared";
 
 export const apiSlice = createApi({
   reducerPath: "api",
@@ -9,6 +10,9 @@ export const apiSlice = createApi({
     prepareHeaders: (headers, { getState }) => {
       headers.set("Content-Type", "application/json");
       return headers;
+    },
+    responseHandler: async (response) => {
+      if (response.status == 500) toast.error("Internal server error");
     },
   }),
   endpoints: () => ({}),

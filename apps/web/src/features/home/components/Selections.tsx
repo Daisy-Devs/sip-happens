@@ -104,7 +104,6 @@ export default function Selections() {
                         ? `$${featuredItem.price.toFixed(2)}`
                         : featuredItem.price}
                     </span>
-                    <Button variant="dark_white" text="Quick Add" size="sm" />
                   </div>
                 </div>
               </div>

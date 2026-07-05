@@ -23,7 +23,7 @@ const teamMembers: Member[] = [
 
 export default function TeamSection() {
   return (
-    <section className="max-w-7xl mx-auto px-8 py-10 text-center bg-[#F8F3EC] rounded-2xl m-8">
+    <section className="max-w-7xl mx-auto px-8 py-10 text-center bg-surface-container rounded-2xl m-8">
       <h2 className="headline-xxl text-4xl text-primary mb-12">
         The Minds Behind the Mug
       </h2>

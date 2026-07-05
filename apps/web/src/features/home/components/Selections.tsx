@@ -70,6 +70,7 @@ export default function Selections() {
             text="View Full Menu"
             rightIcon={<ArrowRight size={18} className="text-secondary" />}
             onClick={() => router.push("/menu")}
+            className="hidden sm:inline-flex"
           />
         </div>
 

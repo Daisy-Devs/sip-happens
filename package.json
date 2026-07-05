@@ -9,5 +9,10 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "packageManager": "pnpm@10.33.2"
+  "packageManager": "pnpm@10.33.2",
+  "dependencies": {
+    "@dotlottie/react-player": "^1.6.19",
+    "@lottiefiles/dotlottie-web": "^0.75.0",
+    "lottie-react": "^2.4.1"
+  }
 }

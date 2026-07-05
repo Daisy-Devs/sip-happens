@@ -1,0 +1,87 @@
+import { ENDPOINTS } from "@/lib/api/endpoints";
+import { apiSlice } from "../slice/apiSlice";
+
+export const productsApi = apiSlice.injectEndpoints({
+  overrideExisting: true,
+  endpoints: (builder) => ({
+    createProduct: builder.mutation({
+      query: (product) => ({
+        url: ENDPOINTS.products.create,
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: product,
+        invalidateTags: ["Products"],
+      }),
+    }),
+    getProducts: builder.query({
+      query: ({ search }) => {
+        const params = new URLSearchParams();
+        console.log("pp",params);
+        
+        if (search) params.append("search", search);
+        return {
+          url: `${ENDPOINTS.products.get}?${params.toString()}`,
+          method: "GET",
+          tags: ["Products"],
+        };
+      },
+      keepUnusedDataFor: 300,
+    }),
+    deleteProduct: builder.mutation({
+      query: (id) => ({
+        url: ENDPOINTS.products.delete.replace(":id", id),
+        method: "POST",
+        invalidateTags: ["Products"],
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }),
+    }),
+    updateProduct: builder.mutation({
+      query: (product) => ({
+        url: ENDPOINTS.products.update.replace(":id", product.id),
+        method: "POST",
+        invalidateTags: ["Products"],
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: product,
+      }),
+    }),
+    uploadProductImage: builder.mutation({
+      query: (image) => ({
+        url: ENDPOINTS.products.uploadImage,
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+        body: image,
+      }),
+    }),
+    deleteProductImage: builder.mutation({
+      query: (id) => ({
+        url: ENDPOINTS.products.deleteImage.replace(":id", id),
+        method: "POST",
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      }),
+    }),
+  }),
+});
+
+export const {
+  useCreateProductMutation,
+  useGetProductsQuery,
+  useDeleteProductMutation,
+  useUpdateProductMutation,
+  useUploadProductImageMutation,
+  useDeleteProductImageMutation,
+} = productsApi;

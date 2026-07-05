@@ -110,7 +110,7 @@ const Footer = () => {
               <li className="">
                 <a
                   className="text-on-surface-variant hover:text-on-surface-variant transition-all"
-                  href="#"
+                  href="/contact#contact"
                 >
                   Contact Us
                 </a>
@@ -118,7 +118,7 @@ const Footer = () => {
               <li className="">
                 <a
                   className="text-on-surface-variant hover:text-on-surface-variant transition-all"
-                  href="#"
+                  href="/contact#faq"
                 >
                   FAQ
                 </a>

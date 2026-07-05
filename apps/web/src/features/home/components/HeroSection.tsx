@@ -1,9 +1,13 @@
+'use client';
+
 import { Badge, Button } from "@sip-happens/shared";
 import { ArrowRight } from "lucide-react";
 import { nomenclature } from "../../../../../../packages/shared/constants/nomenclature";
+import { useRouter } from "next/navigation";
 import React from "react";
 
 export default function HeroSection() {
+  const router = useRouter();
   return (
     <section className="relative overflow-hidden bg-background">
       <div className="mx-auto flex min-h-[calc(100vh-80px)] max-w-7xl items-center px-5 py-16 sm:px-8 sm:py-20 md:px-12 lg:px-16 xl:px-20">
@@ -29,6 +33,7 @@ export default function HeroSection() {
               text="Explore Our Menu"
               rightIcon={<ArrowRight size={18} color="#fff" />}
               className="w-full sm:w-auto"
+              onClick={() => router.push("/menu")}
             />
 
             <Button
@@ -36,6 +41,7 @@ export default function HeroSection() {
               size="lg"
               text="Our Location"
               className="w-full sm:w-auto"
+              onClick={() => router.push("/contact#find-us")}
             />
           </div>
         </div>

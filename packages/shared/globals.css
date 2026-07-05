@@ -32,6 +32,9 @@
   --color-on-tertiary: var(--on-tertiary);
   --color-tertiary-container: var(--tertiary-container);
   --color-on-tertiary-container: var(--on-tertiary-container);
+  --color-timeline: var(--timeline);
+  --color-timeline-card: var(--timeline-card);
+  --color-white: var(--white);
 
   --color-error: var(--error);
   --color-on-error: var(--on-error);
@@ -66,10 +69,10 @@
 
   --font-plus-jakarta-sans: "Plus Jakarta Sans", sans-serif;
   --font-playfair-display: "Playfair Display", serif;
-
 }
 
 :root {
+  --white: #ffffff;
   --radius: 12px;
   --surface: #fef9f2;
   --surface-container: #f2ede6;
@@ -109,11 +112,14 @@
   --background: #fef9f2;
   --on-background: #1d1c17;
   --surface-variant: #e7e2db;
-  --table-header: #F5F1EB;
-  --table-body: #FEFBF7;
+  --timeline: #d4a373;
+  --timeline-card: #f5f1eb;
+  --table-body: #fefbf7;
+  --table-header: #ece7e1;
 }
 
 .dark {
+  --white: #211f1b;
   --surface: #15130f;
   --surface-container: #211f1b;
   --on-surface: #e8e2dc;
@@ -160,7 +166,10 @@
   --background: #15130f;
   --on-background: #e8e2dc;
   --surface-variant: #4f453f;
-  --table-body: #FEFBF7;
+  --timeline: #e5bfaa;
+  --timeline-card: #2b241f;
+  --table-body: #1c1815;
+  --table-header: #2b2b2b;
 }
 
 /* Typography */

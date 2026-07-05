@@ -5,7 +5,7 @@ import {
   fetchBaseQuery,
 } from "@reduxjs/toolkit/query/react";
 import { RootState } from "@/store/store";
-import { createClient } from "@supabase/supabase-js";
+import { toast } from "@sip-happens/shared";
 import { updateToken } from "@/store/services/slice/authSlice";
 
 const baseQuery = fetchBaseQuery({
@@ -26,8 +26,7 @@ const baseQuery = fetchBaseQuery({
     return res.data ?? res;
   },
   prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).auth?.token;
-
+    const token = (getState() as RootState).auth?.token;    
     if (token) {
       headers.set("authorization", `Bearer ${token}`);
     }
@@ -42,24 +41,47 @@ const baseQueryWithAuth: BaseQueryFn<
   FetchBaseQueryError
 > = async (args, api, extraOptions) => {
   const result = await baseQuery(args, api, extraOptions);
-  if (result.error?.status === 401) {
-    console.log("Unauthorized");
-    const supabase = createClient(
-      process.env.NEXT_PUBLIC_SUPABASE_URL,
-      process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
-    );
-    const { data, error } = await supabase.auth.refreshSession();
-    console.log("New token generated",data);
-    
-    api.dispatch(updateToken(data.session.access_token));
-    if (error || !data.session) {
-      // Refresh failed
-      window.location.href = "/session-expired";
-      return result;
-    }
+  if (result.error) {    
+    switch (result.error.status) {
+      case 401: {
+        const refreshToken = (api.getState() as RootState).auth.refreshToken;
 
-    // Retry the original request
-    return await baseQuery(args, api, extraOptions);
+        const refreshResult = await baseQuery(
+          {
+            url: "/admin/refresh-token",
+            method: "POST",
+            body: {
+              refresh_token: refreshToken,
+            },
+          },
+          api,
+          extraOptions,
+        );
+        
+        if (refreshResult.data) {
+          const { access_token } = refreshResult.data as {
+            access_token: string;
+          };
+          const maxAge = 60 * 60 * 24 * 7;
+        document.cookie = `token=${access_token}; path=/; max-age=${maxAge}`;
+          api.dispatch(updateToken(access_token));
+
+          // Retry the original request
+          return await baseQuery(args, api, extraOptions);
+        }
+
+        window.location.href = "/session-expired";
+        return result;
+      }
+
+      case 403:
+        toast.error("Access denied");
+        break;
+
+      case 500:
+        toast.error("Internal server error");
+        break;
+    }
   }
 
   return result;

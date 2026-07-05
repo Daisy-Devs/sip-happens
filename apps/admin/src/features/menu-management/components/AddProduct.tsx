@@ -18,6 +18,7 @@ import {
   Switch,
   toast,
 } from "@sip-happens/shared";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type AddProductProps = {
@@ -36,6 +37,7 @@ const AddProduct: React.FC<AddProductProps> = ({
   console.log("data", productData);
   const [updateProduct] = useUpdateProductMutation();
   const [createProduct] = useCreateProductMutation();
+  const router=useRouter();
   const [product, setProduct] = useState({
     name: productData?.name || "",
     category: productData?.categories.slug || "",
@@ -135,7 +137,9 @@ const AddProduct: React.FC<AddProductProps> = ({
           console.error("Failed to create product:", err);
         });
     }
+    router.refresh();
     resetForm();
+
   };
   return (
     <div className="flex flex-col rounded-2xl w-full p-9 space-y-4">

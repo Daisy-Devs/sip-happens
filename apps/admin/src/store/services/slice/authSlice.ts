@@ -9,11 +9,13 @@ type User = {
 type AuthState = {
   isAuthenticated: boolean;
   token: string | null;
+  refreshToken: string | null;
   user: User | null;
 };
 const initialState: AuthState = {
   isAuthenticated: false,
   token: null,
+  refreshToken: null,
   user: null,
 };
 
@@ -24,11 +26,18 @@ export const authSlice = createSlice({
     loggedIn: (state, action) => {
       state.isAuthenticated = true;
       state.token = action.payload.token;
-      state.user = action.payload;
+      state.refreshToken = action.payload.refreshToken;
+      state.user = {
+        addingProduct: false,
+        email: action.payload.email,
+        name: action.payload.name,
+        position: action.payload.position,
+      };
     },
     loggedOut: (state) => {
       state.isAuthenticated = false;
       state.token = null;
+      state.refreshToken = null;
       state.user = null;
       document.cookie = "token=; path=/";
     },

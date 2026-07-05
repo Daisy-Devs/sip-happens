@@ -38,7 +38,8 @@ const Login = () => {
             refreshToken: res.session.refresh_token
           }),
         );
-        document.cookie = `token=${res.session.access_token}; path=/`;
+        const maxAge = 60 * 60 * 24 * 7;
+        document.cookie = `token=${res.session.access_token}; path=/; max-age=${maxAge}`;
         router.push("/");
         setCredentials({ email: "", password: "" });
       })

@@ -31,6 +31,7 @@ export const productApi = apiSlice.injectEndpoints({
         url: ENDPOINTS.products.getFeaturedProduct,
         method: "GET",
       }),
+      transformResponse: (response: { data: any[] }) => response.data,
     }),
   }),
 });

@@ -20,6 +20,7 @@ const AppSidebar = () => {
   const pathname = usePathname();
   const dispatch = useDispatch();
   const router = useRouter();
+  const cookieToken=document.cookie.split('; ').filter(row => row.startsWith('token=')).map(c=>c.split('=')[1])[0]
   const loggedIn = useSelector(
     (state: RootState) => state.auth.isAuthenticated,
   );
@@ -40,7 +41,7 @@ const AppSidebar = () => {
   }, []);
 
   if (!mounted) return null;
-  if (!loggedIn) {
+  if (!loggedIn && !cookieToken) {
     return null;
   }
   return (

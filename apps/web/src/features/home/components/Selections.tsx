@@ -115,7 +115,7 @@ export default function Selections() {
                   key={item.id}
                   className="group relative overflow-hidden rounded-3xl h-full w-full"
                 >
-                  <img
+                  <Image
                     src={item.image_url || "/placeholder-food.jpg"} 
                     alt={item.name} 
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-100"

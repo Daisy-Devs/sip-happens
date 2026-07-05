@@ -1,5 +1,6 @@
 import React from "react";
 import { Star } from "lucide-react";
+import Image from "next/image";
 
 const testimonials = [
   {
@@ -34,7 +35,7 @@ export default function Testimonials() {
           {"  "}
           <span className="text-[#C68B59] text-5xl headline-md">
             {" "}
-             Community
+            Community
           </span>
         </h2>
 
@@ -70,10 +71,12 @@ export default function Testimonials() {
                 </p>
                 <div className="mt-6 flex items-center gap-3">
                   {" "}
-                  <img
+                  <Image
                     src={t.avatar}
                     alt={t.name}
-                    className="h-9 w-9 rounded-full object-cover"
+                    width={36}
+                    height={36}
+                    className="rounded-full object-cover"
                   />{" "}
                   <div>
                     {" "}

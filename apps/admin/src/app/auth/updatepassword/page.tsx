@@ -25,7 +25,7 @@ export default function UpdatePasswordPage() {
     try {
       await updatePassword({ password }).unwrap();
       alert("Password updated successfully!");
-      router.push("/"); 
+      router.push("/auth/login"); 
     } catch (err: any) {
       alert(err?.data?.message || "Failed to update password. Please try again.");
     }

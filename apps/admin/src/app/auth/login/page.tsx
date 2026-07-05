@@ -19,7 +19,11 @@ const Login = () => {
   const loginHandler = () => {
     const result = LoginSchema.safeParse(credentials);
     if (!result.success) {
-      setError(result.error.flatten().fieldErrors);
+      const fieldErrors = result.error.flatten().fieldErrors;
+      setError({
+        email: fieldErrors.email?.[0] ?? "",
+        password: fieldErrors.password?.[0] ?? "",
+      });
       console.log(result.error.issues);
 
       return;
@@ -30,12 +34,12 @@ const Login = () => {
         console.log(res);
         dispatch(
           loggedIn({
-            name:res.user.name,
+            name: res.user.name,
             email: res.user.email,
             position: res.user.position,
             addingProduct: false,
             token: res.session.access_token,
-            refreshToken: res.session.refresh_token
+            refreshToken: res.session.refresh_token,
           }),
         );
         const maxAge = 60 * 60 * 24 * 7;

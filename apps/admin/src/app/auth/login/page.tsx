@@ -1,10 +1,52 @@
-import { Button, Input } from "@sip-happens/shared";
+"use client";
+import { useLoginMutation } from "@/store/services/api/authApi";
+import { loggedIn } from "@/store/services/slice/authSlice";
+import { Button, Input, LoginSchema } from "@sip-happens/shared";
 import { ArrowRight, Eye, Lock, Mail } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import React from "react";
+import { useRouter } from "next/navigation";
+import React, { useState } from "react";
+import { useDispatch } from "react-redux";
 
 const Login = () => {
+  const [login] = useLoginMutation();
+  const [credentials, setCredentials] = useState({ email: "", password: "" });
+  const [showPassword, setShowPassword] = useState(false);
+  const [error, setError] = useState({ email: "", password: "" });
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const loginHandler = () => {
+    const result = LoginSchema.safeParse(credentials);
+    if (!result.success) {
+      setError(result.error.flatten().fieldErrors);
+      console.log(result.error.issues);
+
+      return;
+    }
+    login(credentials)
+      .unwrap()
+      .then((res) => {
+        console.log(res);
+        dispatch(
+          loggedIn({
+            name:res.user.name,
+            email: res.user.email,
+            position: res.user.position,
+            addingProduct: false,
+            token: res.session.access_token,
+            refreshToken: res.session.refresh_token
+          }),
+        );
+        const maxAge = 60 * 60 * 24 * 7;
+        document.cookie = `token=${res.session.access_token}; path=/; max-age=${maxAge}`;
+        router.push("/");
+        setCredentials({ email: "", password: "" });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
   return (
     <section
       className="flex-grow flex items-center justify-center relative px-7 md:px-30 py-22 w-full h-full"
@@ -20,7 +62,9 @@ const Login = () => {
             src="https://images.unsplash.com/photo-1509042239860-f550ce710b93"
           />
           <div className="relative z-10 text-center">
-            <h1 className="headline-xl text-secondary-container mb-6 italic">Sip Happens</h1>
+            <h1 className="headline-xl text-secondary-container mb-6 italic">
+              Sip Happens
+            </h1>
             <p className="body-lg max-w-xs mx-auto text-primary-fixed">
               Managing artisanal moments with precision and warmth.
             </p>
@@ -38,7 +82,15 @@ const Login = () => {
               Email Address
             </label>
             <div className="relative">
-              <Input placeholder="jojo@example" leftIcon={<Mail />} />
+              <Input
+                error={error.email}
+                placeholder="jojo@example"
+                onChange={(e) =>
+                  setCredentials((prev) => ({ ...prev, email: e.target.value }))
+                }
+                value={credentials.email}
+                leftIcon={<Mail />}
+              />
             </div>
           </div>
           <div className="space-y-xs">
@@ -48,7 +100,7 @@ const Login = () => {
               </label>
               <Link
                 className="label-sm text-secondary hover:underline transition-all"
-                href="#"
+                href="/auth/forgotpassword"
               >
                 Forgot password?
               </Link>
@@ -57,11 +109,26 @@ const Login = () => {
               <Input
                 id="password"
                 placeholder="••••••••••••"
-                type="password"
+                type={!showPassword ? "password" : "text"}
+                value={credentials.password}
+                error={error.password}
+                onChange={(e) =>
+                  setCredentials((prev) => ({
+                    ...prev,
+                    password: e.target.value,
+                  }))
+                }
                 leftIcon={<Lock />}
                 rightIcon={
-                  <Button variant="link" size="sm" className="align-middle ml-15">
-                    <Eye className="text-primary"/>
+                  <Button
+                    variant="link"
+                    size="sm"
+                    className="align-middle ml-15"
+                    onClick={() => {
+                      setShowPassword((prev) => !prev);
+                    }}
+                  >
+                    <Eye className="text-primary" />
                   </Button>
                 }
               />
@@ -72,6 +139,9 @@ const Login = () => {
             rightIcon={<ArrowRight />}
             className="flex"
             variant="light_brown"
+            onClick={() => {
+              loginHandler();
+            }}
           >
             Sign In
           </Button>

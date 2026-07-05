@@ -119,6 +119,7 @@ export default function GalleryPage() {
           })}
         </div>
       </main>
+      <iframe src="https://widgets.sociablekit.com/instagram-feed/iframe/25693608" width="100%" height="1000px"></iframe>
     </div>
   );
 }

@@ -6,8 +6,9 @@ export const ProductSchema = z.object({
   price: z.number().positive('Price must be positive'),
   description: z.string().optional(),
   image_url: z.string().optional(),
+  status: z.enum(['available', 'low_stock', 'out_of_stock']).default('available'),
   featured: z.boolean().default(false),
-  tag: z.enum(['seasonal', 'best_seller', 'new', 'special']).optional(),
+  tags: z.array(z.string()).optional(),
 })
 
 export const UpdateProductSchema = ProductSchema.partial()

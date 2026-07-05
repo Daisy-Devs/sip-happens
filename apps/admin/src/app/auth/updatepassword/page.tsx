@@ -26,7 +26,7 @@ export default function UpdatePasswordPage() {
     try {
       await updatePassword({ password }).unwrap();
       toast.success("Password updated successfully!");
-      router.push("/");
+      router.push("/auth/login");
     } catch (err) {
       const error = err as FetchBaseQueryError & {
         data?: { message?: string };

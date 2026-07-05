@@ -2,13 +2,11 @@ import type { Metadata } from "next";
 import { Playfair_Display, Plus_Jakarta_Sans } from "next/font/google";
 import "@sip-happens/shared/globals.css";
 import { cn } from "@/lib/utils";
-import {
-  SidebarHeader,
-  SidebarProvider,
-  SidebarTrigger,
-} from "@sip-happens/shared";
+import { SidebarProvider, Toaster } from "@sip-happens/shared";
 import AppSidebar from "@/components/AppSidebar";
 import Header from "@/components/Header";
+import Providers from "@/components/Provider";
+import { ThemeProvider } from "@/components/ThemeProvider";
 
 const playfair = Playfair_Display({
   variable: "--font-playfair-display",
@@ -39,24 +37,31 @@ export default function RootLayout({
         jakarta_sans.variable,
         "font-sans",
       )}
+      suppressHydrationWarning
     >
-      <body className="min-h-full flex flex-col">
-        <SidebarProvider>
-          {AppSidebar && (
-            <div>
-              <AppSidebar />
-            </div>
-          )}
-          <main className="w-full">
-            <Header />
-            {children}
-            <footer className="mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
-              <p className="text-on-surface-variant label-sm">
-                © 2026 Sip Happens Artisanal Café. Admin Console v1.0.0
-              </p>
-            </footer>
-          </main>
-        </SidebarProvider>
+
+      <body className="min-h-full flex flex-col bg-surface-container overflow-y-scroll">
+      <ThemeProvider
+        attribute="class"
+        defaultTheme="system"
+        enableSystem
+      >
+        <Providers>
+          <SidebarProvider>
+            {AppSidebar && <AppSidebar />}
+            <main className="w-full h-full">
+              <Header />
+              <Toaster position="top-center" />
+              {children}
+              <footer className=" md:pl-85 mt-lg fixed bottom-0 w-full border-t border-outline-variant/10 py-5 px-5 bg-surface-container">
+                <p className="text-on-surface-variant label-sm">
+                  © 2026 Sip Happens Artisanal Café. Admin Console v1.0.0
+                </p>
+              </footer>
+            </main>
+          </SidebarProvider>
+        </Providers>
+        </ThemeProvider>
       </body>
     </html>
   );

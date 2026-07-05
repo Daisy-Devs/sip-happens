@@ -1,16 +1,30 @@
 "use client";
-import { nomenclature } from "../constants/nomenclature";
+import { nomenclature } from "../../../../packages/shared/constants/nomenclature";
 import { usePathname, useRouter } from "next/navigation";
 import Link from "next/link";
-import { Button } from "./ui/button";
+import { Button } from "../../../../packages/shared/components/ui/button";
+import { Switch } from "../../../../packages/shared/components/ui/switch";
+import { useEffect, useState } from "react";
+import { useTheme } from "next-themes";
 
 const Navbar = () => {
   const pathname = usePathname();
+  const { resolvedTheme:theme, setTheme } = useTheme();
+  const [mounted, setMounted] = useState(false);
+
+  const router = useRouter();
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+
+  if (!mounted) return null;
+  
   return (
     <div className="h-16 px-6 flex items-center justify-between bg-[#765847]/10">
       <div className="flex items-center gap-3">
         <Link href="/">
-          <p className="text-xl font-extrabold text-[#231005]">
+          <p className="text-xl font-extrabold text-primary">
             {nomenclature.PRODUCT_NAME}
           </p>
         </Link>
@@ -68,7 +82,21 @@ const Navbar = () => {
         </Link>
       </div>
       <div>
-        <Button variant="brown" text="Call to Order" size="sm" />
+        <Switch
+          checked={theme === "dark"}
+          onCheckedChange={(checked) =>{ setTheme(checked ? "dark" : "light");
+            console.log("checked",checked,theme);
+            
+          }}
+          className="bg-[url('/Container.png')] bg-contain bg-center bg-no-repeat data-[state=checked]:bg-primary mr-3"
+        />
+
+        <Button
+          variant="brown"
+          text="Call to Order"
+          size="sm"
+          onClick={() => router.push("/contact")}
+        />
       </div>
     </div>
   );

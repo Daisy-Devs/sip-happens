@@ -30,7 +30,7 @@ const ContactInfo = () => {
               </div>
               <div>
                 <p className="label-md text-primary">Give us a Ring</p>
-                <p className="text-on-surface-variant">+1 (555) 867-5309</p>
+                <p className="text-on-surface-variant">+91 7887565829</p>
               </div>
             </div>
             <div className="flex items-start gap-6">
@@ -39,7 +39,7 @@ const ContactInfo = () => {
               </div>
               <div>
                 <p className="label-md text-primary">Send a Note</p>
-                <p className="text-on-surface-variant">hello@sip-happens.com</p>
+                <p className="text-on-surface-variant">daisydevs.org@gmail.com</p>
               </div>
             </div>
           </div>

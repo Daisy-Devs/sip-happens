@@ -1,6 +1,6 @@
 import MenuCard from "./MenuCard";
 import { MenuItem } from "../type";
-import ComponentLoader from "../../../../../../packages/shared/components/CompoentsLoader"; 
+import ComponentLoader from "../../../../../../packages/shared/components/ComponentsLoader"; 
 import emptyAnimation from "../../../../public/loaders/cuptoCofee.json"; 
 
 export default function MenuGrid({ items }: { items: MenuItem[] }) {

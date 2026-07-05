@@ -35,7 +35,12 @@ const SendAMessage = () => {
     if (!result.success) {
       const flattenedErrors = result.error.flatten().fieldErrors;
       console.log(flattenedErrors);
-      setError(flattenedErrors);
+      setError({
+        email: flattenedErrors.email?.[0] ?? "",
+        message: flattenedErrors.message?.[0] ?? "",
+        name: flattenedErrors.name?.[0] ?? "",
+        subject: flattenedErrors.subject?.[0] ?? "",       
+      })
       return;
     }
    sendAMessage(messageState).unwrap().then((response) => {

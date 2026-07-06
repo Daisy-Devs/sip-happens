@@ -2,6 +2,7 @@
 import { productsColumns } from "@/features/menu-management/columns";
 import AddProduct from "@/features/menu-management/components/AddProduct";
 import { ProductType } from "@/features/overview/types";
+import { convertSnakeCasetoTitleCase } from "@/lib/utils";
 import {
   useDeleteProductMutation,
   useGetProductsQuery,
@@ -67,7 +68,7 @@ const MenuManagement = () => {
         product.image_url ||
         "data:image/svg+xml;base64,PHN2ZyB4bWxucz0iaHR0cDovL3d3dy53My5vcmcvMjAwMC9zdmciIHdpZHRoPSIyNCIgaGVpZ2h0PSIyNCIgdmlld0JveD0iMCAwIDI0IDI0IiBmaWxsPSJub25lIiBzdHJva2U9ImN1cnJlbnRDb2xvciIgc3Ryb2tlLXdpZHRoPSIyIiBzdHJva2UtbGluZWNhcD0icm91bmQiIHN0cm9rZS1saW5lam9pbj0icm91bmQiIGNsYXNzPSJsdWNpZGUgbHVjaWRlLWltYWdlLWljb24gbHVjaWRlLWltYWdlIj48cmVjdCB3aWR0aD0iMTgiIGhlaWdodD0iMTgiIHg9IjMiIHk9IjMiIHJ4PSIyIiByeT0iMiIvPjxjaXJjbGUgY3g9IjkiIGN5PSI5IiByPSIyIi8+PHBhdGggZD0ibTIxIDE1LTMuMDg2LTMuMDg2YTIgMiAwIDAgMC0yLjgyOCAwTDYgMjEiLz48L3N2Zz4=",
       price: product.price.toString(),
-      status: "Available",
+      status:convertSnakeCasetoTitleCase(product.status),
     })) || [];
   return (
     <div className="flex md:pl-70 h-full flex-col items-start md:items-center py-16 bg-background md:space-y-12 overflow-x-scroll">

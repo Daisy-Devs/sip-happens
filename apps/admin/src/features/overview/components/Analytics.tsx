@@ -11,7 +11,7 @@ type AnalyticsProps = {
 const Analytics: React.FC<AnalyticsProps> = ({ statisticsData }) => {
     const dispatch = useDispatch();
   return (
-    <section className="grid space-y-5 mb-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 space-x-5">
+    <section className="grid space-y-5 mb-5 grid-cols-1 md:grid-cols-3 lg:grid-cols-4 md:space-x-5">
       <AnalyticsCard
         heading="Products"
         subheading="Total Items"
@@ -32,7 +32,7 @@ const Analytics: React.FC<AnalyticsProps> = ({ statisticsData }) => {
       />
       <div onClick={(e)=>{
         dispatch(showAddProduct());
-      }} className="p-6 rounded-3xl flex flex-col justify-between h-40 lg:col-span-1 bg-primary-container text-on-primary-container group cursor-pointer hover:opacity-90 transition-all shadow-xl">
+      }} className="p-6 rounded-3xl min-w-40 flex flex-col justify-between h-40 lg:col-span-1 bg-primary-container text-on-primary-container group cursor-pointer hover:opacity-90 transition-all shadow-xl">
         <div className="flex justify-between items-start">
           <CirclePlus size={30} className="text-on-primary-container"/>
         </div>

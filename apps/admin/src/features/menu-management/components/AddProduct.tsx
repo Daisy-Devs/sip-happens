@@ -1,5 +1,6 @@
 import { UploadBox } from "@/components/UploadBox";
 import { CategoryType, ProductType } from "@/features/overview/types";
+import { convertTitleCaseToSnakeCase } from "@/lib/utils";
 import { useGetCategoriesQuery } from "@/store/services/api/categoriesApi";
 import {
   useCreateProductMutation,
@@ -18,7 +19,6 @@ import {
   Switch,
   toast,
 } from "@sip-happens/shared";
-import { useRouter } from "next/navigation";
 import { useState } from "react";
 
 type AddProductProps = {
@@ -34,15 +34,15 @@ const AddProduct: React.FC<AddProductProps> = ({
   setUpdateProductData,
 }) => {
   const { data } = useGetCategoriesQuery({});
+  
   console.log("data", productData);
   const [updateProduct] = useUpdateProductMutation();
   const [createProduct] = useCreateProductMutation();
-  const router=useRouter();
   const [product, setProduct] = useState({
     name: productData?.name || "",
     category: productData?.categories.slug || "",
     description: productData?.description || "",
-    status: productData?.status?.toLowerCase()?.replace(" ", "_") || "",
+    status: convertTitleCaseToSnakeCase(productData?.status) || "",
     tags: productData?.tags.join(", ") || "",
     featured: productData?.featured || false,
     price: productData?.price || "",
@@ -145,9 +145,8 @@ const AddProduct: React.FC<AddProductProps> = ({
           console.error("Failed to create product:", err);
         });
     }
-    router.refresh();
+    // router.refresh();
     resetForm();
-
   };
   return (
     <div className="flex flex-col rounded-2xl w-full p-9 space-y-4">
@@ -273,7 +272,7 @@ const AddProduct: React.FC<AddProductProps> = ({
               image_url: value,
             });
           }}
-          subtitle="Click to upload"
+          subtitle="Click to upload an image (max 2MB)"
         />
       </div>
       <div>

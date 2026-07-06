@@ -84,7 +84,7 @@ export const UploadBox: React.FC<UploadBoxProps> = ({
             htmlFor="file-upload" // Connects to input id
             className="label-sm text-on-surface-variant text-primaryText"
           >
-            {value?.url?"Click to change":subtitle}
+            {value?.url?"Click to update image (max 2MB)":subtitle}
           </label>{" "}
           <input
             id="file-upload"

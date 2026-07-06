@@ -28,33 +28,41 @@ const testimonials = [
 
 export default function Testimonials() {
   return (
-    <section className="bg-[#2A1C14] px-6 py-20 text-[#F5EFE6] md:py-28">
+    <section className="bg-[#2A1C14] px-6 py-20 text-[#F5EFE6] md:py-28 overflow-hidden">
       <div className="mx-auto max-w-6xl text-center">
         <h2 className="font-display text-3xl md:text-4xl">
-          <em className="headline-xl">Voices of the</em>
-          {"  "}
-          <span className="text-[#C68B59] text-5xl headline-md">
-            {" "}
+          <em className="block md:inline font-serif italic text-2xl md:text-3xl opacity-80">
+            Voices of the
+          </em>{" "}
+          <span className="text-[#C68B59] text-4xl md:text-5xl font-bold tracking-tight block md:inline mt-2 md:mt-0">
             Community
           </span>
         </h2>
 
-        <div className="mt-16 flex flex-col items-center gap-6 md:flex-row md:items-center md:justify-center">
+        <div className="mt-16 flex flex-col gap-8 md:flex-row md:items-center md:justify-center md:gap-6 lg:gap-8">
           {testimonials.map((t, index) => {
             const isMiddle = index === 1;
 
             return (
               <div
                 key={t.name}
-                className={`p-10 h-70 
-          relative rounded-3xl border border-[#F5EFE6]/10 bg-[#F5EFE6]/5 text-left
-          transition-all duration-500
-          ${
-            isMiddle
-              ? "z-20 scale-105 -translate-y-6 shadow-2xl md:w-90"
-              : "z-10 scale-95 translate-y-6 opacity-90 md:w-82.5"
-          }
-        `}
+                className={`w-full max-w-md md:max-w-sm p-8 md:p-10 min-h-70 
+                  relative rounded-3xl border border-[#F5EFE6]/10 bg-[#F5EFE6]/5 text-left
+                  transition-all duration-300 ease-in-out cursor-default
+                  
+                  /* Interactive Hover Effects */
+                  hover:scale-[1.03] hover:border-[#C68B59]/40 hover:bg-[#F5EFE6]/10 hover:shadow-xl
+                  
+                  /* Desktop Layout Distinctions (Middle card pops out) */
+                  ${
+                    isMiddle
+                      ? "z-20 md:scale-105 md:-translate-y-4 shadow-2xl border-[#C68B59]/20"
+                      : "z-10 md:scale-95 md:translate-y-2 opacity-90"
+                  }
+                  
+                  /* Reset scaling on hover for desktop to avoid conflicts */
+                  md:hover:scale-105 md:hover:-translate-y-4
+                `}
               >
                 <div className="flex gap-0.5 text-[#C17F4E]">
                   {Array.from({ length: 5 }).map((_, i) => (
@@ -66,24 +74,26 @@ export default function Testimonials() {
                     />
                   ))}
                 </div>
+
                 <p className="mt-4 font-display text-base italic leading-relaxed text-[#F5EFE6]/90">
                   &ldquo;{t.quote}&rdquo;
                 </p>
+
                 <div className="mt-6 flex items-center gap-3">
-                  {" "}
                   <Image
                     src={t.avatar}
                     alt={t.name}
                     width={36}
                     height={36}
-                    className="rounded-full object-cover"
-                  />{" "}
+                    className="rounded-full object-cover border border-[#F5EFE6]/20"
+                  />
                   <div>
-                    {" "}
-                    <p className="text-sm font-medium">{t.name}</p>{" "}
-                    <p className="text-xs text-[#F5EFE6]/50">{t.role}</p>{" "}
-                  </div>{" "}
-                </div>{" "}
+                    <p className="text-sm font-medium text-[#F5EFE6]">
+                      {t.name}
+                    </p>
+                    <p className="text-xs text-[#F5EFE6]/50">{t.role}</p>
+                  </div>
+                </div>
               </div>
             );
           })}

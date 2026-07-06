@@ -1,7 +1,7 @@
 import { ENDPOINTS } from "@/lib/api/endpoints";
 import { apiSlice } from "../slice/apiSlice";
 
-export const productsApi = apiSlice.injectEndpoints({
+const productsApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
     createProduct: builder.mutation({
@@ -13,45 +13,45 @@ export const productsApi = apiSlice.injectEndpoints({
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: product,
-        invalidateTags: ["Products"],
       }),
+      invalidatesTags: ["Products"],
     }),
     getProducts: builder.query({
       query: ({ search }) => {
         const params = new URLSearchParams();
-        console.log("pp",params);
-        
+        console.log("pp", params);
+
         if (search) params.append("search", search);
         return {
           url: `${ENDPOINTS.products.get}?${params.toString()}`,
           method: "GET",
-          tags: ["Products"],
         };
       },
       keepUnusedDataFor: 300,
+      providesTags: ["Products"],
     }),
     deleteProduct: builder.mutation({
       query: (id) => ({
         url: ENDPOINTS.products.delete.replace(":id", id),
         method: "POST",
-        invalidateTags: ["Products"],
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       }),
+      invalidatesTags: ["Products"],
     }),
     updateProduct: builder.mutation({
       query: (product) => ({
         url: ENDPOINTS.products.update.replace(":id", product.id),
         method: "POST",
-        invalidateTags: ["Products"],
         headers: {
           "Content-Type": "application/json",
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
         body: product,
       }),
+      invalidatesTags: ["Products"],
     }),
     uploadProductImage: builder.mutation({
       query: (image) => ({

@@ -3,13 +3,6 @@
 import * as React from "react";
 
 import {
-  Drawer,
-  DrawerContent,
-  DrawerDescription,
-  DrawerHeader,
-  DrawerTitle,
-} from "./ui/drawer";
-import {
   Dialog,
   DialogContent,
   DialogDescription,
@@ -17,7 +10,13 @@ import {
   DialogTitle,
 } from "./ui/dialog";
 import { useMediaQuery } from "../hooks/use-media-query";
-
+import{
+Drawer,
+DrawerContent,
+DrawerDescription,
+DrawerHeader,
+DrawerTitle,
+} from "./ui/drawer"
 type ResponsiveDrawerProps = {
   children: React.ReactNode;
   title: string;
@@ -37,7 +36,7 @@ export function ResponsiveDrawer({
   if (isDesktop) {
     return (
       <Dialog open={open} onOpenChange={setOpen}>
-        <DialogContent showCloseButton={false} className="sm:max-w-[425px]">
+        <DialogContent showCloseButton={false} className="md:max-w-[325px] lg:max-w-[525px]">
           <DialogHeader>
             <DialogTitle>{title}</DialogTitle>
             {description && (
@@ -51,8 +50,8 @@ export function ResponsiveDrawer({
   }
 
   return (
-    <Drawer open={open} onOpenChange={setOpen}>
-      <DrawerContent className="pb-9">
+    <Drawer open={open} onOpenChange={setOpen} fixed={true}>
+      <DrawerContent >
         <DrawerHeader className="text-left">
           <DrawerTitle>{title}</DrawerTitle>
           {description && <DrawerDescription>{description}</DrawerDescription>}

@@ -1,7 +1,7 @@
 import { ENDPOINTS } from "@/lib/api/endpoints";
 import { apiSlice } from "../slice/apiSlice";
 
-export const categoriesApi = apiSlice.injectEndpoints({
+const categoriesApi = apiSlice.injectEndpoints({
   endpoints: (builder) => ({
     createCategory: builder.mutation({
       query: (category) => ({

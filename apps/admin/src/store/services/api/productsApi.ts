@@ -1,7 +1,7 @@
 import { ENDPOINTS } from "@/lib/api/endpoints";
 import { apiSlice } from "../slice/apiSlice";
 
-export const productsApi = apiSlice.injectEndpoints({
+const productsApi = apiSlice.injectEndpoints({
   overrideExisting: true,
   endpoints: (builder) => ({
     createProduct: builder.mutation({

@@ -3,10 +3,11 @@
 import React, { useState } from "react";
 import { useRouter } from "next/navigation";
 import Link from "next/link";
-import { Eye, EyeOff, ArrowRight, ArrowLeft, Shield } from "lucide-react";
-import { Badge, Input, toast } from "@sip-happens/shared";
+import { Eye, Lock, ArrowRight, ArrowLeft, Shield } from "lucide-react";
+import { Badge, Button, Input, toast } from "@sip-happens/shared";
 import { useUpdatePasswordMutation } from "@/store/services/api/authApi";
 import { FetchBaseQueryError } from "@reduxjs/toolkit/query";
+
 export default function UpdatePasswordPage() {
   const router = useRouter();
   const [showPassword, setShowPassword] = useState(false);
@@ -38,7 +39,7 @@ export default function UpdatePasswordPage() {
   };
 
   return (
-    <div className="min-h-screen w-full bg-[#FFFDF9] flex flex-col lg:flex-row font-sans overflow-x-hidden">
+    <div className="min-h-screen w-full bg-surface-container-low flex flex-col lg:flex-row font-sans overflow-x-hidden">
       <div
         className="hidden lg:flex relative w-full lg:w-1/2 lg:min-h-screen flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-16 bg-cover bg-center bg-no-repeat overflow-hidden"
         style={{ backgroundImage: `url('/Image.png')` }}
@@ -65,11 +66,11 @@ export default function UpdatePasswordPage() {
         <div className="h-4 lg:h-6 z-10 hidden lg:block" />
       </div>
 
-      <div className="w-full lg:w-1/2 flex flex-col justify-between p-6 sm:p-8 md:p-12 lg:p-20 relative bg-[#FFFDF9]">
-        <div className="w-full flex items-center justify-between text-sm mb-4 lg:mb-0">
+      <div className="w-full lg:w-1/2 flex flex-col justify-between p-10 md:p-20 bg-surface-container-low space-y-6">
+        <div className="w-full flex items-center justify-between text-sm">
           <Link
             href="/forgotpassword"
-            className="flex items-center gap-2 text-secondary transition-colors group"
+            className="flex items-center gap-2 label-md text-secondary hover:underline transition-colors group"
           >
             <ArrowLeft
               size={16}
@@ -79,89 +80,92 @@ export default function UpdatePasswordPage() {
           </Link>
         </div>
 
-        <div className="w-full max-w-md mx-auto my-auto py-6 sm:py-12">
+        <div className="w-full max-w-md mx-auto my-auto py-6">
           <div className="space-y-6">
-            <div className="space-y-2">
-              <h2 className="text-2xl sm:text-3xl md:text-4xl text-primary font-medium tracking-tight">
+            <div className="mb-lg text-center md:text-left">
+              <h2 className="headline-lg text-primary mb-xs">
                 Update Password
               </h2>
-              <p className="text-on-surface-variant text-sm leading-relaxed ">
+              <p className="body-md">
                 Please choose a strong new password for your account. Ensure it
                 contains a mix of characters for maximum security.
               </p>
             </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 pt-2">
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-secondary block">
+            <form onSubmit={handleSubmit} className="space-y-6 pt-2">
+              <div className="space-y-xs">
+                <label className="label-md text-secondary block">
                   New Password
                 </label>
-                <div className="relative rounded-xl shadow-sm ">
+                <div className="relative">
                   <Input
                     required
+                    id="password"
                     type={showPassword ? "text" : "password"}
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     placeholder="Min. 12 characters"
-                    className="pl-4 pr-11 py-5 sm:py-6 text-sm w-full"
+                    leftIcon={<Lock />}
+                    rightIcon={
+                      <Button
+                        type="button"
+                        variant="link"
+                        size="sm"
+                        className="align-middle ml-15"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                      >
+                        <Eye className="text-primary" />
+                      </Button>
+                    }
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center z-10 text-stone-400 hover:text-stone-600 select-none"
-                  >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </button>
                 </div>
               </div>
 
-              <div className="space-y-1.5">
-                <label className="text-xs font-semibold text-secondary block">
+              <div className="space-y-xs">
+                <label className="label-md text-secondary block">
                   Confirm New Password
                 </label>
-                <div className="relative rounded-xl shadow-sm ">
+                <div className="relative">
                   <Input
                     required
+                    id="confirmPassword"
                     type={showPassword ? "text" : "password"}
                     value={confirmPassword}
                     onChange={(e) => setConfirmPassword(e.target.value)}
                     placeholder="Repeat new password"
-                    className="pl-4 pr-11 py-5 sm:py-6 text-sm w-full"
+                    leftIcon={<Lock />}
+                    rightIcon={
+                      <Button
+                        type="button"
+                        variant="link"
+                        size="sm"
+                        className="align-middle ml-15"
+                        onClick={() => setShowPassword((prev) => !prev)}
+                      >
+                        <Eye className="text-primary" />
+                      </Button>
+                    }
                   />
-                  <button
-                    type="button"
-                    onClick={() => setShowPassword(!showPassword)}
-                    className="absolute inset-y-0 right-0 pr-4 flex items-center z-10 text-stone-400 hover:text-stone-600 select-none"
-                  >
-                    {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
-                  </button>
                 </div>
               </div>
 
-              <button
+              <Button
                 type="submit"
+                variant="light_brown"
+                size="lg"
                 disabled={isLoading}
-                className="w-full py-3.5 sm:py-4 px-6 bg-[#FCDFCB] hover:bg-[#FAD0B4] text-[#5C3A21] font-medium rounded-xl shadow-[0_4px_14px_rgba(252,223,203,0.2)] transition-all duration-200 flex items-center justify-center gap-2 group text-sm mt-4 disabled:opacity-50"
+                rightIcon={<ArrowRight />}
+                className="flex w-full justify-center mt-4"
               >
-                <span>{isLoading ? "Updating..." : "Update Password"}</span>
-                <ArrowRight
-                  size={16}
-                  className="transform group-hover:translate-x-1 transition-transform"
-                />
-              </button>
+                {isLoading ? "Updating..." : "Update Password"}
+              </Button>
             </form>
           </div>
         </div>
 
-        <div className="w-full pt-6 text-center border-t border-stone-200/60 mt-6 lg:mt-0">
-          <p className="text-xs text-on-surface-variant">
-            Having trouble?{" "}
-            <a
-              href="#support"
-              className="text-[#845326] font-medium hover:underline"
-            >
-              Contact IT Support
-            </a>
+        <div className="w-full pt-6 border-t border-outline-variant/30 text-center">
+          <p className="label-sm text-on-surface-variant uppercase tracking-widest">
+            Artisanal Management Suite
           </p>
         </div>
       </div>

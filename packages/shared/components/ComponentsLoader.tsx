@@ -1,9 +1,10 @@
+"use client";
+
 import React from "react";
 import { DotLottiePlayer } from "@dotlottie/react-player";
-// import "@dotlottie/react-player/dist/index.css";
 
 interface ComponentLoaderProps {
-  // Can be a URL string or an imported local JSON object
+  // Accepts a URL file path string or an imported local JSON object module
   animationData: string | Record<string, any>; 
   width?: string | number;
   height?: string | number;
@@ -18,6 +19,7 @@ export default function ComponentLoader({
   loop = true,
   autoplay = true,
 }: ComponentLoaderProps) {
+  
   return (
     <div 
       className="flex items-center justify-center mx-auto" 

@@ -5,7 +5,6 @@ import {
   useUpdateCategoryMutation,
 } from "@/store/services/api/categoriesApi";
 import { Button, Input, toast } from "@sip-happens/shared";
-import { useRouter } from "next/navigation";
 import React, { Dispatch, useState } from "react";
 type AddCategoryProps = {
   closeDrawer: Dispatch<React.SetStateAction<boolean>>;
@@ -20,7 +19,6 @@ const AddCategory: React.FC<AddCategoryProps> = ({
   const [category, setCategory] = useState<string>(
     updateSelectedCategory?.name || "",
   );
-  const router = useRouter();
   const resetForm = () => {
     setCategory("");
     closeDrawer(false);
@@ -36,7 +34,6 @@ const AddCategory: React.FC<AddCategoryProps> = ({
         .then((res) => {
           toast.success("Category updated successfully");
           console.log("Category updated successfully:", res);
-          router.refresh();
         })
         .catch((err) => {
           toast.error("Failed to update category");
@@ -51,7 +48,6 @@ const AddCategory: React.FC<AddCategoryProps> = ({
         .then((res) => {
           toast.success("Category created successfully");
           console.log("Category created successfully:", res);
-          router.refresh();
         })
         .catch((err) => {
           toast.error("Failed to create category");

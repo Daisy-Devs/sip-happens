@@ -1,4 +1,4 @@
-import "@sip-happens/shared/globals.css";
+import "./globals.css";
 import { Playfair_Display,Plus_Jakarta_Sans } from "next/font/google";
 import { Metadata } from "next";
 import { cn } from "@/lib/utils";

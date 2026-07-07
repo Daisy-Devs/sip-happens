@@ -1,9 +1,9 @@
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
 
 interface Member {
   name: string;
   role: string;
-  img: string;
+  img: StaticImageData;
 }
 
 function TeamCard({ name, role, img }: Member) {
@@ -14,6 +14,8 @@ function TeamCard({ name, role, img }: Member) {
           src={img}
           alt={name}
           fill
+          placeholder="blur"
+          sizes="(max-w-640px) 100vw, (max-w-1024px) 50vw, 250px"
           className="object-cover grayscale group-hover:grayscale-0 transition-all duration-500 ease-in-out transform group-hover:scale-105"
         />
       </div>
@@ -26,4 +28,4 @@ function TeamCard({ name, role, img }: Member) {
     </div>
   );
 }
-export default TeamCard;
+export default TeamCard; 

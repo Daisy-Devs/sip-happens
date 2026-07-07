@@ -10,6 +10,24 @@ import emptyAnimation from "../../../../public/loaders/Coffee.json";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 
+const cloudinaryLoader = ({
+  src,
+  width,
+  quality,
+}: {
+  src: string;
+  width: number;
+  quality?: number;
+}) => {
+  if (src.includes("res.cloudinary.com")) {
+    const parts = src.split("/upload/");
+    if (parts.length === 2) {
+      return `${parts[0]}/upload/f_auto,q_${quality || 85},w_${width}/${parts[1]}`;
+    }
+  }
+  return src;
+};
+
 type ProductItem = {
   id: string;
   name: string;
@@ -26,11 +44,7 @@ type ProductItem = {
 export default function Selections() {
   const router = useRouter();
 
-  const {
-    data: apiResponse,
-    isLoading,
-    isError,
-  } = useGetFeaturedProductsQuery({});
+  const { data: apiResponse } = useGetFeaturedProductsQuery({});
 
   const menuItems: ProductItem[] = apiResponse || [];
 
@@ -87,13 +101,13 @@ export default function Selections() {
             {featuredItem && (
               <div className="group relative overflow-hidden rounded-3xl h-162.5 w-full">
                 <Image
+                  loader={cloudinaryLoader}
                   src={featuredItem.image_url || "/placeholder-food.jpg"}
                   alt={featuredItem.name}
                   fill
                   sizes="(max-width: 1024px) 100vw, 60vw"
                   className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
                   priority
-                  unoptimized
                 />
                 <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/80 via-[#1A100A]/30 to-transparent" />
 
@@ -128,12 +142,12 @@ export default function Selections() {
                   className="group relative overflow-hidden rounded-3xl h-78 w-full"
                 >
                   <Image
+                    loader={cloudinaryLoader}
                     src={item.image_url || "/placeholder-food.jpg"}
                     alt={item.name}
                     fill
                     sizes="(max-width: 768px) 100vw, 33vw"
                     className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-100"
-                    unoptimized
                   />
                   <div className="absolute inset-0 bg-linear-to-t from-[#1A100A]/70 via-[#1A100A]/10 to-transparent" />
 

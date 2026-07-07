@@ -1,24 +1,30 @@
 import TeamCard from "./TeamCard";
+import { StaticImageData } from "next/image";
+
+import founderImg from "../../../../public/about/Founder.png";
+import managerImg from "../../../../public/about/Manager.png";
+import chiefImg from "../../../../public/about/Chief.png";
+import greenImg from "../../../../public/about/Green.png";
 
 interface Member {
   name: string;
   role: string;
-  img: string;
+  img: StaticImageData;
 }
 
 const teamMembers: Member[] = [
   {
     name: "Julian Vance",
     role: "Founder & Head Roaster",
-    img: "/about/Founder.png",
+    img: founderImg,
   },
   {
     name: "Elena Rossi",
     role: "Head of Quality Control",
-    img: "/about/Manager.png",
+    img: managerImg,
   },
-  { name: "Marcus Thorne", role: "Community Lead", img: "/about/Chief.png" },
-  { name: "Sam Chen", role: "Chief Barista", img: "/about/Green.png" },
+  { name: "Marcus Thorne", role: "Community Lead", img: chiefImg },
+  { name: "Sam Chen", role: "Chief Barista", img: greenImg },
 ];
 
 export default function TeamSection() {

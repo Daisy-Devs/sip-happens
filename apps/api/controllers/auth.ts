@@ -47,15 +47,13 @@ export const forgotPassword = async (req: Request, res: Response) => {
     redirectTo: `${process.env.FRONTEND_URL}/auth/updatepassword`,
   })
 
+  console.log('Supabase error:', JSON.stringify(error))
+
   if (error) {
-    return sendResponse(res, 400, error.message)
+    return sendResponse(res, 400, error.message || 'Failed to send reset email')
   }
 
-  return sendResponse(
-    res,
-    200,
-    'Password reset link sent to your email'
-  )
+  return sendResponse(res, 200, 'Password reset link sent to your email')
 }
 
 export const updatePassword = async (req: Request, res: Response) => {

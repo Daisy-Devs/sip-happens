@@ -1,40 +1,45 @@
 import { Badge } from "@sip-happens/shared";
 import { Coffee, Store, Heart } from "lucide-react";
-import Image from "next/image";
+import Image, { StaticImageData } from "next/image";
+
+import foundingMomentsImg from "../../../../public/about/Foundingmoments.png";
+import flagshipImg from "../../../../public/about/Flagship.png";
+import communityImg from "../../../../public/about/Community1.png";
 
 interface RowProps {
   year: string;
   text: string;
-  img: string;
+  img: StaticImageData;
   icon: React.ElementType;
   reverse?: boolean;
+  priority?: boolean;
 }
 
-const timelineData: RowProps[] = [
+const timelineData: Omit<RowProps, "icon">[] = [
   {
     year: "2018",
     text: 'The first "Sip Happens" popup opens in a small garage in Portland, fueled by a passion for ethically sourced single-origin beans.',
-    img: "/about/Foundingmoments.png",
-    icon: Coffee,
+    img: foundingMomentsImg,
     reverse: false,
+    priority: true,
   },
   {
     year: "2020",
     text: "We opened our first physical flagship cafe, bridging the gap between exceptional roasting craft and fine, minimalist modern interior design.",
-    img: "/about/Flagship.png",
-    icon: Store,
+    img: flagshipImg,
     reverse: true,
   },
   {
     year: "Today",
     text: "Serving premium specialty coffee to our growing online community, live cafes, and subscription boxes globally without compromising our core sourcing traits.",
-    img: "/about/Community1.png",
-    icon: Heart,
+    img: communityImg,
     reverse: false,
   },
 ];
 
-function TimelineRow({ year, text, img, icon: Icon, reverse }: RowProps) {
+const icons = [Coffee, Store, Heart];
+
+function TimelineRow({ year, text, img, icon: Icon, reverse, priority }: RowProps) {
   return (
     <div
       className={`relative flex flex-col md:flex-row ${reverse ? "md:flex-row-reverse" : ""} items-center justify-between my-16 md:my-24 gap-8 md:gap-16 z-10`}
@@ -61,11 +66,13 @@ function TimelineRow({ year, text, img, icon: Icon, reverse }: RowProps) {
       <div
         className={`w-full md:w-1/2 flex ${reverse ? "justify-end md:pr-12" : "justify-start md:pl-12"}`}
       >
-        <div className="relative w-full max-w-md aspect-16/10 rounded-2xl overflow-hidden shadow-md group bg-timeline-card border-outline-varian">
+        <div className="relative w-full max-w-md aspect-16/10 rounded-2xl overflow-hidden shadow-md group bg-timeline-card border-outline-variant">
           <Image
             src={img}
             alt={`Sip Happens in ${year}`}
-            fill
+            placeholder="blur"
+            priority={priority}
+            sizes="(max-w-768px) 100vw, 450px"
             className="object-cover grayscale group-hover:grayscale-0 transition-all duration-700 ease-in-out transform group-hover:scale-102"
           />
         </div>
@@ -91,7 +98,7 @@ export default function TimelineSection() {
         />
         <div className="space-y-12 md:space-y-0  p-6">
           {timelineData.map((item, index) => (
-            <TimelineRow key={index} {...item} />
+            <TimelineRow key={index} {...item} icon={icons[index]} />
           ))}
         </div>
       </div>

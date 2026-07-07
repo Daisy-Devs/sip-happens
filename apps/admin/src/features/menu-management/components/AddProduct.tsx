@@ -149,7 +149,7 @@ const AddProduct: React.FC<AddProductProps> = ({
     resetForm();
   };
   return (
-    <div className="flex flex-col rounded-2xl w-full p-9 space-y-4">
+    <div className="flex flex-col rounded-2xl w-full p-9 space-y-4 overflow-y-scroll md:overflow-y-auto">
       <div>
         <label
           htmlFor="product-name"
@@ -300,7 +300,7 @@ const AddProduct: React.FC<AddProductProps> = ({
           }
         />
       </div>
-      <div className="flex justify-between px-5 mt-3">
+      <div className="flex justify-between md:px-5 mt-3">
         <Button
           variant="grey"
           onClick={() => {

@@ -70,7 +70,7 @@ export default function Home() {
   const [updateProductData, setUpdateProductData] =
     useState<ProductType | null>(null);
   return (
-    <div className="flex h-full w-full pl-12 pb-30 md:pl-80  flex-col items-start md:items-center py-16 px-7 bg-background md:space-y-12">
+    <div className="flex h-full w-full pl-12 pb-30 md:pl-80 flex-col items-start md:items-center py-16 px-7 bg-background md:space-y-12">
       <ResponsiveDrawer
         title="Add New Product"
         open={User?.addingProduct || false}

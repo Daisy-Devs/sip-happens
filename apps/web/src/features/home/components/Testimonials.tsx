@@ -1,6 +1,7 @@
 import React from "react";
 import { Star } from "lucide-react";
 import Image from "next/image";
+import mitchellAvatar from "../../../../public/SaraMitchell.png";
 
 const testimonials = [
   {
@@ -8,21 +9,21 @@ const testimonials = [
       "The oat milk latte here is unparalleled. It's not just coffee, it's a productivity ritual.",
     name: "Sarah Mitchell",
     role: "Content Creator",
-    avatar: "/SaraMitchell.png",
+    avatar: mitchellAvatar,
   },
   {
     quote:
       "The most sophisticated pour-over menu I've encountered. The Ethiopian roast has such vivid berry notes.",
     name: "David Lin",
     role: "Coffee Connoisseur",
-    avatar: "/SaraMitchell.png",
+    avatar: mitchellAvatar,
   },
   {
     quote:
       "Finally, a brand that marries ethical sourcing with a high-end aesthetic. My favorite morning spot.",
     name: "Marcus Thorne",
     role: "Architect",
-    avatar: "/SaraMitchell.png",
+    avatar: mitchellAvatar,
   },
 ];
 
@@ -50,17 +51,16 @@ export default function Testimonials() {
                   relative rounded-3xl border border-[#F5EFE6]/10 bg-[#F5EFE6]/5 text-left
                   transition-all duration-300 ease-in-out cursor-default
                   
-                  /* Interactive Hover Effects */
+                  
                   hover:scale-[1.03] hover:border-[#C68B59]/40 hover:bg-[#F5EFE6]/10 hover:shadow-xl
                   
-                  /* Desktop Layout Distinctions (Middle card pops out) */
+                  
                   ${
                     isMiddle
                       ? "z-20 md:scale-105 md:-translate-y-4 shadow-2xl border-[#C68B59]/20"
                       : "z-10 md:scale-95 md:translate-y-2 opacity-90"
                   }
                   
-                  /* Reset scaling on hover for desktop to avoid conflicts */
                   md:hover:scale-105 md:hover:-translate-y-4
                 `}
               >
@@ -83,6 +83,7 @@ export default function Testimonials() {
                   <Image
                     src={t.avatar}
                     alt={t.name}
+                    placeholder="blur"
                     width={36}
                     height={36}
                     className="rounded-full object-cover border border-[#F5EFE6]/20"

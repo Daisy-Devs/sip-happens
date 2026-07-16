@@ -20,8 +20,17 @@ export const login = async (req: Request, res: Response) => {
 
   if (profileError) return sendResponse(res, 400, profileError.message)
 
+  res.cookie('refresh_token', data.session.refresh_token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+  })
+
   return sendResponse(res, 200, 'Login successful', {
-    session: data.session,
+    session: {
+      access_token: data.session.access_token,
+    },
     user: {
       id: data.user.id,
       email: data.user.email,
@@ -36,6 +45,8 @@ export const logout = async (req: Request, res: Response) => {
   const { error } = await supabase.auth.signOut()
 
   if (error) return sendResponse(res, 400, error.message)
+
+  res.clearCookie('refresh_token')
 
   return sendResponse(res, 200, 'Logged out successfully')
 }
@@ -71,7 +82,7 @@ export const updatePassword = async (req: Request, res: Response) => {
 }
 
 export const refreshToken = async (req: Request, res: Response) => {
-  const { refresh_token } = req.body
+  const refresh_token = req.cookies.refresh_tokenss
 
   if (!refresh_token) return sendResponse(res, 400, 'Refresh token is required')
 
@@ -81,9 +92,15 @@ export const refreshToken = async (req: Request, res: Response) => {
 
   if (error || !data.session) return sendResponse(res, 401, 'Session expired, please login again')
 
+  res.cookie('refresh_token', data.session.refresh_token, {
+    httpOnly: true,
+    secure: true,
+    sameSite: 'strict',
+    maxAge: 30 * 24 * 60 * 60 * 1000 // 30 days
+  })
+
   return sendResponse(res, 200, 'Token refreshed successfully', {
     access_token: data.session.access_token,
-    refresh_token: data.session.refresh_token,
   })
 }
 
